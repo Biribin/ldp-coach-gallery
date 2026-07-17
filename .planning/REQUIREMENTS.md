@@ -63,33 +63,33 @@ Explicitly excluded to prevent scope creep.
 
 ## Traceability
 
-Populated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCAF-01 | TBD | Pending |
-| SCAF-02 | TBD | Pending |
-| SCAF-03 | TBD | Pending |
-| SCAF-04 | TBD | Pending |
-| SCAF-05 | TBD | Pending |
-| SCAF-06 | TBD | Pending |
-| PAGE-01 | TBD | Pending |
-| PAGE-02 | TBD | Pending |
-| PAGE-03 | TBD | Pending |
-| PAGE-04 | TBD | Pending |
-| PAGE-05 | TBD | Pending |
-| PAGE-06 | TBD | Pending |
-| PAGE-07 | TBD | Pending |
-| PAGE-08 | TBD | Pending |
-| IDX-01 | TBD | Pending |
-| IDX-02 | TBD | Pending |
-| QA-01 | TBD | Pending |
+| SCAF-01 | Phase 1 | Pending |
+| SCAF-02 | Phase 1 | Pending |
+| SCAF-03 | Phase 1 | Pending |
+| SCAF-04 | Phase 1 | Pending |
+| SCAF-05 | Phase 1 | Pending |
+| SCAF-06 | Phase 1 | Pending |
+| PAGE-01 | Phases 2-6 | Pending |
+| PAGE-02 | Phases 2-6 | Pending |
+| PAGE-03 | Phases 2-6 | Pending |
+| PAGE-04 | Phases 2-6 | Pending |
+| PAGE-05 | Phases 2-6 | Pending |
+| PAGE-06 | Phases 2-6 | Pending |
+| PAGE-07 | Phases 2-6 | Pending |
+| PAGE-08 | Phases 2-6 | Pending |
+| IDX-01 | Phase 1 (created), Phase 6 (completed with all 25 links) | Pending |
+| IDX-02 | Phases 2-6 | Pending |
+| QA-01 | Phase 7 | Pending |
+
+**Note on PAGE-* / IDX-02 spanning Phases 2-6:** each of the five batch phases independently implements and satisfies these requirements for its own 5 pages (PAGE-01..08, IDX-02 are structural qualities every batch's pages must meet, not a single deliverable owned by one phase). Requirement is fully satisfied only once all batches (2-6) complete. This is span-mapping for coverage tracking, not duplication — each phase's plans are scoped to its own 5 styles only.
 
 **Coverage:**
 - v1 requirements: 17 total
-- Mapped to phases: 0 (roadmap not yet created)
-- Unmapped: 17 ⚠️
+- Mapped to phases: 17/17 ✓
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-17*
-*Last updated: 2026-07-17 after initial definition*
+*Last updated: 2026-07-17 after roadmap creation (7 phases: scaffold, 5 style batches, final verification)*
