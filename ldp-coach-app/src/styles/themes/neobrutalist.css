@@ -1,0 +1,120 @@
+/**
+ * Neobrutalist theme (brief #17) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-neobrutalist` class selector. Nothing here ever touches `:root`.
+ * `src/app/neobrutalist/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero
+ * bleed to any other route. This exact pattern (`.theme-<slug>` + a nested
+ * layout wrapper) is the reusable boundary every future style page reuses.
+ */
+
+.theme-neobrutalist {
+  /* Core shadcn tokens, redefined for a raw / high-contrast look */
+  --background: oklch(0.98 0.01 95);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(0.98 0.01 95);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(0.98 0.01 95);
+  --popover-foreground: oklch(0.12 0 0);
+
+  /* Clashing-yet-controlled saturated accents */
+  --primary: oklch(0.72 0.24 55); /* electric orange */
+  --primary-foreground: oklch(0.12 0 0);
+  --secondary: oklch(0.55 0.25 280); /* saturated violet */
+  --secondary-foreground: oklch(0.98 0.01 95);
+  --accent: oklch(0.85 0.22 130); /* acid lime-green */
+  --accent-foreground: oklch(0.12 0 0);
+
+  --muted: oklch(0.92 0.01 95);
+  --muted-foreground: oklch(0.3 0 0);
+  --destructive: oklch(0.58 0.24 27);
+
+  --border: oklch(0.12 0 0);
+  --input: oklch(0.12 0 0);
+  --ring: oklch(0.72 0.24 55);
+
+  --chart-1: oklch(0.72 0.24 55);
+  --chart-2: oklch(0.55 0.25 280);
+  --chart-3: oklch(0.85 0.22 130);
+  --chart-4: oklch(0.6 0.2 220);
+  --chart-5: oklch(0.12 0 0);
+
+  /* Brutalism = no rounding, anywhere */
+  --radius: 0px;
+
+  /* Type feel: oversized, blunt headings paired with a plain workhorse body */
+  --font-heading: var(--font-space-grotesk), var(--font-sans), sans-serif;
+  --font-sans: var(--font-sans);
+
+  /* Neobrutalist-specific raw-look tokens */
+  --nb-border-width: 4px;
+  --nb-shadow-offset: 8px;
+  --nb-shadow: var(--nb-shadow-offset) var(--nb-shadow-offset) 0 0 var(--foreground);
+  --nb-block-gap: 2.5rem;
+}
+
+/* Scoped element/utility rules — only active under .theme-neobrutalist */
+
+.theme-neobrutalist h1,
+.theme-neobrutalist h2,
+.theme-neobrutalist h3 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.theme-neobrutalist h1 {
+  font-size: clamp(2.75rem, 8vw, 6.5rem);
+  line-height: 0.95;
+}
+
+.theme-neobrutalist h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+}
+
+.theme-neobrutalist .nb-border {
+  border: var(--nb-border-width) solid var(--foreground);
+}
+
+.theme-neobrutalist .nb-shadow {
+  box-shadow: var(--nb-shadow);
+}
+
+.theme-neobrutalist .nb-shadow-sm {
+  box-shadow: calc(var(--nb-shadow-offset) / 2) calc(var(--nb-shadow-offset) / 2) 0 0
+    var(--foreground);
+}
+
+.theme-neobrutalist button,
+.theme-neobrutalist [data-slot="button"] {
+  border-radius: 0;
+  border-width: var(--nb-border-width);
+  border-style: solid;
+  border-color: var(--foreground);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.theme-neobrutalist [data-slot="card"] {
+  border-radius: 0;
+  border-width: var(--nb-border-width);
+  border-style: solid;
+  border-color: var(--foreground);
+  box-shadow: var(--nb-shadow);
+}
+
+.theme-neobrutalist [data-slot="badge"] {
+  border-radius: 0;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--foreground);
+  text-transform: uppercase;
+}
