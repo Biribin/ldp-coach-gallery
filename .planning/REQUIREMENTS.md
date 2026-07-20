@@ -9,12 +9,12 @@ Requirements for the initial gallery. Each maps to roadmap phases.
 
 ### Project Scaffold
 
-- [ ] **SCAF-01**: Next.js (App Router) project initialized with TypeScript, Tailwind CSS, and shadcn/ui configured
-- [ ] **SCAF-02**: Three.js available as a dependency for styles that use 3D/kinetic/glass depth
-- [ ] **SCAF-03**: Per-route style isolation mechanism exists so each page can override theme tokens, typography, and component styling independently (shadcn defaults do not bleed across pages)
-- [ ] **SCAF-04**: Shared fictional content set (coach persona, method, services/programs, benefits, testimonials, CTA/contact copy) available for reuse across all pages
-- [ ] **SCAF-05**: Reusable CSS/SVG placeholder image primitives (gradient blocks, shapes, inline SVG) available — no external image requests
-- [ ] **SCAF-06**: One route per style, following a consistent slug convention (e.g. `/swiss`, `/editorial`, …)
+- [x] **SCAF-01**: Next.js (App Router) project initialized with TypeScript, Tailwind CSS, and shadcn/ui configured
+- [x] **SCAF-02**: Three.js available as a dependency for styles that use 3D/kinetic/glass depth
+- [x] **SCAF-03**: Per-route style isolation mechanism exists so each page can override theme tokens, typography, and component styling independently (shadcn defaults do not bleed across pages)
+- [x] **SCAF-04**: Shared fictional content set (coach persona, method, services/programs, benefits, testimonials, CTA/contact copy) available for reuse across all pages
+- [x] **SCAF-05**: Reusable CSS/SVG placeholder image primitives (gradient blocks, shapes, inline SVG) available — no external image requests
+- [x] **SCAF-06**: One route per style, following a consistent slug convention (e.g. `/swiss`, `/editorial`, …)
 
 ### Landing Pages (25 styles, each used once)
 
@@ -29,7 +29,7 @@ Requirements for the initial gallery. Each maps to roadmap phases.
 
 ### Gallery Index
 
-- [ ] **IDX-01**: Root page (`/`) presents a simple link list to all 25 style routes, each labeled with its style name
+- [x] **IDX-01**: Root page (`/`) presents a simple link list to all 25 style routes, each labeled with its style name
 - [ ] **IDX-02**: Every index link resolves to a working page (no dead links)
 
 ### Quality Bar
@@ -65,12 +65,12 @@ Explicitly excluded to prevent scope creep.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCAF-01 | Phase 1 | Pending |
-| SCAF-02 | Phase 1 | Pending |
-| SCAF-03 | Phase 1 | Pending |
-| SCAF-04 | Phase 1 | Pending |
-| SCAF-05 | Phase 1 | Pending |
-| SCAF-06 | Phase 1 | Pending |
+| SCAF-01 | Phase 1 | Complete |
+| SCAF-02 | Phase 1 | Complete |
+| SCAF-03 | Phase 1 | Complete |
+| SCAF-04 | Phase 1 | Complete |
+| SCAF-05 | Phase 1 | Complete |
+| SCAF-06 | Phase 1 | Complete |
 | PAGE-01 | Phases 2-6 | Pending |
 | PAGE-02 | Phases 2-6 | Pending |
 | PAGE-03 | Phases 2-6 | Pending |
@@ -79,13 +79,14 @@ Explicitly excluded to prevent scope creep.
 | PAGE-06 | Phases 2-6 | Pending |
 | PAGE-07 | Phases 2-6 | Pending |
 | PAGE-08 | Phases 2-6 | Pending |
-| IDX-01 | Phase 1 (created), Phase 6 (completed with all 25 links) | Pending |
+| IDX-01 | Phase 1 (created), Phase 6 (completed with all 25 links) | Complete |
 | IDX-02 | Phases 2-6 | Pending |
 | QA-01 | Phase 7 | Pending |
 
 **Note on PAGE-* / IDX-02 spanning Phases 2-6:** each of the five batch phases independently implements and satisfies these requirements for its own 5 pages (PAGE-01..08, IDX-02 are structural qualities every batch's pages must meet, not a single deliverable owned by one phase). Requirement is fully satisfied only once all batches (2-6) complete. This is span-mapping for coverage tracking, not duplication — each phase's plans are scoped to its own 5 styles only.
 
 **Coverage:**
+
 - v1 requirements: 17 total
 - Mapped to phases: 17/17 ✓
 - Unmapped: 0 ✓
