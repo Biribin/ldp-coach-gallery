@@ -33,7 +33,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Visiting the root `/` renders a simple link-list index page listing at least one style route by name
   4. Visiting the one proof-of-concept style route (e.g. `/neobrutalist`) renders a page whose theme tokens, typography, and component styling are visibly overridden from shadcn defaults — proving the per-route style-isolation mechanism (no bleed from a second route's styling, since none exists yet, but overrides are structurally isolated per route)
   5. A shared fictional content module (coach persona, method, services, benefits, testimonials, CTA/contact copy) and a set of reusable CSS/SVG placeholder primitives (gradient blocks, shapes, inline SVG) exist and are imported by the proof-of-concept page with zero external image requests
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 01-01-PLAN.md — Walking skeleton: route-scoped style-isolation mechanism, shared content module, offline placeholder primitives, styles registry + slug convention, index link-list, and the `/neobrutalist` proof-of-concept page (full 8-section arc)
 
 ### Phase 2: Style Batch A (1-5)
 **Mode:** mvp
@@ -119,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scaffold & Foundation | 0/TBD | Not started | - |
+| 1. Scaffold & Foundation | 0/1 | Not started | - |
 | 2. Style Batch A (1-5) | 0/TBD | Not started | - |
 | 3. Style Batch B (6-10) | 0/TBD | Not started | - |
 | 4. Style Batch C (11-15) | 0/TBD | Not started | - |
