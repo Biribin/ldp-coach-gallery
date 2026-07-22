@@ -23,7 +23,11 @@ export function ContactForm({
         <label key={field} className="flex flex-col gap-2 text-sm font-bold uppercase">
           {field}
           <input
-            type={field.toLowerCase() === "email" ? "email" : "text"}
+            // Coupled to field label wording: any label containing "email"
+            // (case-insensitive) renders an email input. Update this check
+            // if content.ts field labels change in a way that no longer
+            // includes the word "email".
+            type={field.toLowerCase().includes("email") ? "email" : "text"}
             name={field.toLowerCase()}
             className="border-4 border-foreground bg-background px-3 py-2 text-base font-normal normal-case text-foreground outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
             placeholder={field}
