@@ -40,6 +40,7 @@ This is a **visual experimentation project**, not a product. No users, no custom
 
 ## Context
 
+- **Current state:** Phase 1 (Scaffold & Foundation) complete — 2026-07-22. Walking Skeleton verified end-to-end: route-scoped `.theme-<slug>` CSS-variable style-isolation seam, shared `coachContent` module, offline CSS/SVG placeholder primitives, styles-registry-driven index at `/`, and the `/neobrutalist` proof-of-concept page (full 8-section arc, UAT passed). Phases 2–6 add the remaining 24 style routes on this foundation (3 files + 1 registry entry per style).
 - **Purpose:** design experimentation / a gallery of polished landing-page examples to compare styles side by side.
 - **Business framing (fictional, constant across all pages):** a female fitness coach — personalized coaching, training programs, motivation, physical transformation, wellness guidance, online or in-person support.
 - **Design brief per style:** each style has a dedicated 3-paragraph creative prompt (feeling, atmosphere, emotional arc, abstract reference points) stored as a project artifact and used to drive that page's build.
@@ -87,4 +88,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-07-17 after initialization*
+*Last updated: 2026-07-22 after Phase 1 (Scaffold & Foundation) completion*
