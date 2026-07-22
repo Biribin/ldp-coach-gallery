@@ -46,7 +46,6 @@
 
   /* Type feel: oversized, blunt headings paired with a plain workhorse body */
   --font-heading: var(--font-space-grotesk), var(--font-sans), sans-serif;
-  --font-sans: var(--font-sans);
 
   /* Neobrutalist-specific raw-look tokens */
   --nb-border-width: 4px;
