@@ -13,7 +13,7 @@ Build a gallery of 25 distinctly-styled, single-scroll landing pages for a ficti
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Scaffold & Foundation** - Next.js/Tailwind/shadcn/Three.js stack, style-isolation mechanism, shared content, placeholder primitives, slug convention, index page, and one proof-of-concept styled route
+- [x] **Phase 1: Scaffold & Foundation** - Next.js/Tailwind/shadcn/Three.js stack, style-isolation mechanism, shared content, placeholder primitives, slug convention, index page, and one proof-of-concept styled route (completed 2026-07-22)
 - [ ] **Phase 2: Style Batch A (1-5)** - Japandi, Neo-Geo, Editorial, Dark Mode First, Bauhaus
 - [ ] **Phase 3: Style Batch B (6-10)** - Gradient Modern, Minimal, Retro-futuristic, Corporate Professional, Glassmorphism
 - [ ] **Phase 4: Style Batch C (11-15)** - Scandinavian, Kinetic, Art Deco, Flat, Tech Forward
@@ -143,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scaffold & Foundation | 1/1 | In Progress|  |
+| 1. Scaffold & Foundation | 1/1 | Complete    | 2026-07-22 |
 | 2. Style Batch A (1-5) | 0/TBD | Not started | - |
 | 3. Style Batch B (6-10) | 0/TBD | Not started | - |
 | 4. Style Batch C (11-15) | 0/TBD | Not started | - |
