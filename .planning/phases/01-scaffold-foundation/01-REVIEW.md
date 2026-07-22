@@ -24,6 +24,16 @@ findings:
   info: 4
   total: 8
 status: issues_found
+fixes_applied:
+  fixed_at: 2026-07-22T00:00:00Z
+  scope: critical_warning
+  fixed: 4
+  skipped: 0
+  commits:
+    CR-01: 9abdb65
+    WR-01: 351747f
+    WR-02: 84c21a3
+    WR-03: c437dd1
 ---
 
 # Phase 01: Code Review Report
@@ -42,6 +52,8 @@ However, one genuine functional bug was found: the global `--font-sans` custom p
 ## Critical Issues
 
 ### CR-01: `--font-sans` custom property is circular and never resolves to Geist Sans
+
+**Status:** fixed: `9abdb65`
 
 **File:** `ldp-coach-app/src/app/globals.css:10`
 **Issue:** `layout.tsx` sets `--font-geist-sans` as the CSS variable holding the actual `next/font` font-family value (line 6 of `layout.tsx`), but `globals.css`'s `@theme inline` block defines:
@@ -63,6 +75,8 @@ And remove (or correct) the redundant self-assignment in `neobrutalist.css:49` �
 
 ### WR-01: Fragile React `key` derived from truncated content, not a stable identifier
 
+**Status:** fixed: `351747f`
+
 **File:** `ldp-coach-app/src/app/neobrutalist/page.tsx:65`
 **Issue:**
 ```tsx
@@ -79,6 +93,8 @@ Using the first 24 characters of a paragraph as the React key is fragile: if a f
 (Index keys are acceptable here since the list is static and never reordered/filtered.)
 
 ### WR-02: `ContactForm` labels are not programmatically associated via `htmlFor`/`id`, `email` field detection is a fragile string match
+
+**Status:** fixed: `84c21a3` (applied the minimal alternative from the Fix section — case-insensitive `.includes("email")` plus a coupling comment — rather than restructuring `content.ts`'s data model, per fix scope constraints)
 
 **File:** `ldp-coach-app/src/app/neobrutalist/ContactForm.tsx:22-32`
 **Issue:** The `<label>` wraps the `<input>` implicitly (valid HTML, generally works for a11y), but the code also derives the input `type` via `field.toLowerCase() === "email"` (line 26) — a hardcoded string match against arbitrary caller-supplied `fields: string[]`. If `contact.fields` in `content.ts` is ever changed to something like `"Email Address"` or `"Contact Email"` (a plausible future content edit for other style pages reusing this component), the match silently fails and the field renders as `type="text"` instead of `type="email"`, losing input validation/mobile keyboard hints with no error or warning. This is a correctness trap disguised as working code.
@@ -102,6 +118,8 @@ contact: {
 Alternatively, at minimum use `.includes("email")` case-insensitively rather than exact equality, and add a code comment flagging the coupling so future content edits don't break it silently.
 
 ### WR-03: `getInitials` unsafe non-null assertions rely on an untested invariant
+
+**Status:** fixed: `c437dd1`
 
 **File:** `ldp-coach-app/src/components/placeholders/AvatarBlob.tsx:15-20`
 **Issue:**
