@@ -61,8 +61,8 @@ export default function NeobrutalistPage() {
             {coachName}
           </p>
           <div className="flex flex-col gap-4">
-            {intro.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)} className="text-foreground/85">
+            {intro.paragraphs.map((paragraph, index) => (
+              <p key={index} className="text-foreground/85">
                 {paragraph}
               </p>
             ))}
