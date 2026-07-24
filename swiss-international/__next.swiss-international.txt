@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[39756,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+3:I[37457,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+:HL["/ldp-coach-gallery/_next/static/chunks/35915sbow97xj.css","style"]
+:HL["/ldp-coach-gallery/_next/static/chunks/2evsn67owfnak.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/ldp-coach-gallery/_next/static/chunks/35915sbow97xj.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/ldp-coach-gallery/_next/static/chunks/2evsn67owfnak.css","precedence":"next"}]],["$","div",null,{"className":"theme-swiss-international archivo_bce2457d-module__hCTlZq__variable ibm_plex_sans_5c0eebb4-module__5snccq__variable min-h-screen bg-background text-foreground antialiased","children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"C1Q2LATdg7dZCtjRxizaT"}

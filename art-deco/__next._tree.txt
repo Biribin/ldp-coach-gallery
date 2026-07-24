@@ -1,0 +1,8 @@
+:HL["/ldp-coach-gallery/_next/static/chunks/233p45nuh4m5b.css","style"]
+:HL["/ldp-coach-gallery/_next/static/chunks/1p_yt3f2xrfy9.css","style"]
+:HL["/ldp-coach-gallery/_next/static/chunks/3g24go7v0nuef.css","style"]
+:HL["/ldp-coach-gallery/_next/static/media/05c01535fa71f901-s.p.2sx3y6abg2q3t.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/ldp-coach-gallery/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/ldp-coach-gallery/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/ldp-coach-gallery/_next/static/media/daa29454a3e61cb2-s.p.25_z0nxfvnd9o.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"art-deco","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"C1Q2LATdg7dZCtjRxizaT"}

@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[39756,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+3:I[37457,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+:HL["/ldp-coach-gallery/_next/static/chunks/03ifowv4w1sw2.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/ldp-coach-gallery/_next/static/chunks/03ifowv4w1sw2.css","precedence":"next"}]],["$","div",null,{"className":"theme-glassmorphism fraunces_5ea7e84a-module__nbvPNa__variable min-h-screen bg-background text-foreground antialiased","children":[["$","div",null,{"aria-hidden":"true","className":"gm-atmosphere"}],["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"C1Q2LATdg7dZCtjRxizaT"}

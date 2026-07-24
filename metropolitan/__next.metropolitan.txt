@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[39756,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+3:I[37457,["/ldp-coach-gallery/_next/static/chunks/05-c3ty_6dwfk.js","/ldp-coach-gallery/_next/static/chunks/14mrh2-p_w84d.js"],"default"]
+:HL["/ldp-coach-gallery/_next/static/chunks/354cx61jpyied.css","style"]
+:HL["/ldp-coach-gallery/_next/static/chunks/3o8_i8y2of_a5.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/ldp-coach-gallery/_next/static/chunks/354cx61jpyied.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/ldp-coach-gallery/_next/static/chunks/3o8_i8y2of_a5.css","precedence":"next"}]],["$","div",null,{"className":"theme-metropolitan bricolage_grotesque_edbf60b2-module__MRR0oW__variable manrope_de7b2fa9-module__1ltb7q__variable min-h-screen bg-background text-foreground antialiased","children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"C1Q2LATdg7dZCtjRxizaT"}
