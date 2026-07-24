@@ -1,0 +1,274 @@
+/**
+ * Glassmorphism theme (brief #10) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-glassmorphism` class selector. Nothing here ever touches `:root`.
+ * `src/app/glassmorphism/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route.
+ *
+ * Brief in one line: translucent frosted layers floating over a luminous,
+ * colorful background — depth through blur and light, never flat. Palette:
+ * a dawn-glow duotone background (peach → violet-sky) with warm cream glass
+ * panels; a coral-gold primary and a periwinkle secondary glow. Headings in
+ * Fraunces (soft, high-contrast, characterful display serif) with Plus
+ * Jakarta Sans for body — a pairing distinct from the Playfair/Inter or
+ * Noto Serif defaults used elsewhere in the gallery.
+ */
+
+.theme-glassmorphism {
+  /* Warm cream "glass" surface tint + ink text (not pure black) */
+  --background: oklch(0.93 0.03 80);
+  --foreground: oklch(0.24 0.03 280);
+  --card: oklch(0.99 0.01 85 / 0.55);
+  --card-foreground: oklch(0.24 0.03 280);
+  --popover: oklch(0.99 0.01 85 / 0.85);
+  --popover-foreground: oklch(0.24 0.03 280);
+
+  /* Coral-gold: the warm light glowing through the glass */
+  --primary: oklch(0.72 0.16 40);
+  --primary-foreground: oklch(0.99 0.005 85);
+
+  /* Periwinkle-violet secondary glow */
+  --secondary: oklch(0.62 0.14 285 / 0.16);
+  --secondary-foreground: oklch(0.3 0.08 280);
+  --accent: oklch(0.78 0.13 200);
+  --accent-foreground: oklch(0.2 0.04 240);
+
+  --muted: oklch(0.93 0.02 80 / 0.5);
+  --muted-foreground: oklch(0.42 0.03 270);
+  --destructive: oklch(0.58 0.19 25);
+
+  /* Hairline glass edge — thin light border, not a heavy frame */
+  --border: oklch(1 0 0 / 0.35);
+  --input: oklch(1 0 0 / 0.4);
+  --ring: oklch(0.72 0.16 40);
+
+  --chart-1: oklch(0.72 0.16 40);
+  --chart-2: oklch(0.62 0.14 285);
+  --chart-3: oklch(0.78 0.13 200);
+  --chart-4: oklch(0.85 0.08 90);
+  --chart-5: oklch(0.55 0.12 320);
+
+  /* Soft, generous rounding — glass panels are never sharp-cornered */
+  --radius: 22px;
+
+  /* Headings: high-contrast soft-serif display, set in the route layout */
+  --font-heading: var(--font-fraunces), var(--font-sans), Georgia, serif;
+
+  /* Glassmorphism-specific material tokens */
+  --gm-glow-coral: oklch(0.78 0.15 45);
+  --gm-glow-violet: oklch(0.66 0.16 300);
+  --gm-glow-sky: oklch(0.78 0.11 220);
+  --gm-glow-mint: oklch(0.82 0.12 165);
+  --gm-ink-soft: oklch(0.42 0.03 270);
+  --gm-white-veil: oklch(1 0 0 / 0.55);
+
+  /* Glass panel recipe: layered translucency + blur + hairline light edge */
+  --gm-blur-panel: blur(20px) saturate(150%);
+  --gm-blur-heavy: blur(36px) saturate(160%);
+  --gm-panel-bg: linear-gradient(
+    155deg,
+    oklch(1 0 0 / 0.42),
+    oklch(1 0 0 / 0.14)
+  );
+  --gm-panel-border: 1px solid oklch(1 0 0 / 0.45);
+  --gm-panel-shadow: 0 8px 32px -12px oklch(0.3 0.08 280 / 0.28),
+    inset 0 1px 0 oklch(1 0 0 / 0.5);
+  --gm-panel-shadow-lift: 0 20px 60px -20px oklch(0.3 0.08 280 / 0.38),
+    inset 0 1px 0 oklch(1 0 0 / 0.6);
+
+  /* "Light as air" — liquid, floaty easing */
+  --gm-ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --gm-beat: 0.55s;
+}
+
+/* Scoped element/utility rules — only active under .theme-glassmorphism */
+
+.theme-glassmorphism h1,
+.theme-glassmorphism h2,
+.theme-glassmorphism h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.theme-glassmorphism h1 {
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  line-height: 1.02;
+  font-weight: 480;
+  letter-spacing: -0.02em;
+}
+
+.theme-glassmorphism h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 480;
+}
+
+.theme-glassmorphism h3 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+/* Ambient luminous background — the "morning light through mist" field that
+ * every glass panel floats over. Fixed so it stays put as panels scroll past. */
+.theme-glassmorphism .gm-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 45% at 15% 10%, oklch(0.82 0.15 45 / 0.55), transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 25%, oklch(0.68 0.16 300 / 0.5), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 25% 75%, oklch(0.75 0.12 210 / 0.45), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 90% 90%, oklch(0.8 0.13 165 / 0.35), transparent 60%),
+    linear-gradient(160deg, oklch(0.95 0.025 85), oklch(0.9 0.03 285));
+  background-color: var(--background);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-glassmorphism .gm-atmosphere {
+    animation: gm-drift 26s var(--gm-ease) infinite alternate;
+  }
+}
+
+@keyframes gm-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 0 0;
+  }
+  100% {
+    background-position: 4% 6%, 96% 8%, 6% 94%, 94% 92%, 0 0;
+  }
+}
+
+/* The core glass panel primitive — frosted, layered, lit from within */
+.theme-glassmorphism .gm-glass {
+  position: relative;
+  background: var(--gm-panel-bg);
+  -webkit-backdrop-filter: var(--gm-blur-panel);
+  backdrop-filter: var(--gm-blur-panel);
+  border: var(--gm-panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--gm-panel-shadow);
+  transition:
+    box-shadow var(--gm-beat) var(--gm-ease),
+    transform var(--gm-beat) var(--gm-ease);
+}
+
+.theme-glassmorphism .gm-glass--lift:hover {
+  box-shadow: var(--gm-panel-shadow-lift);
+  transform: translateY(-3px);
+}
+
+.theme-glassmorphism .gm-glass--heavy {
+  -webkit-backdrop-filter: var(--gm-blur-heavy);
+  backdrop-filter: var(--gm-blur-heavy);
+}
+
+/* Eyebrow labels — thin tracked caps, used only where content is sequential */
+.theme-glassmorphism .gm-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gm-ink-soft);
+}
+
+/* shadcn primitive overrides: cards + buttons + inputs read as glass, not flat UI */
+.theme-glassmorphism [data-slot="card"] {
+  background: var(--gm-panel-bg);
+  -webkit-backdrop-filter: var(--gm-blur-panel);
+  backdrop-filter: var(--gm-blur-panel);
+  border: var(--gm-panel-border);
+  border-radius: var(--radius);
+  box-shadow: var(--gm-panel-shadow);
+  transition:
+    box-shadow var(--gm-beat) var(--gm-ease),
+    transform var(--gm-beat) var(--gm-ease);
+}
+.theme-glassmorphism [data-slot="card"]:hover {
+  box-shadow: var(--gm-panel-shadow-lift);
+  transform: translateY(-3px);
+}
+
+.theme-glassmorphism button,
+.theme-glassmorphism [data-slot="button"] {
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform var(--gm-beat) var(--gm-ease),
+    box-shadow var(--gm-beat) var(--gm-ease),
+    background-color var(--gm-beat) var(--gm-ease);
+}
+.theme-glassmorphism [data-slot="button"]:hover {
+  transform: translateY(-2px) scale(1.015);
+}
+.theme-glassmorphism [data-slot="button"]:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.theme-glassmorphism [data-slot="badge"] {
+  border-radius: 9999px;
+  background: var(--gm-white-veil);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid oklch(1 0 0 / 0.5);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.theme-glassmorphism input,
+.theme-glassmorphism textarea {
+  background: oklch(1 0 0 / 0.35);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: calc(var(--radius) * 0.5);
+  transition:
+    border-color var(--gm-beat) var(--gm-ease),
+    background-color var(--gm-beat) var(--gm-ease);
+}
+
+/* Entrance: panels rise and de-blur into place — "floating into focus" */
+@keyframes gm-float-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.theme-glassmorphism .gm-float {
+  animation: gm-float-in 0.9s var(--gm-ease) both;
+}
+
+/* Slow ambient parallax float for signature hero orbs */
+@keyframes gm-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(3%, -4%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-glassmorphism .gm-orb {
+    animation: gm-orb-drift 14s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-glassmorphism .gm-float,
+  .theme-glassmorphism .gm-atmosphere {
+    animation: none;
+  }
+}

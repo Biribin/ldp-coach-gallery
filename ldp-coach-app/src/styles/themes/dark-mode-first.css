@@ -1,0 +1,260 @@
+/**
+ * Dark Mode First theme (brief #04) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-dark-mode-first`.
+ * Nothing here ever touches `:root`. `src/app/dark-mode-first/layout.tsx`
+ * applies this class to a wrapper around the route's subtree only.
+ *
+ * Brief in one line: designed dark-first, never a light page inverted — deep
+ * near-black/charcoal surfaces, depth from tonal elevation (not drop shadows),
+ * two considered luminous temperatures (warm copper practical light + a cold
+ * precision-instrument glow), nocturnal high-end elegance held under control.
+ */
+
+.theme-dark-mode-first {
+  /* True dark SYSTEM: base -> raised -> higher, each a lighter tonal step
+     (never pure #000 — a cool blue-graphite near-black reads as "designed
+     dark", not an inverted light page). */
+  --background: oklch(0.16 0.012 260);
+  --foreground: oklch(0.94 0.006 260);
+  --card: oklch(0.21 0.014 260);
+  --card-foreground: oklch(0.94 0.006 260);
+  --popover: oklch(0.24 0.015 260);
+  --popover-foreground: oklch(0.94 0.006 260);
+
+  /* Primary luminous accent: molten copper — a practical, warm work-light,
+     not the generic acid-green/vermilion single-note. */
+  --primary: oklch(0.72 0.15 55);
+  --primary-foreground: oklch(0.16 0.012 260);
+
+  /* Tonal neutral surfaces for elevation steps 2 and 3 */
+  --secondary: oklch(0.27 0.016 260);
+  --secondary-foreground: oklch(0.94 0.006 260);
+  --accent: oklch(0.3 0.018 260);
+  --accent-foreground: oklch(0.94 0.006 260);
+
+  --muted: oklch(0.24 0.014 260);
+  --muted-foreground: oklch(0.68 0.014 260);
+  --destructive: oklch(0.6 0.19 25);
+
+  /* Hairline borders as light emission, not shadow */
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.72 0.15 55);
+
+  --chart-1: oklch(0.72 0.15 55);
+  --chart-2: oklch(0.75 0.1 200);
+  --chart-3: oklch(0.6 0.02 260);
+  --chart-4: oklch(0.5 0.02 260);
+  --chart-5: oklch(0.85 0.006 260);
+
+  --radius: 2px;
+
+  /* Headings: condensed impact display; body: crisp geometric sans */
+  --font-heading: var(--font-bebas), var(--font-sans), Impact, sans-serif;
+  --font-body: var(--font-manrope), var(--font-sans), sans-serif;
+
+  /* Dark Mode First-specific material tokens */
+  --dmf-copper: oklch(0.72 0.15 55); /* warm practical light */
+  --dmf-copper-dim: oklch(0.52 0.1 50); /* copper receded into shadow */
+  --dmf-cold: oklch(0.78 0.09 210); /* cold precision-instrument glow, used sparingly */
+  --dmf-line: oklch(1 0 0 / 0.08); /* hairline emission border */
+  --dmf-line-strong: oklch(1 0 0 / 0.14);
+  --dmf-surface-1: oklch(0.16 0.012 260); /* base */
+  --dmf-surface-2: oklch(0.21 0.014 260); /* raised */
+  --dmf-surface-3: oklch(0.27 0.016 260); /* higher */
+  --dmf-surface-4: oklch(0.3 0.018 260); /* highest, near CTA */
+  --dmf-text-dim: oklch(0.68 0.014 260);
+
+  /* Depth from tonal elevation + soft glow — never a hard drop shadow */
+  --dmf-glow-copper: 0 0 1px oklch(0.72 0.15 55 / 0.5),
+    0 0 48px -12px oklch(0.72 0.15 55 / 0.35);
+  --dmf-glow-cold: 0 0 1px oklch(0.78 0.09 210 / 0.5),
+    0 0 40px -14px oklch(0.78 0.09 210 / 0.3);
+  --dmf-lift: 0 1px 0 0 oklch(1 0 0 / 0.05) inset,
+    0 -1px 0 0 oklch(0 0 0 / 0.3) inset;
+
+  /* Controlled, athletic easing — smooth premium transitions */
+  --dmf-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dmf-beat: 0.5s;
+}
+
+/* Scoped element/utility rules — only active under .theme-dark-mode-first */
+
+.theme-dark-mode-first h1,
+.theme-dark-mode-first h2,
+.theme-dark-mode-first h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.theme-dark-mode-first h1 {
+  font-size: clamp(3.25rem, 9vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+}
+
+.theme-dark-mode-first h2 {
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 0.98;
+}
+
+.theme-dark-mode-first h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+.theme-dark-mode-first body,
+.theme-dark-mode-first p,
+.theme-dark-mode-first label,
+.theme-dark-mode-first input,
+.theme-dark-mode-first textarea {
+  font-family: var(--font-body);
+}
+
+/* Eyebrow labels: mono-weight tracked caps in the cold accent, a precision
+   instrument readout rather than a decorative tag */
+.theme-dark-mode-first .dmf-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--dmf-cold);
+}
+
+.theme-dark-mode-first .dmf-line {
+  height: 1px;
+  width: 100%;
+  background: var(--dmf-line);
+  border: 0;
+}
+
+.theme-dark-mode-first .dmf-serif-num {
+  font-family: var(--font-heading);
+  color: var(--dmf-copper);
+  text-shadow: 0 0 24px oklch(0.72 0.15 55 / 0.45);
+}
+
+/* The signature element: a vertical "power line" meter that reads as an
+   oscilloscope / output gauge running the length of a section — intensity
+   made visible and held under control. */
+.theme-dark-mode-first .dmf-power-line {
+  position: relative;
+  width: 2px;
+  background: var(--dmf-line-strong);
+  overflow: hidden;
+}
+.theme-dark-mode-first .dmf-power-line::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--dmf-fill, 40%);
+  background: linear-gradient(
+    to top,
+    var(--dmf-copper),
+    oklch(0.72 0.15 55 / 0.15)
+  );
+  box-shadow: 0 0 16px 1px oklch(0.72 0.15 55 / 0.55);
+  transition: height 1.2s var(--dmf-ease);
+}
+
+/* Buttons: precise, controlled, glow on hover rather than lift */
+.theme-dark-mode-first button,
+.theme-dark-mode-first [data-slot="button"] {
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  transition:
+    box-shadow var(--dmf-beat) var(--dmf-ease),
+    transform var(--dmf-beat) var(--dmf-ease),
+    background-color var(--dmf-beat) var(--dmf-ease),
+    border-color var(--dmf-beat) var(--dmf-ease);
+}
+.theme-dark-mode-first [data-slot="button"]:hover {
+  box-shadow: var(--dmf-glow-copper);
+}
+.theme-dark-mode-first [data-slot="button"]:active {
+  transform: scale(0.98);
+}
+.theme-dark-mode-first [data-slot="button"]:focus-visible {
+  outline: 2px solid var(--dmf-cold);
+  outline-offset: 3px;
+}
+
+/* Cards: elevation via lighter panel tone + hairline, never a hard shadow */
+.theme-dark-mode-first [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--dmf-line);
+  background: var(--card);
+  box-shadow: var(--dmf-lift);
+  transition:
+    border-color var(--dmf-beat) var(--dmf-ease),
+    box-shadow var(--dmf-beat) var(--dmf-ease),
+    background-color var(--dmf-beat) var(--dmf-ease);
+}
+.theme-dark-mode-first [data-slot="card"]:hover {
+  border-color: color-mix(in oklch, var(--dmf-copper) 45%, var(--dmf-line));
+  box-shadow: var(--dmf-lift), var(--dmf-glow-copper);
+}
+
+.theme-dark-mode-first [data-slot="badge"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--dmf-line-strong);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+}
+
+.theme-dark-mode-first input,
+.theme-dark-mode-first textarea {
+  background: var(--dmf-surface-2);
+  transition:
+    border-color var(--dmf-beat) var(--dmf-ease),
+    box-shadow var(--dmf-beat) var(--dmf-ease);
+}
+.theme-dark-mode-first input:focus-visible,
+.theme-dark-mode-first textarea:focus-visible {
+  outline: none;
+  border-color: var(--dmf-cold);
+  box-shadow: var(--dmf-glow-cold);
+}
+
+/* Entrance: content emerging from shadow into focused light */
+@keyframes dmf-emerge {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: brightness(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: brightness(1);
+  }
+}
+
+.theme-dark-mode-first .dmf-emerge {
+  animation: dmf-emerge 0.9s var(--dmf-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-dark-mode-first .dmf-emerge {
+    animation: none;
+  }
+  .theme-dark-mode-first .dmf-power-line::after {
+    transition: none;
+  }
+}

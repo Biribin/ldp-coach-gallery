@@ -1,0 +1,255 @@
+/**
+ * Editorial theme (brief #03) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-editorial` class selector. Nothing here ever touches `:root`.
+ * `src/app/editorial/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route. Reuses the same `.theme-<slug>` + nested-layout pattern
+ * established by the neobrutalist / japandi reference routes.
+ *
+ * Brief in one line: magazine-inspired, sophisticated typography,
+ * article-focused elegance. So: ink-on-paper (cooler/lighter than japandi's
+ * warm neutral), a *single* deep-crimson spot color used for drop caps, pull
+ * quotes, folios and captions (never decoration), hairline rules, flat print
+ * surfaces with NO offset shadows, a high-contrast didone display serif
+ * (Playfair Display) paired with the scaffold's Geist sans for body, and
+ * crisp (not slow) easing. Genuine multi-column text and drop caps do the
+ * heavy lifting that makes this read as a magazine spread — not a recolor.
+ */
+
+.theme-editorial {
+  /* Magazine paper — a touch lighter & cooler than japandi's warm linen */
+  --background: oklch(0.985 0.004 85);
+  --foreground: oklch(0.16 0.012 75);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.012 75);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.012 75);
+
+  /* The single signature spot color: deep editorial crimson */
+  --primary: oklch(0.5 0.19 25);
+  --primary-foreground: oklch(0.985 0.004 85);
+
+  /* Ink-near-neutral surfaces — never a second saturated hue */
+  --secondary: oklch(0.95 0.004 85);
+  --secondary-foreground: oklch(0.16 0.012 75);
+  --accent: oklch(0.95 0.004 85);
+  --accent-foreground: oklch(0.16 0.012 75);
+
+  --muted: oklch(0.94 0.004 85);
+  --muted-foreground: oklch(0.42 0.01 75);
+  --destructive: oklch(0.5 0.19 25);
+
+  /* Hairline rules, like print — never a heavy frame */
+  --border: oklch(0.86 0.004 85);
+  --input: oklch(0.86 0.004 85);
+  --ring: oklch(0.5 0.19 25);
+
+  /* Crimson-led chart tones, all muted */
+  --chart-1: oklch(0.5 0.19 25);
+  --chart-2: oklch(0.45 0.012 75);
+  --chart-3: oklch(0.6 0.012 75);
+  --chart-4: oklch(0.75 0.012 75);
+  --chart-5: oklch(0.88 0.012 75);
+
+  /* Print = sharp rectangles */
+  --radius: 0px;
+
+  /* Display serif on the route — set in the route layout via next/font */
+  --font-heading: var(--font-playfair), Georgia, "Times New Roman", serif;
+
+  /* Editorial-specific tokens */
+  --ed-red: oklch(0.5 0.19 25); /* the one spot color */
+  --ed-ink: oklch(0.16 0.012 75); /* body ink */
+  --ed-soft: oklch(0.42 0.01 75); /* secondary / caption ink */
+  --ed-faint: oklch(0.62 0.008 75); /* meta ink */
+  --ed-rule: oklch(0.86 0.004 85); /* hairline rule */
+  --ed-rule-strong: oklch(0.16 0.012 75); /* ink rule, masthead/section */
+  --ed-paper: oklch(0.97 0.004 85); /* sidebar / callout surface */
+
+  /* Crisp, refined easing — in service of reading, never slow */
+  --ed-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ed-beat: 0.45s;
+}
+
+/* Scoped element/utility rules — only active under .theme-editorial */
+
+.theme-editorial h1,
+.theme-editorial h2,
+.theme-editorial h3 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: none; /* title case — deliberate contrast w/ neobrutalist uppercase */
+}
+
+.theme-editorial h1 {
+  font-size: clamp(2.75rem, 7vw, 5.75rem);
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.theme-editorial h2 {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.theme-editorial h3 {
+  font-size: 1.3125rem;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Editorial overlines / eyebrows: small caps, tracked, crimson — print metadata */
+.theme-editorial .ed-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ed-red);
+}
+
+/* Folio / section number — display serif numerals in the spot color */
+.theme-editorial .ed-folio {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--ed-red);
+  letter-spacing: -0.01em;
+}
+
+/* Caption / meta line — small, tracked, faint ink */
+.theme-editorial .ed-caption {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ed-soft);
+}
+
+/* Hairline rule */
+.theme-editorial .ed-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--ed-rule);
+  border: 0;
+}
+
+/* Ink rule (heavier) — masthead / feature dividers */
+.theme-editorial .ed-rule-ink {
+  height: 2px;
+  width: 100%;
+  background: var(--ed-rule-strong);
+  border: 0;
+}
+
+/* Display serif voice for non-heading accents (pull quote, numerals, price) */
+.theme-editorial .ed-serif {
+  font-family: var(--font-heading);
+}
+
+/* Drop cap — the classic magazine opening. First letter of a lead paragraph
+ * set large in the display serif, crimson, floated. */
+.theme-editorial .ed-dropcap::first-letter {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 4.8em;
+  line-height: 0.82;
+  float: left;
+  margin: 0.06em 0.12em 0 -0.04em;
+  color: var(--ed-red);
+}
+
+/* Multi-column body text — genuine magazine column flow. Dropped on wide
+ * viewports only; mobile stays single-column for readability. */
+.theme-editorial .ed-columns {
+  column-count: 2;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--ed-rule);
+  text-align: justify;
+  hyphens: auto;
+}
+@media (max-width: 640px) {
+  .theme-editorial .ed-columns {
+    column-count: 1;
+    column-rule: 0;
+    text-align: left;
+  }
+}
+
+/* Pull quote — oversized display serif, crimson vertical bar, sink-in rule */
+.theme-editorial .ed-pullquote {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ed-ink);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+.theme-editorial .ed-bar {
+  width: 3px;
+  background: var(--ed-red);
+}
+
+/* Buttons: rectangular hairline, crimson ink, crisp ease — a print CTA tag,
+ * never a neobrutalist hard-shadow block nor a japandi slow-soft pill. */
+.theme-editorial button,
+.theme-editorial [data-slot="button"] {
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  transition:
+    background-color var(--ed-beat) var(--ed-ease),
+    color var(--ed-beat) var(--ed-ease),
+    border-color var(--ed-beat) var(--ed-ease);
+}
+.theme-editorial [data-slot="button"]:hover {
+  transform: none;
+}
+.theme-editorial [data-slot="button"]:active {
+  transform: none;
+}
+
+/* Cards: flat print surface — hairline rule, NEVER an offset or diffuse
+ * shadow (that is the neobrutalist / japandi seam respectively). */
+.theme-editorial [data-slot="card"] {
+  border-radius: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ed-rule);
+  background: var(--card);
+  box-shadow: none;
+  transition:
+    border-color var(--ed-beat) var(--ed-ease);
+}
+.theme-editorial [data-slot="card"]:hover {
+  border-color: var(--ed-red);
+}
+
+/* Badges: small tracked labels, hairline */
+.theme-editorial [data-slot="badge"] {
+  border-radius: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ed-rule);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.theme-editorial input,
+.theme-editorial textarea {
+  transition:
+    border-color var(--ed-beat) var(--ed-ease);
+}

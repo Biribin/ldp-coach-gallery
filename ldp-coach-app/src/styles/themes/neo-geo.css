@@ -1,0 +1,293 @@
+/**
+ * Neo-Geo theme (brief #02) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-neo-geo` class selector. Nothing here ever touches `:root`.
+ * `src/app/neo-geo/layout.tsx` applies this class to a wrapper element around
+ * the route's subtree; shadcn components read `var(--token)`, so they adopt
+ * these values inside that subtree only, with zero bleed to any other route.
+ * Same `.theme-<slug>` + nested-layout seam the japandi/neobrutalist routes use.
+ *
+ * Brief in one line: refined geometric patterns, mathematical rhythm, precise
+ * color-blocked shapes — playful precision. So: a crisp near-white field ruled
+ * like graph paper, BOLD saturated primary accents deployed as controlled
+ * color-blocked geometry (cobalt / vermilion / amber / a single ink), a strict
+ * modular grid, geometric sans headings, tabular numerals, and SNAPPY exact
+ * motion — shapes that snap into the grid and interlock rather than drift.
+ *
+ * Deliberately NOT japandi (no soft breathing, no clay-on-linen calm) and NOT
+ * neobrutalist (no hard offset drop-shadows, no uppercase shouting, no black
+ * 4px frames as the primary language — here structure comes from the grid and
+ * from interlocking flat shapes, thin ruled hairlines, and saturated blocking).
+ */
+
+.theme-neo-geo {
+  /* Crisp cool-white field + near-black ink (not pure black) */
+  --background: oklch(0.985 0.002 250);
+  --foreground: oklch(0.17 0.02 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.17 0.02 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.17 0.02 265);
+
+  /* Primary accent: confident cobalt — the load-bearing saturated hue */
+  --primary: oklch(0.55 0.2 262);
+  --primary-foreground: oklch(0.99 0.005 250);
+
+  /* Secondary block: warm vermilion — the counterweight in the composition */
+  --secondary: oklch(0.64 0.2 27);
+  --secondary-foreground: oklch(0.99 0.005 250);
+
+  /* Accent block: bright amber/gold — the third controlled note */
+  --accent: oklch(0.83 0.16 88);
+  --accent-foreground: oklch(0.2 0.03 90);
+
+  --muted: oklch(0.955 0.004 255);
+  --muted-foreground: oklch(0.46 0.02 265);
+  --destructive: oklch(0.58 0.22 27);
+
+  /* Thin, exact ruled lines — the grid is drawn, not framed */
+  --border: oklch(0.87 0.01 260);
+  --input: oklch(0.82 0.015 262);
+  --ring: oklch(0.55 0.2 262);
+
+  /* The four-color system, echoed for charts */
+  --chart-1: oklch(0.55 0.2 262); /* cobalt */
+  --chart-2: oklch(0.64 0.2 27); /* vermilion */
+  --chart-3: oklch(0.83 0.16 88); /* amber */
+  --chart-4: oklch(0.62 0.15 168); /* teal — used only as a whisper */
+  --chart-5: oklch(0.17 0.02 265); /* ink */
+
+  /* Precise corners: a hair of radius, never playful pill shapes */
+  --radius: 2px;
+
+  /* Headings: geometric grotesque — set on the route layout via next/font */
+  --font-heading: var(--font-archivo), var(--font-sans), system-ui, sans-serif;
+
+  /* Neo-Geo material tokens — the four blocks, the grid unit, and easing */
+  --ng-cobalt: oklch(0.55 0.2 262);
+  --ng-vermilion: oklch(0.64 0.2 27);
+  --ng-amber: oklch(0.83 0.16 88);
+  --ng-teal: oklch(0.62 0.15 168);
+  --ng-ink: oklch(0.17 0.02 265);
+  --ng-line: oklch(0.87 0.01 260);
+  --ng-line-strong: oklch(0.55 0.02 262);
+
+  /* One modular unit — every gap/inset is a multiple of this (mathematical rhythm) */
+  --ng-unit: 1.5rem;
+
+  /* SNAP easing: fast approach, crisp settle — the opposite of a slow breath */
+  --ng-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ng-beat: 0.42s;
+
+  /* A drawn graph-paper field — thin ruled cells, exactly aligned */
+  --ng-grid:
+    linear-gradient(to right, var(--ng-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ng-line) 1px, transparent 1px);
+  --ng-grid-size: 48px 48px;
+}
+
+/* ---- Typography: precise, modern, quietly assured ------------------------ */
+
+.theme-neo-geo h1,
+.theme-neo-geo h2,
+.theme-neo-geo h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.theme-neo-geo h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.theme-neo-geo h2 {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.theme-neo-geo h3 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Tabular, tracked eyebrow labels — read like axis / index markers */
+.theme-neo-geo .ng-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--ng-cobalt);
+}
+
+/* Big index numerals — mono-flavored, tabular, engineered */
+.theme-neo-geo .ng-index {
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* ---- Structural utilities ------------------------------------------------ */
+
+/* The drawn graph field, applied behind a section */
+.theme-neo-geo .ng-graph {
+  background-image: var(--ng-grid);
+  background-size: var(--ng-grid-size);
+}
+
+/* Exact hairline frame — the module boundary, not a heavy border */
+.theme-neo-geo .ng-frame {
+  border: 1px solid var(--ng-line-strong);
+}
+
+/* A thin ruled divider */
+.theme-neo-geo .ng-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--ng-line-strong);
+  border: 0;
+}
+
+/* Diagonal hatch fill — a tessellated texture for color-blocked panels */
+.theme-neo-geo .ng-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    color-mix(in oklch, var(--ng-ink) 12%, transparent) 0,
+    color-mix(in oklch, var(--ng-ink) 12%, transparent) 2px,
+    transparent 2px,
+    transparent 9px
+  );
+}
+
+/* Dotted tessellation — precise repeating grid of dots */
+.theme-neo-geo .ng-dots {
+  background-image: radial-gradient(
+    var(--ng-cobalt) 1.4px,
+    transparent 1.6px
+  );
+  background-size: 18px 18px;
+}
+
+/* ---- Components: snappy, exact, interlocking ----------------------------- */
+
+.theme-neo-geo button,
+.theme-neo-geo [data-slot="button"] {
+  border-radius: var(--radius);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  transition:
+    transform var(--ng-beat) var(--ng-snap),
+    box-shadow var(--ng-beat) var(--ng-snap),
+    background-color var(--ng-beat) var(--ng-snap),
+    color var(--ng-beat) var(--ng-snap);
+}
+
+/* Snap up-left into the grid on hover, with a crisp cobalt keyline shadow */
+.theme-neo-geo [data-slot="button"]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 0 var(--ng-ink);
+}
+.theme-neo-geo [data-slot="button"]:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 0 var(--ng-ink);
+}
+
+/* Cards are grid modules: exact hairline frame, no soft blur, snap on hover */
+.theme-neo-geo [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ng-line-strong);
+  background: var(--card);
+  box-shadow: none;
+  transition:
+    transform var(--ng-beat) var(--ng-snap),
+    box-shadow var(--ng-beat) var(--ng-snap),
+    border-color var(--ng-beat) var(--ng-snap);
+}
+.theme-neo-geo [data-slot="card"]:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 0 var(--ng-cobalt);
+  border-color: var(--ng-ink);
+}
+
+.theme-neo-geo [data-slot="badge"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ng-line-strong);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.theme-neo-geo input,
+.theme-neo-geo textarea {
+  border-radius: var(--radius);
+  transition:
+    border-color var(--ng-beat) var(--ng-snap),
+    box-shadow var(--ng-beat) var(--ng-snap);
+}
+
+/* ---- Motion: elements snap into the grid, shapes rotate & interlock ------ */
+
+@keyframes ng-snap-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-neo-geo .ng-snap-in {
+  animation: ng-snap-in var(--ng-beat) var(--ng-snap) both;
+}
+
+/* A slow, controlled rotation for the interlocking hero motif — engineered,
+ * never idle-drifting: steady linear turn, one full rotation per cycle. */
+@keyframes ng-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.theme-neo-geo .ng-rotate {
+  animation: ng-rotate 26s linear infinite;
+  transform-origin: center;
+}
+.theme-neo-geo .ng-rotate-rev {
+  animation: ng-rotate 34s linear infinite reverse;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-neo-geo .ng-snap-in,
+  .theme-neo-geo .ng-rotate,
+  .theme-neo-geo .ng-rotate-rev {
+    animation: none;
+  }
+  .theme-neo-geo [data-slot="button"]:hover,
+  .theme-neo-geo [data-slot="card"]:hover {
+    transform: none;
+  }
+}

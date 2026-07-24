@@ -1,0 +1,248 @@
+/**
+ * Scandinavian theme (brief #11) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-scandinavian` class selector. Nothing here ever touches `:root`.
+ * `src/app/scandinavian/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route.
+ *
+ * Brief in one line: hygge warmth, natural materials, wood + wool + linen —
+ * warmer and cozier than Japandi (which uses cool oklch neutrals + a single
+ * sparing clay accent). Scandinavian commits harder to color: honey-wood,
+ * moss-forest, and lingonberry-berry sit on a warm oat surface, not a
+ * desaturated neutral one. Signature motif: a "braided rule" (a knitted-cable
+ * illusion built from repeating CSS gradients) marks every section break
+ * instead of a hairline — nothing else in the gallery uses this device.
+ */
+
+.theme-scandinavian {
+  /* Warm oat surface — never cold white, never Japandi's oklch linen */
+  --background: #faf3e9;
+  --foreground: #3a342e;
+  --card: #fffaf2;
+  --card-foreground: #3a342e;
+  --popover: #fffaf2;
+  --popover-foreground: #3a342e;
+
+  /* Honey-wood — the primary accent, warmer/more saturated than clay */
+  --primary: #b9764a;
+  --primary-foreground: #fffaf2;
+
+  /* Undyed-wool secondary surface + moss-forest accent */
+  --secondary: #ede1d0;
+  --secondary-foreground: #3a342e;
+  --accent: #4a5d45;
+  --accent-foreground: #fffaf2;
+
+  --muted: #f1e6d6;
+  --muted-foreground: #6b5f52;
+  --destructive: #a63d40;
+
+  --border: #e2d3bd;
+  --input: #e2d3bd;
+  --ring: #b9764a;
+
+  --chart-1: #b9764a;
+  --chart-2: #4a5d45;
+  --chart-3: #a63d40;
+  --chart-4: #6b5f52;
+  --chart-5: #ede1d0;
+
+  /* Soft, cozy corners — rounder than Japandi's near-square 4px */
+  --radius: 14px;
+
+  /* Headings: warm soft-serif set in the route layout */
+  --font-heading: var(--font-fraunces), var(--font-sans), Georgia, serif;
+  --font-body: var(--font-karla), var(--font-sans), sans-serif;
+
+  /* Scandinavian-specific material tokens */
+  --sc-wood: #b9764a; /* honey-wood, the primary echo */
+  --sc-forest: #4a5d45; /* muted moss/pine */
+  --sc-berry: #a63d40; /* lingonberry — sparing decisive accent */
+  --sc-wool: #ede1d0; /* undyed wool surface */
+  --sc-cream: #faf3e9; /* oat background */
+  --sc-charcoal: #3a342e; /* warm soot text, never pure black */
+
+  /* Soft woolen depth — diffuse, warm-tinted, never a hard offset */
+  --sc-shadow-soft: 0 2px 6px -2px rgb(58 52 46 / 0.08),
+    0 16px 36px -22px rgb(58 52 46 / 0.22);
+  --sc-shadow-lift: 0 6px 14px -4px rgb(58 52 46 / 0.12),
+    0 28px 56px -26px rgb(58 52 46 / 0.28);
+
+  /* "Comfortable and unhurried" — gentle organic easing */
+  --sc-ease: cubic-bezier(0.25, 0.8, 0.4, 1);
+  --sc-beat: 0.6s;
+}
+
+/* Scoped element/utility rules — only active under .theme-scandinavian */
+
+.theme-scandinavian {
+  font-family: var(--font-body);
+}
+
+.theme-scandinavian h1,
+.theme-scandinavian h2,
+.theme-scandinavian h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.008em;
+}
+
+.theme-scandinavian h1 {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 1.05;
+  font-weight: 480;
+  letter-spacing: -0.015em;
+}
+
+.theme-scandinavian h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.12;
+  font-weight: 500;
+}
+
+.theme-scandinavian h3 {
+  font-size: 1.375rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* Small tracked eyebrow labels */
+.theme-scandinavian .sc-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sc-wood);
+}
+
+/* SIGNATURE: the braided rule — a knitted-cable illusion built entirely from
+ * repeating CSS gradients. Replaces the hairline divider used elsewhere in
+ * the gallery. Two interleaved diagonal weaves in wood + wool tones. */
+.theme-scandinavian .sc-braid {
+  height: 14px;
+  width: 100%;
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      var(--sc-wood) 0px,
+      var(--sc-wood) 7px,
+      transparent 7px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      65deg,
+      var(--sc-forest) 0px,
+      var(--sc-forest) 7px,
+      transparent 7px,
+      transparent 14px
+    );
+  background-size:
+    28px 14px,
+    28px 14px;
+  background-position:
+    0 0,
+    14px 0;
+  background-repeat: repeat-x;
+  border-radius: 9999px;
+  opacity: 0.7;
+}
+
+/* Compact braid variant for tight spaces (cards, inline markers) */
+.theme-scandinavian .sc-braid-sm {
+  height: 8px;
+  background-size:
+    16px 8px,
+    16px 8px;
+  background-position:
+    0 0,
+    8px 0;
+}
+
+/* Cozy warm surface panel — the wood-band alternate to a plain card */
+.theme-scandinavian .sc-plank {
+  background: var(--sc-wood);
+  color: var(--primary-foreground);
+  border-radius: var(--radius);
+}
+
+/* Buttons: soft, rounded, unhurried transitions */
+.theme-scandinavian button,
+.theme-scandinavian [data-slot="button"] {
+  border-radius: var(--radius);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform var(--sc-beat) var(--sc-ease),
+    box-shadow var(--sc-beat) var(--sc-ease),
+    background-color var(--sc-beat) var(--sc-ease),
+    color var(--sc-beat) var(--sc-ease),
+    border-color var(--sc-beat) var(--sc-ease);
+}
+.theme-scandinavian [data-slot="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sc-shadow-soft);
+}
+.theme-scandinavian [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+/* Cards: warm wool surface, soft cozy shadow, gentle lift on hover */
+.theme-scandinavian [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  background: var(--card);
+  box-shadow: var(--sc-shadow-soft);
+  transition:
+    box-shadow var(--sc-beat) var(--sc-ease),
+    transform var(--sc-beat) var(--sc-ease),
+    border-color var(--sc-beat) var(--sc-ease);
+}
+.theme-scandinavian [data-slot="card"]:hover {
+  box-shadow: var(--sc-shadow-lift);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--sc-wood) 35%, var(--border));
+}
+
+.theme-scandinavian [data-slot="badge"] {
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.theme-scandinavian input,
+.theme-scandinavian textarea {
+  border-radius: var(--radius);
+  transition:
+    border-color var(--sc-beat) var(--sc-ease),
+    background-color var(--sc-beat) var(--sc-ease);
+}
+
+/* Entrance: a gentle warm settle, used on the hero */
+@keyframes sc-settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-scandinavian .sc-rise {
+  animation: sc-settle-in 0.9s var(--sc-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-scandinavian .sc-rise {
+    animation: none;
+  }
+}

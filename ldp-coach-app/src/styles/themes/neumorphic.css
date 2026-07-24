@@ -1,0 +1,302 @@
+/**
+ * Neumorphic theme (brief #20) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-neumorphic`. Nothing
+ * here touches `:root`. `src/app/neumorphic/layout.tsx` applies this class to
+ * a wrapper around the route's subtree, matching the same
+ * theme-scope-div + theme-css-file pattern as every other route.
+ *
+ * Brief in one line: soft extruded elements, dual light/dark shadows, tactile
+ * monochrome surfaces. So: background and "card" are nearly the SAME hue —
+ * depth comes only from paired light/shadow offsets, never from a color jump
+ * or a hard border. One muted dusty-mauve accent emerges softly, never as
+ * decoration. No hard edges anywhere; every raised/inset surface shares the
+ * base hue family.
+ */
+
+.theme-neumorphic {
+  /* Warm putty/greige base — surface and background sit within ~1-2% of each
+     other; the softness of neumorphism depends on this near-invisible jump */
+  --background: oklch(0.895 0.008 75);
+  --foreground: oklch(0.36 0.014 65);
+  --card: oklch(0.895 0.008 75);
+  --card-foreground: oklch(0.36 0.014 65);
+  --popover: oklch(0.9 0.008 75);
+  --popover-foreground: oklch(0.36 0.014 65);
+
+  /* The one accent permitted to emerge: muted dusty mauve-taupe (never clay/
+     terracotta — kept a distinct hue family from the gallery's other warm
+     neutrals) */
+  --primary: oklch(0.52 0.05 22);
+  --primary-foreground: oklch(0.96 0.006 75);
+
+  --secondary: oklch(0.87 0.009 75);
+  --secondary-foreground: oklch(0.36 0.014 65);
+  --accent: oklch(0.87 0.014 24);
+  --accent-foreground: oklch(0.4 0.05 22);
+
+  --muted: oklch(0.885 0.008 75);
+  --muted-foreground: oklch(0.55 0.016 60);
+  --destructive: oklch(0.55 0.09 35);
+
+  /* No visible hairline border in this style — depth reads through shadow
+     pairs, never a drawn line. Kept for shadcn component compatibility only,
+     tuned to nearly vanish against the base surface. */
+  --border: oklch(0.87 0.008 75);
+  --input: oklch(0.87 0.008 75);
+  --ring: oklch(0.52 0.05 22);
+
+  --chart-1: oklch(0.52 0.05 22);
+  --chart-2: oklch(0.6 0.03 60);
+  --chart-3: oklch(0.7 0.018 75);
+  --chart-4: oklch(0.45 0.02 50);
+  --chart-5: oklch(0.8 0.012 75);
+
+  /* Soft, generous rounding — neumorphic forms are pillowed, never sharp */
+  --radius: 22px;
+
+  --font-heading: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-figtree), var(--font-sans), sans-serif;
+
+  /* Neumorphic material tokens */
+  --nm-surface: var(--background);
+  --nm-light: oklch(0.98 0.006 75); /* highlight light-source shadow */
+  --nm-dark: oklch(0.62 0.02 60); /* recessed dark-source shadow */
+  --nm-accent: var(--primary);
+  --nm-accent-soft: oklch(0.87 0.014 24);
+
+  /* Raised (extruded) — dual offset shadow, light from top-left */
+  --nm-shadow-raised: -8px -8px 16px var(--nm-light),
+    8px 8px 20px oklch(0.5 0.02 55 / 0.38);
+  --nm-shadow-raised-sm: -4px -4px 8px var(--nm-light),
+    4px 4px 10px oklch(0.5 0.02 55 / 0.32);
+  /* Inset (pressed/pressed-in) — the "tactile press" reading */
+  --nm-shadow-inset: inset -6px -6px 12px var(--nm-light),
+    inset 6px 6px 14px oklch(0.5 0.02 55 / 0.4);
+  --nm-shadow-inset-lg: inset -10px -10px 20px var(--nm-light),
+    inset 10px 10px 24px oklch(0.5 0.02 55 / 0.42);
+  --nm-shadow-hover: -10px -10px 20px var(--nm-light),
+    10px 10px 26px oklch(0.5 0.02 55 / 0.44);
+
+  --nm-ease: cubic-bezier(0.34, 1.2, 0.4, 1);
+  --nm-beat: 0.45s;
+}
+
+/* Base surface: the whole page is one continuous putty canvas */
+.theme-neumorphic {
+  background: var(--nm-surface);
+}
+
+.theme-neumorphic h1,
+.theme-neumorphic h2,
+.theme-neumorphic h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.theme-neumorphic h1 {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 1.04;
+  font-weight: 500;
+}
+
+.theme-neumorphic h2 {
+  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.theme-neumorphic h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.theme-neumorphic p,
+.theme-neumorphic span,
+.theme-neumorphic label,
+.theme-neumorphic a,
+.theme-neumorphic button,
+.theme-neumorphic input,
+.theme-neumorphic textarea {
+  font-family: var(--font-body);
+}
+
+.theme-neumorphic .nm-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nm-accent);
+}
+
+/* Core extrusion primitives — used directly as classes, not shadcn overrides,
+   so the "pillowed" quality stays legible regardless of which component
+   wraps it. */
+.theme-neumorphic .nm-raised {
+  background: var(--nm-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--nm-shadow-raised);
+  border: none;
+  transition:
+    box-shadow var(--nm-beat) var(--nm-ease),
+    transform var(--nm-beat) var(--nm-ease);
+}
+
+.theme-neumorphic .nm-raised-sm {
+  background: var(--nm-surface);
+  border-radius: calc(var(--radius) * 0.6);
+  box-shadow: var(--nm-shadow-raised-sm);
+  border: none;
+}
+
+.theme-neumorphic .nm-inset {
+  background: var(--nm-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--nm-shadow-inset);
+  border: none;
+}
+
+.theme-neumorphic .nm-inset-lg {
+  background: var(--nm-surface);
+  border-radius: calc(var(--radius) * 1.4);
+  box-shadow: var(--nm-shadow-inset-lg);
+  border: none;
+}
+
+.theme-neumorphic .nm-pressable {
+  cursor: pointer;
+}
+.theme-neumorphic .nm-pressable:hover {
+  box-shadow: var(--nm-shadow-hover);
+}
+.theme-neumorphic .nm-pressable:active {
+  box-shadow: var(--nm-shadow-inset);
+  transform: translateY(1px) scale(0.995);
+}
+
+/* shadcn component overrides — mapped onto the same extrusion language */
+.theme-neumorphic button,
+.theme-neumorphic [data-slot="button"] {
+  border-radius: calc(var(--radius) * 0.7);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: none;
+  box-shadow: var(--nm-shadow-raised-sm);
+  transition:
+    box-shadow var(--nm-beat) var(--nm-ease),
+    transform var(--nm-beat) var(--nm-ease),
+    background-color var(--nm-beat) var(--nm-ease);
+}
+.theme-neumorphic [data-slot="button"]:hover {
+  box-shadow: var(--nm-shadow-hover);
+}
+.theme-neumorphic [data-slot="button"]:active {
+  box-shadow: var(--nm-shadow-inset);
+  transform: translateY(1px) scale(0.995);
+}
+
+.theme-neumorphic [data-slot="card"] {
+  background: var(--nm-surface);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--nm-shadow-raised);
+  transition:
+    box-shadow var(--nm-beat) var(--nm-ease),
+    transform var(--nm-beat) var(--nm-ease);
+}
+.theme-neumorphic [data-slot="card"]:hover {
+  box-shadow: var(--nm-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-neumorphic [data-slot="badge"] {
+  border: none;
+  border-radius: 999px;
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-inset);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--nm-accent);
+}
+
+.theme-neumorphic input,
+.theme-neumorphic textarea {
+  border: none;
+  border-radius: calc(var(--radius) * 0.55);
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-inset);
+  transition: box-shadow var(--nm-beat) var(--nm-ease);
+}
+.theme-neumorphic input:focus-visible,
+.theme-neumorphic textarea:focus-visible {
+  outline: 2px solid var(--nm-accent);
+  outline-offset: 2px;
+  box-shadow: var(--nm-shadow-inset-lg);
+}
+
+/* Visible keyboard focus across the theme — the pressable surfaces above use
+   outline (not ring) since box-shadow is already spoken for by extrusion */
+.theme-neumorphic a:focus-visible,
+.theme-neumorphic button:focus-visible,
+.theme-neumorphic [data-slot="button"]:focus-visible {
+  outline: 2px solid var(--nm-accent);
+  outline-offset: 3px;
+}
+
+/* Signature element: the pressable dial/toggle track used as scroll-cue in
+   the hero and as literal step UI in the method section. This is the ONE
+   motif that should read as unmistakably neumorphic. */
+.theme-neumorphic .nm-dial-track {
+  position: relative;
+  border-radius: 999px;
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-inset);
+}
+.theme-neumorphic .nm-dial-thumb {
+  border-radius: 999px;
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes nm-settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-neumorphic .nm-rise {
+  animation: nm-settle-in 0.85s var(--nm-ease) both;
+}
+
+@keyframes nm-thumb-glide {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(var(--nm-thumb-travel, 32px)));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.theme-neumorphic .nm-thumb-breathe {
+  animation: nm-thumb-glide 3.6s var(--nm-ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-neumorphic .nm-rise,
+  .theme-neumorphic .nm-thumb-breathe {
+    animation: none;
+  }
+}

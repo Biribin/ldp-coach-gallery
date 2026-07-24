@@ -1,0 +1,218 @@
+/**
+ * Bauhaus theme (brief #05) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-bauhaus` class selector. Nothing here ever touches `:root`.
+ * `src/app/bauhaus/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route. Reuses the same `.theme-<slug>` + nested-layout pattern
+ * established by the reference routes.
+ *
+ * Brief in one line: honest, functional, no-nonsense — primary colors (red,
+ * blue, yellow) against black and white, circles/squares/triangles on a strict
+ * grid, form follows function. So: flat primary color blocks (never soft
+ * gradients, never diffuse shadows), bold black grid lines instead of hairline
+ * rules, geometric sans-serif headings in normal case (never the uppercase
+ * shout of neobrutalism), and snappy engineered motion.
+ *
+ * Distinction vs. the neobrutalist route: neobrutalism leans on heavy black
+ * offset shadows and clashing violet/lime/orange hues with uppercase type.
+ * Bauhaus here uses NO offset shadows — color and grid carry all the weight —
+ * the disciplined red/blue/yellow primary triad, geometric shapes as
+ * compositional elements, and normal-case geometric headings. The two share a
+ * 0 radius but read as entirely different design philosophies.
+ */
+
+.theme-bauhaus {
+  /* Paper-white surface + true ink (Bauhaus printed on uncoated stock) */
+  --background: oklch(0.975 0.004 85);
+  --foreground: oklch(0.16 0.005 70);
+  --card: oklch(0.975 0.004 85);
+  --card-foreground: oklch(0.16 0.005 70);
+  --popover: oklch(0.975 0.004 85);
+  --popover-foreground: oklch(0.16 0.005 70);
+
+  /* The primary triad — one reads as the default action color */
+  --primary: oklch(0.46 0.2 252); /* Bauhaus blue */
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary = red, used as a structural block color */
+  --secondary: oklch(0.58 0.23 27); /* Bauhaus red */
+  --secondary-foreground: oklch(0.99 0 0);
+
+  /* Accent = yellow, used sparingly as the third primary note */
+  --accent: oklch(0.86 0.17 88); /* Bauhaus yellow */
+  --accent-foreground: oklch(0.16 0.005 70);
+
+  --muted: oklch(0.93 0.004 80);
+  --muted-foreground: oklch(0.36 0.006 70);
+  --destructive: oklch(0.58 0.23 27);
+
+  /* Bold black grid lines — the structural language of the page */
+  --border: oklch(0.16 0.005 70);
+  --input: oklch(0.16 0.005 70);
+  --ring: oklch(0.46 0.2 252);
+
+  /* Primary-triad charts */
+  --chart-1: oklch(0.58 0.23 27);
+  --chart-2: oklch(0.46 0.2 252);
+  --chart-3: oklch(0.86 0.17 88);
+  --chart-4: oklch(0.16 0.005 70);
+  --chart-5: oklch(0.75 0.005 70);
+
+  /* Form follows function: no rounding — shapes stay honest geometry */
+  --radius: 0px;
+
+  /* Headings: geometric sans — set in the route layout via next/font */
+  --font-heading: var(--font-poppins), var(--font-sans), sans-serif;
+
+  /* Bauhaus-specific structural tokens */
+  --bh-ink: oklch(0.16 0.005 70);
+  --bh-paper: oklch(0.975 0.004 85);
+  --bh-red: oklch(0.58 0.23 27);
+  --bh-blue: oklch(0.46 0.2 252);
+  --bh-yellow: oklch(0.86 0.17 88);
+  --bh-grid: oklch(0.16 0.005 70);
+  --bh-grid-soft: oklch(0.16 0.005 70 / 0.18);
+
+  /* Engineered, snappy motion — elements that assemble with purpose */
+  --bh-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --bh-beat: 0.4s;
+}
+
+/* Scoped element/utility rules — only active under .theme-bauhaus */
+
+.theme-bauhaus h1,
+.theme-bauhaus h2,
+.theme-bauhaus h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none; /* Bauhaus lowercase honesty — not the nb shout */
+}
+
+.theme-bauhaus h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  line-height: 0.98;
+  font-weight: 800;
+}
+
+.theme-bauhaus h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.02;
+}
+
+.theme-bauhaus h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+/* Geometric eyebrow labels: a square bullet + tracked uppercase (small only) */
+.theme-bauhaus .bh-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bh-ink);
+}
+.theme-bauhaus .bh-eyebrow::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background: var(--bh-red);
+}
+
+/* A bold black rule — the structural divider, never a hairline */
+.theme-bauhaus .bh-rule {
+  height: 3px;
+  width: 100%;
+  background: var(--bh-grid);
+  border: 0;
+}
+.theme-bauhaus .bh-rule-thin {
+  height: 1px;
+  width: 100%;
+  background: var(--bh-grid);
+  border: 0;
+}
+
+/* Buttons: flat, bordered, snappy — function over flourish, no offset shadow */
+.theme-bauhaus button,
+.theme-bauhaus [data-slot="button"] {
+  border-radius: 0;
+  border-width: 3px;
+  border-style: solid;
+  border-color: var(--bh-ink);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  transition:
+    transform var(--bh-beat) var(--bh-ease),
+    background-color var(--bh-beat) var(--bh-ease),
+    color var(--bh-beat) var(--bh-ease),
+    border-color var(--bh-beat) var(--bh-ease);
+}
+.theme-bauhaus [data-slot="button"]:hover {
+  transform: translate(-2px, -2px);
+}
+.theme-bauhaus [data-slot="button"]:active {
+  transform: none;
+}
+
+/* Cards: flat color fields on a black grid — no elevation, no offset shadow */
+.theme-bauhaus [data-slot="card"] {
+  border-radius: 0;
+  border-width: 3px;
+  border-style: solid;
+  border-color: var(--bh-ink);
+  background: var(--card);
+  box-shadow: none;
+  transition:
+    background-color var(--bh-beat) var(--bh-ease),
+    color var(--bh-beat) var(--bh-ease);
+}
+
+/* Badges: small bordered tags, never rounded */
+.theme-bauhaus [data-slot="badge"] {
+  border-radius: 0;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--bh-ink);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.theme-bauhaus input,
+.theme-bauhaus textarea {
+  border-radius: 0;
+  transition:
+    border-color var(--bh-beat) var(--bh-ease),
+    background-color var(--bh-beat) var(--bh-ease);
+}
+
+/* Entrance: engineered assemble-in — a single purposeful translate+fade */
+@keyframes bh-assemble {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-bauhaus .bh-rise {
+  animation: bh-assemble 0.6s var(--bh-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-bauhaus .bh-rise {
+    animation: none;
+  }
+}

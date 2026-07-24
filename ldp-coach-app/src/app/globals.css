@@ -137,3 +137,27 @@
  * `@import` per new style route.
  */
 @import "../styles/themes/neobrutalist.css";
+@import "../styles/themes/japandi.css";
+@import "../styles/themes/neo-geo.css";
+@import "../styles/themes/gradient-modern.css";
+@import "../styles/themes/editorial.css";
+@import "../styles/themes/bauhaus.css";
+@import "../styles/themes/corporate-professional.css";
+@import "../styles/themes/glassmorphism.css";
+@import "../styles/themes/minimal.css";
+@import "../styles/themes/retro-futuristic.css";
+@import "../styles/themes/art-deco.css";
+@import "../styles/themes/scandinavian.css";
+@import "../styles/themes/tech-forward.css";
+@import "../styles/themes/flat.css";
+@import "../styles/themes/kinetic.css";
+@import "../styles/themes/monochromatic.css";
+@import "../styles/themes/luxury-minimal.css";
+@import "../styles/themes/material.css";
+@import "../styles/themes/metropolitan.css";
+@import "../styles/themes/neumorphic.css";
+@import "../styles/themes/swiss-international.css";
+@import "../styles/themes/typography-first.css";
+@import "../styles/themes/dark-mode-first.css";
+@import "../styles/themes/modernist.css";
+@import "../styles/themes/organic-fluid.css";

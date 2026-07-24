@@ -1,0 +1,244 @@
+/**
+ * Kinetic theme (brief #12) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-kinetic`. Nothing
+ * here touches `:root`. `src/app/kinetic/layout.tsx` applies this class to a
+ * wrapper around the route's subtree.
+ *
+ * Brief in one line: motion-driven athletic energy, dynamic but controlled —
+ * a page that builds momentum as you scroll. So: a bright graphite-on-chalk
+ * base (not the default dark-slate gym app), electric cobalt + hot coral as
+ * the two "in motion" accents, a lime pulse reserved only for the signature
+ * moment, extreme-condensed display type for scale and speed, and diagonal
+ * cuts (never soft curves) as the structural motif.
+ */
+
+.theme-kinetic {
+  /* Bright chalk-track ground + graphite ink (never pure white/black) */
+  --background: oklch(0.97 0.004 95);
+  --foreground: oklch(0.19 0.01 260);
+  --card: oklch(0.995 0.002 95);
+  --card-foreground: oklch(0.19 0.01 260);
+  --popover: oklch(0.995 0.002 95);
+  --popover-foreground: oklch(0.19 0.01 260);
+
+  /* Electric cobalt — primary "momentum" accent */
+  --primary: oklch(0.5 0.22 262);
+  --primary-foreground: oklch(0.98 0.005 95);
+
+  /* Hot coral secondary + graphite-neutral accent */
+  --secondary: oklch(0.62 0.21 25);
+  --secondary-foreground: oklch(0.98 0.005 95);
+  --accent: oklch(0.91 0.01 95);
+  --accent-foreground: oklch(0.19 0.01 260);
+
+  --muted: oklch(0.93 0.007 95);
+  --muted-foreground: oklch(0.42 0.015 260);
+  --destructive: oklch(0.58 0.21 25);
+
+  --border: oklch(0.85 0.01 95);
+  --input: oklch(0.85 0.01 95);
+  --ring: oklch(0.5 0.22 262);
+
+  --chart-1: oklch(0.5 0.22 262);
+  --chart-2: oklch(0.62 0.21 25);
+  --chart-3: oklch(0.75 0.19 110);
+  --chart-4: oklch(0.42 0.015 260);
+  --chart-5: oklch(0.91 0.01 95);
+
+  /* Kinetic geometry: sharp, built for diagonal cuts, never soft */
+  --radius: 2px;
+
+  --font-heading: var(--font-anton), var(--font-sans), sans-serif;
+  --font-kinetic-body: var(--font-work-sans), var(--font-sans), sans-serif;
+
+  /* Named palette */
+  --kin-chalk: oklch(0.97 0.004 95);
+  --kin-ink: oklch(0.19 0.01 260);
+  --kin-cobalt: oklch(0.5 0.22 262);
+  --kin-coral: oklch(0.62 0.21 25);
+  --kin-lime: oklch(0.86 0.22 128); /* signature pulse — reserved, sparing use */
+  --kin-graphite: oklch(0.42 0.015 260);
+
+  /* Snappy, athletic easing — trained and purposeful, never bouncy-random */
+  --kin-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --kin-ease-in: cubic-bezier(0.64, 0, 0.78, 0);
+  --kin-beat: 0.4s;
+}
+
+.theme-kinetic {
+  font-family: var(--font-kinetic-body);
+}
+
+.theme-kinetic h1,
+.theme-kinetic h2,
+.theme-kinetic h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 0.92;
+}
+
+.theme-kinetic h1 {
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  letter-spacing: -0.01em;
+}
+
+.theme-kinetic h2 {
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+}
+
+.theme-kinetic h3 {
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+/* Tracked eyebrow label — a lap counter, not decoration */
+.theme-kinetic .kin-eyebrow {
+  font-family: var(--font-kinetic-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--kin-coral);
+}
+
+/* Diagonal-cut section wrapper: the structural signature that replaces
+ * straight horizontal section breaks. Applied to alternating sections. */
+.theme-kinetic .kin-slant {
+  clip-path: polygon(0 3.5%, 100% 0, 100% 96.5%, 0 100%);
+}
+
+.theme-kinetic .kin-slant-reverse {
+  clip-path: polygon(0 0, 100% 3.5%, 100% 100%, 0 96.5%);
+}
+
+/* Numerals: cobalt, tabular, condensed display face */
+.theme-kinetic .kin-numeral {
+  font-family: var(--font-heading);
+  color: var(--kin-cobalt);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The signature element: a "sweep track" line that draws itself in on
+ * scroll-in, echoing a stopwatch/lane line — one orchestrated moment. */
+.theme-kinetic .kin-track {
+  position: relative;
+  overflow: hidden;
+}
+.theme-kinetic .kin-track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 45%,
+    var(--kin-lime) 50%,
+    transparent 55%
+  );
+  transform: translateX(-140%);
+  animation: kin-sweep 2.6s var(--kin-ease) 0.3s infinite;
+  pointer-events: none;
+}
+
+@keyframes kin-sweep {
+  0% {
+    transform: translateX(-140%);
+  }
+  35%,
+  100% {
+    transform: translateX(140%);
+  }
+}
+
+/* Buttons: sharp, condensed, athletic press-feedback */
+.theme-kinetic button,
+.theme-kinetic [data-slot="button"] {
+  border-radius: var(--radius);
+  font-family: var(--font-kinetic-body);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    transform var(--kin-beat) var(--kin-ease),
+    box-shadow var(--kin-beat) var(--kin-ease),
+    background-color var(--kin-beat) var(--kin-ease);
+}
+.theme-kinetic [data-slot="button"]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 0 var(--kin-coral);
+}
+.theme-kinetic [data-slot="button"]:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+/* Cards: sharp corner, directional hover lift — feels "trained," not soft */
+.theme-kinetic [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  background: var(--card);
+  transition:
+    transform var(--kin-beat) var(--kin-ease),
+    border-color var(--kin-beat) var(--kin-ease),
+    box-shadow var(--kin-beat) var(--kin-ease);
+}
+.theme-kinetic [data-slot="card"]:hover {
+  transform: translateY(-4px);
+  border-color: var(--kin-cobalt);
+  box-shadow: 0 12px 0 -8px var(--kin-cobalt);
+}
+
+.theme-kinetic input,
+.theme-kinetic textarea {
+  border-radius: var(--radius);
+  transition:
+    border-color var(--kin-beat) var(--kin-ease),
+    background-color var(--kin-beat) var(--kin-ease);
+}
+
+/* Entrance: elements surge into place from the direction of travel —
+ * trained momentum, not a random bounce. */
+@keyframes kin-surge-in {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes kin-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-kinetic .kin-surge {
+  animation: kin-surge-in 0.7s var(--kin-ease) both;
+}
+
+.theme-kinetic .kin-rise {
+  animation: kin-rise-in 0.6s var(--kin-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-kinetic .kin-surge,
+  .theme-kinetic .kin-rise {
+    animation: none;
+  }
+  .theme-kinetic .kin-track::after {
+    animation: none;
+    display: none;
+  }
+}

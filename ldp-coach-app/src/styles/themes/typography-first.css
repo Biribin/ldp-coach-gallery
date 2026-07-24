@@ -1,0 +1,214 @@
+/**
+ * Typography First theme (brief #23) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-typography-first`.
+ * Nothing here touches `:root`. `src/app/typography-first/layout.tsx` applies
+ * this class to a wrapper around the route subtree only.
+ *
+ * Brief in one line: type IS the design — huge expressive letterforms as the
+ * dominant hierarchy device, poster-art confidence, minimal ornament. Palette
+ * is a silkscreen-poster system (warm charcoal ground, bone-paper reversals,
+ * a hot coral "shout" ink, a warm ochre second voice, a quiet moss whisper) —
+ * deliberately NOT cream+serif+terracotta, NOT near-black+single-neon-accent,
+ * NOT newspaper hairline columns.
+ */
+
+.theme-typography-first {
+  /* Warm charcoal ground — not pure black, has a whisper of red-brown */
+  --background: oklch(0.19 0.012 55);
+  --foreground: oklch(0.96 0.014 85);
+  --card: oklch(0.22 0.014 55);
+  --card-foreground: oklch(0.96 0.014 85);
+  --popover: oklch(0.22 0.014 55);
+  --popover-foreground: oklch(0.96 0.014 85);
+
+  /* Hot poster coral — the shout ink, lives INSIDE/BEHIND giant type */
+  --primary: oklch(0.62 0.21 33);
+  --primary-foreground: oklch(0.98 0.01 85);
+
+  /* Bone paper — used for reversed panels and the loudest headline fills */
+  --secondary: oklch(0.94 0.02 85);
+  --secondary-foreground: oklch(0.19 0.012 55);
+
+  /* Warm ochre — the second voice, sparing */
+  --accent: oklch(0.74 0.13 75);
+  --accent-foreground: oklch(0.19 0.012 55);
+
+  --muted: oklch(0.27 0.014 55);
+  --muted-foreground: oklch(0.74 0.02 80);
+  --destructive: oklch(0.58 0.19 27);
+
+  --border: oklch(0.32 0.016 55);
+  --input: oklch(0.32 0.016 55);
+  --ring: oklch(0.62 0.21 33);
+
+  --chart-1: oklch(0.62 0.21 33);
+  --chart-2: oklch(0.74 0.13 75);
+  --chart-3: oklch(0.5 0.06 130);
+  --chart-4: oklch(0.94 0.02 85);
+  --chart-5: oklch(0.4 0.02 55);
+
+  --radius: 2px;
+
+  /* Display = huge poster impact grotesk; Body = warm technical grotesk */
+  --font-heading: var(--font-anton), var(--font-sans), "Arial Narrow", sans-serif;
+  --font-body: var(--font-space-grotesk), var(--font-sans), sans-serif;
+
+  /* Typography-First material tokens */
+  --tf-coral: oklch(0.62 0.21 33);
+  --tf-ochre: oklch(0.74 0.13 75);
+  --tf-moss: oklch(0.5 0.06 130);
+  --tf-paper: oklch(0.94 0.02 85);
+  --tf-line: oklch(0.32 0.016 55);
+  --tf-ink: oklch(0.19 0.012 55);
+
+  --tf-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --tf-beat: 0.5s;
+}
+
+.theme-typography-first * {
+  font-family: var(--font-body);
+}
+
+.theme-typography-first h1,
+.theme-typography-first h2,
+.theme-typography-first h3,
+.theme-typography-first .tf-display {
+  font-family: var(--font-heading) !important;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
+.theme-typography-first h1 {
+  font-size: clamp(3.5rem, 12vw, 10rem);
+}
+
+.theme-typography-first h2 {
+  font-size: clamp(2.75rem, 8vw, 6rem);
+}
+
+.theme-typography-first h3 {
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  line-height: 1;
+}
+
+/* Body copy stays readable — grotesk, generous leading, never uppercase */
+.theme-typography-first p {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Structural eyebrow / stat labels — mono-ish tracked caps */
+.theme-typography-first .tf-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--tf-coral);
+}
+
+/* Giant ghost numerals used as a watermark behind section content */
+.theme-typography-first .tf-ghost-num {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--tf-line);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Coral fill spanning a word/phrase — the signature "shout" treatment */
+.theme-typography-first .tf-shout {
+  color: var(--tf-coral);
+}
+
+.theme-typography-first .tf-shout-bg {
+  background-color: var(--tf-coral);
+  color: var(--tf-ink);
+}
+
+.theme-typography-first .tf-paper-panel {
+  background-color: var(--tf-paper);
+  color: var(--tf-ink);
+}
+
+.theme-typography-first .tf-rule {
+  height: 2px;
+  width: 100%;
+  background: var(--tf-line);
+  border: 0;
+}
+
+/* Buttons: blunt rectangles, uppercase, high-impact hover invert */
+.theme-typography-first button,
+.theme-typography-first [data-slot="button"] {
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    transform var(--tf-beat) var(--tf-ease),
+    background-color var(--tf-beat) var(--tf-ease),
+    color var(--tf-beat) var(--tf-ease),
+    border-color var(--tf-beat) var(--tf-ease);
+}
+.theme-typography-first [data-slot="button"]:hover {
+  transform: translateY(-2px);
+}
+.theme-typography-first [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+.theme-typography-first [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--tf-line);
+  background: var(--card);
+}
+
+.theme-typography-first [data-slot="badge"] {
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theme-typography-first input,
+.theme-typography-first textarea {
+  font-family: var(--font-body);
+  transition:
+    border-color var(--tf-beat) var(--tf-ease),
+    background-color var(--tf-beat) var(--tf-ease);
+}
+
+/* One orchestrated hero entrance: a scale+reveal "slam" for the headline
+   words, staggered per line — the single signature motion moment. */
+@keyframes tf-slam-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-typography-first .tf-slam {
+  animation: tf-slam-in 0.8s var(--tf-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-typography-first .tf-slam {
+    animation: none;
+  }
+}

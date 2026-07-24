@@ -1,0 +1,209 @@
+/**
+ * Minimal theme (brief #07) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-minimal`. Nothing
+ * here touches `:root`. `src/app/minimal/layout.tsx` applies this class to a
+ * wrapper around the route's subtree; shadcn components read `var(--token)`
+ * and adopt these values only inside that subtree.
+ *
+ * Brief in one line: extreme reduction, maximum whitespace, essential only —
+ * stricter and colder than Japandi (no warmth, no clay, no wood-echo). So:
+ * paper-white and near-black only, a single cold indigo accent spent exactly
+ * twice on the whole page, hairline rules, no shadows, no radius, instant
+ * or near-instant motion rather than soft easing.
+ */
+
+.theme-minimal {
+  /* Paper-white / true ink — colder than japandi's warm linen+sumi-ink */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  /* The one scarce accent: cold indigo, spent twice only (hero + final CTA) */
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.145 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.56 0 0);
+  --destructive: oklch(0.55 0.09 25);
+
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0.145 0 0);
+
+  --chart-1: oklch(0.145 0 0);
+  --chart-2: oklch(0.56 0 0);
+  --chart-3: oklch(0.88 0 0);
+  --chart-4: oklch(0.97 0 0);
+  --chart-5: oklch(0.32 0.11 265);
+
+  /* No radius, no softness — a sharp architectural edge */
+  --radius: 0px;
+
+  --font-display: var(--font-instrument-sans), var(--font-sans), Helvetica, Arial, sans-serif;
+
+  /* Minimal-specific material tokens */
+  --mn-line: oklch(0.88 0 0);
+  --mn-secondary-text: oklch(0.56 0 0);
+  --mn-surface: oklch(0.97 0 0);
+  --mn-accent: oklch(0.32 0.11 265); /* the single cold indigo, used exactly twice */
+
+  --mn-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --mn-beat: 0.2s;
+}
+
+/* Scoped element/utility rules — only active under .theme-minimal */
+
+.theme-minimal h1,
+.theme-minimal h2,
+.theme-minimal h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.theme-minimal h1 {
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  line-height: 0.98;
+  font-weight: 200;
+  letter-spacing: -0.03em;
+}
+
+.theme-minimal h2 {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+}
+
+.theme-minimal h3 {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* Eyebrow / structural label — used only where content is genuinely a sequence */
+.theme-minimal .mn-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mn-secondary-text);
+}
+
+.theme-minimal .mn-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--mn-line);
+  border: 0;
+}
+
+/* The single accent, spent exactly twice: hero underline + final CTA */
+.theme-minimal .mn-accent {
+  color: var(--mn-accent);
+}
+.theme-minimal .mn-accent-bg {
+  background: var(--mn-accent);
+  color: oklch(1 0 0);
+}
+
+/* Numerals for genuinely sequential content (method steps) — bare, no accent */
+.theme-minimal .mn-num {
+  font-family: var(--font-display);
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  color: var(--mn-secondary-text);
+}
+
+/* Buttons: flat, sharp, near-instant state changes — no lift, no shadow */
+.theme-minimal button,
+.theme-minimal [data-slot="button"] {
+  border-radius: var(--radius);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  box-shadow: none;
+  transition:
+    background-color var(--mn-beat) var(--mn-ease),
+    color var(--mn-beat) var(--mn-ease),
+    border-color var(--mn-beat) var(--mn-ease),
+    opacity var(--mn-beat) var(--mn-ease);
+}
+.theme-minimal [data-slot="button"]:hover {
+  opacity: 0.75;
+}
+.theme-minimal [data-slot="button"]:active {
+  opacity: 0.6;
+}
+
+/* Cards: flat hairline surface, zero shadow, zero radius */
+.theme-minimal [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--mn-line);
+  background: var(--card);
+  box-shadow: none;
+}
+
+.theme-minimal [data-slot="badge"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--mn-line);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.theme-minimal input,
+.theme-minimal textarea {
+  border-radius: 0;
+  transition:
+    border-color var(--mn-beat) var(--mn-ease),
+    background-color var(--mn-beat) var(--mn-ease);
+}
+
+/* Entrance: a single, brief, near-instant appearance — never a soft breath */
+@keyframes mn-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.theme-minimal .mn-in {
+  animation: mn-appear 0.5s var(--mn-ease) both;
+}
+
+/* Signature moment: the hero underline stroke draws once, deliberately */
+@keyframes mn-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.theme-minimal .mn-draw {
+  transform-origin: left center;
+  animation: mn-draw 0.9s var(--mn-ease) 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-minimal .mn-in,
+  .theme-minimal .mn-draw {
+    animation: none;
+  }
+}

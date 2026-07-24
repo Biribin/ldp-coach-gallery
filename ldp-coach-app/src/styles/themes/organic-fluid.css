@@ -1,0 +1,252 @@
+/**
+ * Organic/Fluid theme (brief #22) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-organic-fluid` class selector. Nothing here ever touches `:root`.
+ * `src/app/organic-fluid/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route.
+ *
+ * Brief in one line: flowing blob shapes, natural curves, biomorphic layouts —
+ * water and wind-shaped forms, sections that blend into one another. Palette
+ * is a living sand/clay/moss system (rejecting both the cream+terracotta
+ * default and the pink-lavender "spa app" default): warm sand ground, deep
+ * moss ink, a single clay-orange pulse, sage and ochre as living secondary
+ * tones. Type pairs a soft, "wet"-feeling optical-size serif (Fraunces) with
+ * a rounded humanist sans (Nunito Sans) whose terminals echo the curve motif.
+ */
+
+.theme-organic-fluid {
+  /* Warm sand ground, deep moss ink — not pure white/black */
+  --background: oklch(0.96 0.018 85);
+  --foreground: oklch(0.29 0.03 145);
+  --card: oklch(0.985 0.012 88);
+  --card-foreground: oklch(0.29 0.03 145);
+  --popover: oklch(0.985 0.012 88);
+  --popover-foreground: oklch(0.29 0.03 145);
+
+  /* The one warm pulse: clay / burnt sienna */
+  --primary: oklch(0.62 0.14 39);
+  --primary-foreground: oklch(0.98 0.01 85);
+
+  /* Sage as the living secondary surface tone */
+  --secondary: oklch(0.86 0.045 135);
+  --secondary-foreground: oklch(0.29 0.03 145);
+  --accent: oklch(0.79 0.09 75);
+  --accent-foreground: oklch(0.29 0.03 145);
+
+  --muted: oklch(0.91 0.025 100);
+  --muted-foreground: oklch(0.46 0.035 140);
+  --destructive: oklch(0.56 0.16 30);
+
+  /* Soft borders — never a hard geometric line */
+  --border: oklch(0.85 0.03 100);
+  --input: oklch(0.85 0.03 100);
+  --ring: oklch(0.62 0.14 39);
+
+  --chart-1: oklch(0.62 0.14 39);
+  --chart-2: oklch(0.68 0.09 135);
+  --chart-3: oklch(0.79 0.09 75);
+  --chart-4: oklch(0.55 0.06 160);
+  --chart-5: oklch(0.88 0.03 90);
+
+  /* Everything rounds like water finding its shape */
+  --radius: 28px;
+
+  /* Fraunces (soft-optical, "wet" display serif) + Nunito Sans (rounded body) */
+  --font-heading: var(--font-fraunces), var(--font-sans), Georgia, serif;
+  --font-body: var(--font-nunito-sans), var(--font-sans), sans-serif;
+
+  /* Organic-specific material tokens */
+  --of-clay: oklch(0.62 0.14 39);
+  --of-sage: oklch(0.68 0.09 135);
+  --of-ochre: oklch(0.79 0.09 75);
+  --of-moss: oklch(0.4 0.05 145);
+  --of-teal: oklch(0.55 0.06 160);
+  --of-sand: oklch(0.96 0.018 85);
+  --of-sand-deep: oklch(0.91 0.025 100);
+
+  /* Diffuse, water-soft shadows — no hard offsets anywhere */
+  --of-shadow-soft: 0 8px 24px -12px oklch(0.29 0.03 145 / 0.18),
+    0 2px 8px -4px oklch(0.29 0.03 145 / 0.1);
+  --of-shadow-lift: 0 24px 56px -20px oklch(0.29 0.03 145 / 0.28),
+    0 6px 20px -8px oklch(0.29 0.03 145 / 0.16);
+
+  /* Motion that feels like water or breath — slow, fluid easing */
+  --of-ease: cubic-bezier(0.34, 1.02, 0.44, 1);
+  --of-flow: 1.4s;
+  --of-beat: 0.6s;
+}
+
+/* Scoped element/utility rules — only active under .theme-organic-fluid */
+
+.theme-organic-fluid {
+  font-family: var(--font-body);
+}
+
+.theme-organic-fluid h1,
+.theme-organic-fluid h2,
+.theme-organic-fluid h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+
+.theme-organic-fluid h1 {
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  font-weight: 480;
+  letter-spacing: -0.018em;
+  font-variation-settings: "SOFT" 60, "opsz" 144;
+}
+
+.theme-organic-fluid h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 460;
+  font-variation-settings: "SOFT" 45, "opsz" 60;
+}
+
+.theme-organic-fluid h3 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  font-weight: 500;
+  font-variation-settings: "SOFT" 30, "opsz" 24;
+}
+
+/* Small tracked labels, used only where content is genuinely sequential */
+.theme-organic-fluid .of-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--of-clay);
+}
+
+.theme-organic-fluid .of-serif-accent {
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+/* The signature: a continuously-morphing blob mask, used once in the hero */
+@keyframes of-blob-morph {
+  0% {
+    border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+  }
+  25% {
+    border-radius: 58% 42% 35% 65% / 60% 55% 45% 40%;
+  }
+  50% {
+    border-radius: 65% 35% 45% 55% / 40% 62% 38% 60%;
+  }
+  75% {
+    border-radius: 38% 62% 55% 45% / 55% 35% 65% 45%;
+  }
+  100% {
+    border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+  }
+}
+
+.theme-organic-fluid .of-blob {
+  border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+  animation: of-blob-morph 16s ease-in-out infinite;
+}
+
+.theme-organic-fluid .of-blob-slow {
+  border-radius: 58% 42% 35% 65% / 60% 55% 45% 40%;
+  animation: of-blob-morph 22s ease-in-out infinite reverse;
+}
+
+/* Entrance: a gentle rise-and-settle, used sparingly on the hero */
+@keyframes of-drift-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-organic-fluid .of-rise {
+  animation: of-drift-in 1.1s var(--of-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-organic-fluid .of-blob,
+  .theme-organic-fluid .of-blob-slow,
+  .theme-organic-fluid .of-rise {
+    animation: none;
+  }
+}
+
+/* Buttons: rounded fully, soft press, water-slow transitions */
+.theme-organic-fluid button,
+.theme-organic-fluid [data-slot="button"] {
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  transition:
+    transform var(--of-beat) var(--of-ease),
+    box-shadow var(--of-beat) var(--of-ease),
+    background-color var(--of-beat) var(--of-ease),
+    color var(--of-beat) var(--of-ease);
+}
+.theme-organic-fluid [data-slot="button"]:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: var(--of-shadow-soft);
+}
+.theme-organic-fluid [data-slot="button"]:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Cards: organic asymmetric rounding, soft lift, no hard edges */
+.theme-organic-fluid [data-slot="card"] {
+  border-radius: 32px 48px 32px 48px / 40px 32px 48px 32px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  background: var(--card);
+  box-shadow: var(--of-shadow-soft);
+  transition:
+    box-shadow var(--of-flow) var(--of-ease),
+    transform var(--of-flow) var(--of-ease),
+    border-radius var(--of-flow) var(--of-ease);
+}
+.theme-organic-fluid [data-slot="card"]:hover {
+  box-shadow: var(--of-shadow-lift);
+  border-radius: 48px 32px 48px 32px / 32px 48px 32px 48px;
+  transform: translateY(-4px);
+}
+
+.theme-organic-fluid [data-slot="badge"] {
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.theme-organic-fluid input,
+.theme-organic-fluid textarea {
+  border-radius: 20px;
+  transition:
+    border-color var(--of-beat) var(--of-ease),
+    background-color var(--of-beat) var(--of-ease),
+    box-shadow var(--of-beat) var(--of-ease);
+}
+.theme-organic-fluid input:focus-visible,
+.theme-organic-fluid textarea:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--of-clay) 30%, transparent);
+}
+
+/* Wave divider used to blend sections into one another instead of a hard cut */
+.theme-organic-fluid .of-wave-divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--of-sand-deep);
+}

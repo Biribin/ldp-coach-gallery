@@ -1,0 +1,327 @@
+/**
+ * Gradient Modern theme (brief #06) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-gradient-modern` class selector. Nothing here ever touches `:root`.
+ * `src/app/gradient-modern/layout.tsx` applies this class to a wrapper
+ * element around the route's subtree; shadcn components read `var(--token)`,
+ * so they automatically adopt these values inside that subtree only, with
+ * zero bleed to any other route. Reuses the same `.theme-<slug>` + nested
+ * layout pattern established by the neobrutalist / japandi reference routes.
+ *
+ * Brief in one line: sophisticated multi-stop gradients, depth through color
+ * transitions, soft glow, contemporary energy — color is *atmosphere*, not
+ * accent. So: the entire page surface is a sunrise→twilight gradient wash
+ * (kept high-lightness so deep plum ink stays legible everywhere); generous
+ * 20px radii; gradient-text overlines; solid coral primary with a coral→
+ * rose→violet gradient helper for high-energy CTAs; soft diffuse glow shadows;
+ * a contemporary geometric grotesque for headings; and liquid "breathing"
+ * ambient motion on the hero visual.
+ */
+
+.theme-gradient-modern {
+  /* Warm peach base — the flat color behind the atmospheric gradient image */
+  --background: oklch(0.96 0.05 50);
+  /* Deep plum-twilight ink, not pure black — readable across the light wash */
+  --foreground: oklch(0.26 0.05 305);
+
+  --card: oklch(0.99 0.01 68);
+  --card-foreground: oklch(0.26 0.05 305);
+  --popover: oklch(0.99 0.01 68);
+  --popover-foreground: oklch(0.26 0.05 305);
+
+  /* Vivid rose-coral primary — the energetic "start" hue of every gradient */
+  --primary: oklch(0.6 0.21 18);
+  --primary-foreground: oklch(0.99 0.01 68);
+
+  /* Soft violet secondary — the "cool" end of the spectrum, for calm surfaces */
+  --secondary: oklch(0.93 0.06 300);
+  --secondary-foreground: oklch(0.3 0.05 305);
+  /* Coral accent — mid-spectrum warmth for hover/emphasis */
+  --accent: oklch(0.7 0.17 38);
+  --accent-foreground: oklch(0.25 0.05 300);
+
+  --muted: oklch(0.95 0.04 55);
+  --muted-foreground: oklch(0.5 0.05 300);
+  --destructive: oklch(0.56 0.22 25);
+
+  /* Light, warm, softly present — gradient surfaces carry depth, not hard lines */
+  --border: oklch(0.88 0.05 45);
+  --input: oklch(0.9 0.05 45);
+  --ring: oklch(0.6 0.21 18);
+
+  /* Spectrum chart stops — the gradient's own stations, left(rose)→right(indigo) */
+  --chart-1: oklch(0.62 0.2 18);
+  --chart-2: oklch(0.7 0.17 38);
+  --chart-3: oklch(0.8 0.13 70);
+  --chart-4: oklch(0.65 0.16 320);
+  --chart-5: oklch(0.5 0.16 280);
+
+  /* Contemporary, welcoming — generous soft corners (vs japandi's 4px hairline) */
+  --radius: 20px;
+
+  /* Headings: contemporary geometric grotesque — set in the route layout */
+  --font-heading: var(--font-space-grotesk), var(--font-sans), system-ui, sans-serif;
+
+  /* Gradient Modern spectrum tokens */
+  --gm-peach: oklch(0.78 0.12 68); /* dawn warmth */
+  --gm-coral: oklch(0.7 0.17 38); /* morning heat */
+  --gm-rose: oklch(0.6 0.2 18); /* mid-sky rose */
+  --gm-magenta: oklch(0.58 0.2 340); /* late rose-magenta */
+  --gm-violet: oklch(0.58 0.2 320); /* dusk violet */
+  --gm-indigo: oklch(0.5 0.16 280); /* twilight depth */
+  --gm-ink: oklch(0.26 0.05 305); /* plum foreground */
+
+  /* Soft, diffuse glow — depth revealed through atmospheric color, not hard offset */
+  --gm-shadow-soft: 0 1px 2px oklch(0.4 0.08 300 / 0.08),
+    0 14px 36px -22px oklch(0.45 0.15 300 / 0.4),
+    0 6px 18px -14px oklch(0.6 0.2 25 / 0.28);
+  --gm-shadow-lift: 0 2px 6px oklch(0.4 0.08 300 / 0.12),
+    0 30px 60px -28px oklch(0.42 0.16 305 / 0.5),
+    0 12px 28px -16px oklch(0.6 0.2 25 / 0.38);
+  --gm-glow-ring: 0 0 0 4px oklch(0.6 0.2 25 / 0.18),
+    0 10px 30px -14px oklch(0.6 0.2 20 / 0.5);
+
+  /* "Flow like light" — smooth, liquid, ease-in-out-ish */
+  --gm-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --gm-beat: 0.9s;
+
+  /*
+   * Atmospheric page surface: a fixed-ish sunrise→twilight wash laid over the
+   * peach base. All layers are high-lightness (≥0.9) so the deep-plum ink
+   * stays readable at every scroll position; the radials sit warm-pink blooms
+   * at the top and a cool lavender bloom toward the bottom so the spectrum
+   * visibly *evolves* down the single-scroll arc.
+   */
+  background-color: var(--background);
+  background-image:
+    radial-gradient(58% 38% at 14% 6%, oklch(0.98 0.07 75 / 0.92), transparent 70%),
+    radial-gradient(48% 34% at 88% 12%, oklch(0.91 0.1 350 / 0.82), transparent 72%),
+    radial-gradient(54% 40% at 80% 94%, oklch(0.9 0.09 300 / 0.8), transparent 70%),
+    linear-gradient(
+      180deg,
+      oklch(0.97 0.05 55) 0%,
+      oklch(0.95 0.07 35) 32%,
+      oklch(0.94 0.08 350) 66%,
+      oklch(0.93 0.06 305) 100%
+    );
+  background-repeat: no-repeat;
+  /* Each layer spans the full content height → the wash lives across the
+   * whole continuous-scroll page, not a single viewport tile. */
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+
+/* Scoped element/utility rules — only active under .theme-gradient-modern */
+
+.theme-gradient-modern h1,
+.theme-gradient-modern h2,
+.theme-gradient-modern h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.theme-gradient-modern h1 {
+  font-size: clamp(2.75rem, 6vw, 5rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.theme-gradient-modern h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+}
+
+.theme-gradient-modern h3 {
+  font-size: 1.3rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+/* Gradient-text overline / eyebrow — the spectrum itself as a label */
+.theme-gradient-modern .gm-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    100deg,
+    var(--gm-coral),
+    var(--gm-rose) 45%,
+    var(--gm-violet) 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Spectrum-clipped text — for one or two high-energy headline/emphasis words */
+.theme-gradient-modern .gm-grad-text {
+  background-image: linear-gradient(
+    110deg,
+    var(--gm-coral),
+    var(--gm-rose) 38%,
+    var(--gm-magenta) 60%,
+    var(--gm-violet) 82%,
+    var(--gm-indigo)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* A soft pill that rides the gradient — for tags / step counters */
+.theme-gradient-modern .gm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--gm-rose) 22%, var(--border));
+  background-color: oklch(1 0 0 / 0.45);
+  background-image: linear-gradient(
+    120deg,
+    oklch(1 0 0 / 0.5),
+    oklch(0.99 0.04 60 / 0.18)
+  );
+  backdrop-filter: blur(6px);
+  color: var(--gm-ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* Buttons: smooth, soft, slightly lifted — primary stays solid coral (the
+ * gradient-start hue); use .gm-grad-btn for high-energy CTAs (hero + final). */
+.theme-gradient-modern button,
+.theme-gradient-modern [data-slot="button"] {
+  border-radius: var(--radius);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  transition:
+    transform var(--gm-beat) var(--gm-ease),
+    box-shadow var(--gm-beat) var(--gm-ease),
+    background-color var(--gm-beat) var(--gm-ease),
+    color var(--gm-beat) var(--gm-ease),
+    border-color var(--gm-beat) var(--gm-ease),
+    background-position var(--gm-beat) var(--gm-ease);
+}
+.theme-gradient-modern [data-slot="button"]:hover {
+  transform: translateY(-2px);
+}
+.theme-gradient-modern [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+/* Coral→rose→violet gradient CTA — paints over the solid primary color */
+.theme-gradient-modern .gm-grad-btn {
+  background-image: linear-gradient(
+    115deg,
+    var(--gm-coral),
+    var(--gm-rose) 42%,
+    var(--gm-violet) 88%
+  );
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  box-shadow: 0 12px 32px -14px oklch(0.6 0.2 20 / 0.6),
+    inset 0 1px 0 0 oklch(1 0 0 / 0.28);
+}
+.theme-gradient-modern .gm-grad-btn:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 20px 46px -16px oklch(0.62 0.2 15 / 0.72),
+    inset 0 1px 0 0 oklch(1 0 0 / 0.34);
+}
+
+/* Cards: warm-white surface with a faint directional wash, soft glow, lift */
+.theme-gradient-modern [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(in oklch, var(--border) 85%, transparent);
+  background-color: var(--card);
+  background-image: linear-gradient(
+    150deg,
+    oklch(1 0 0 / 0.55),
+    oklch(0.98 0.02 60 / 0.2)
+  );
+  box-shadow: var(--gm-shadow-soft);
+  transition:
+    box-shadow var(--gm-beat) var(--gm-ease),
+    transform var(--gm-beat) var(--gm-ease),
+    border-color var(--gm-beat) var(--gm-ease);
+}
+.theme-gradient-modern [data-slot="card"]:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--gm-shadow-lift);
+  border-color: color-mix(in oklch, var(--gm-rose) 30%, var(--border));
+}
+
+.theme-gradient-modern [data-slot="badge"] {
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(in oklch, var(--gm-rose) 25%, var(--border));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.theme-gradient-modern input,
+.theme-gradient-modern textarea {
+  border-radius: var(--radius);
+  transition:
+    border-color var(--gm-beat) var(--gm-ease),
+    box-shadow var(--gm-beat) var(--gm-ease),
+    background-color var(--gm-beat) var(--gm-ease),
+    color var(--gm-beat) var(--gm-ease);
+}
+
+/* Entrance: a liquid rise — more travel + a whisper of scale, smooth ease */
+@keyframes gm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-gradient-modern .gm-rise {
+  animation: gm-rise 0.9s var(--gm-ease) both;
+}
+
+/* Ambient "breathing" gradient — color that shifts and flows, applied to the
+ * hero visual. Animates background-position slowly; never on text. */
+@keyframes gm-breathe {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: saturate(1) brightness(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: saturate(1.08) brightness(1.04);
+  }
+}
+
+.theme-gradient-modern .gm-breathe {
+  background-size: 220% 220%;
+  animation: gm-breathe 16s var(--gm-ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-gradient-modern .gm-rise {
+    animation: none;
+  }
+  .theme-gradient-modern .gm-breathe {
+    animation: none;
+  }
+}

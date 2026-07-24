@@ -1,0 +1,312 @@
+/**
+ * Material theme (brief #24) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-material` class selector. Nothing here ever touches `:root`.
+ * `src/app/material/layout.tsx` applies this class to a wrapper element
+ * around the route's subtree; shadcn components read `var(--token)`, so they
+ * automatically adopt these values inside that subtree only, with zero bleed
+ * to any other route. Reuses the same `.theme-<slug>` + nested-layout pattern
+ * established by the japandi/neo-geo/bauhaus reference routes.
+ *
+ * Brief in one line: Google-inspired card surfaces, subtle elevation, bold yet
+ * systematic color, purposeful motion. So: a real dp0-dp5 elevation shadow
+ * scale (soft, layered, not the offset-block shadows of neobrutalist/bauhaus/
+ * neo-geo), a tonal violet-plum primary against warm coral tertiary accents on
+ * a lavender-tinted surface, pill-shaped interactive controls (999px radius —
+ * distinct from every other route's sharp or barely-rounded corners), and MD3
+ * "emphasized" easing driving state changes.
+ *
+ * Distinction vs. taken territory: japandi = clay-on-linen hairlines; neo-geo
+ * = cobalt/vermilion/amber flat blocks with offset snap-shadows; bauhaus = red/
+ * blue/yellow flat primary triad, zero radius, zero elevation. Material is the
+ * only route where depth comes from real soft shadow layering and color comes
+ * from a tonal container system (a color's own light "container" tint) rather
+ * than flat saturated blocking.
+ */
+
+.theme-material {
+  /* Lavender-tinted surface — MD3 "surface" tone, not a neutral white */
+  --background: oklch(0.975 0.008 300);
+  --foreground: oklch(0.22 0.03 295);
+  --card: oklch(0.99 0.004 300);
+  --card-foreground: oklch(0.22 0.03 295);
+  --popover: oklch(0.99 0.004 300);
+  --popover-foreground: oklch(0.22 0.03 295);
+
+  /* Primary: deep violet-plum — the load-bearing systematic hue */
+  --primary: oklch(0.4 0.15 295);
+  --primary-foreground: oklch(0.99 0.004 300);
+
+  /* Secondary: tonal lilac container — a lighter step of the same hue family */
+  --secondary: oklch(0.9 0.035 295);
+  --secondary-foreground: oklch(0.28 0.06 295);
+
+  /* Tertiary/accent: warm coral — the energetic counter-note on cards/CTAs */
+  --accent: oklch(0.72 0.19 35);
+  --accent-foreground: oklch(0.99 0.004 300);
+
+  --muted: oklch(0.94 0.012 300);
+  --muted-foreground: oklch(0.48 0.025 295);
+  --destructive: oklch(0.55 0.2 25);
+
+  /* Outline: MD3 uses a visible but quiet outline, not a hairline */
+  --border: oklch(0.85 0.02 295);
+  --input: oklch(0.85 0.02 295);
+  --ring: oklch(0.4 0.15 295);
+
+  /* Chart palette: primary / tertiary / tonal steps */
+  --chart-1: oklch(0.4 0.15 295);
+  --chart-2: oklch(0.72 0.19 35);
+  --chart-3: oklch(0.62 0.12 200);
+  --chart-4: oklch(0.9 0.035 295);
+  --chart-5: oklch(0.28 0.06 295);
+
+  /* Pill-shaped controls — MD3's signature fully-rounded interactive shape */
+  --radius: 999px;
+
+  /* Headings: geometric display face with real character — set via next/font */
+  --font-heading: var(--font-space-grotesk), var(--font-sans), system-ui, sans-serif;
+  --font-body: var(--font-sora), var(--font-sans), system-ui, sans-serif;
+
+  /* Material-specific tokens */
+  --md-primary: oklch(0.4 0.15 295);
+  --md-primary-container: oklch(0.9 0.035 295);
+  --md-tertiary: oklch(0.72 0.19 35);
+  --md-tertiary-container: oklch(0.93 0.05 40);
+  --md-success: oklch(0.7 0.13 155);
+  --md-success-container: oklch(0.92 0.045 155);
+  --md-surface: oklch(0.99 0.004 300);
+  --md-surface-dim: oklch(0.94 0.012 300);
+  --md-outline: oklch(0.85 0.02 295);
+  --md-ink: oklch(0.22 0.03 295);
+
+  /* Card radius steps — cards use a calmer radius than pill controls */
+  --md-radius-card: 20px;
+  --md-radius-card-lg: 28px;
+
+  /* MD3 emphasized easing + duration tokens */
+  --md-ease: cubic-bezier(0.2, 0, 0, 1);
+  --md-ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --md-fast: 0.2s;
+  --md-med: 0.32s;
+
+  /* dp0-dp5 elevation scale — the signature depth system for this route */
+  --md-elevation-0: none;
+  --md-elevation-1: 0 1px 2px 0 oklch(0.22 0.03 295 / 0.14),
+    0 1px 3px 1px oklch(0.22 0.03 295 / 0.1);
+  --md-elevation-2: 0 1px 2px 0 oklch(0.22 0.03 295 / 0.16),
+    0 2px 6px 2px oklch(0.22 0.03 295 / 0.12);
+  --md-elevation-3: 0 4px 8px 3px oklch(0.22 0.03 295 / 0.12),
+    0 1px 3px 0 oklch(0.22 0.03 295 / 0.18);
+  --md-elevation-4: 0 6px 10px 4px oklch(0.22 0.03 295 / 0.13),
+    0 2px 3px 0 oklch(0.22 0.03 295 / 0.2);
+  --md-elevation-5: 0 8px 14px 6px oklch(0.22 0.03 295 / 0.15),
+    0 4px 4px 0 oklch(0.22 0.03 295 / 0.22);
+}
+
+/* ---- Typography: clean, clear, approachable — organized and encouraging --- */
+
+.theme-material h1,
+.theme-material h2,
+.theme-material h3 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.015em;
+  text-transform: none;
+}
+
+.theme-material body,
+.theme-material p,
+.theme-material span,
+.theme-material label,
+.theme-material input,
+.theme-material textarea {
+  font-family: var(--font-body);
+}
+
+.theme-material h1 {
+  font-size: clamp(2.75rem, 6vw, 4.75rem);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.theme-material h2 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  line-height: 1.08;
+  font-weight: 600;
+}
+
+.theme-material h3 {
+  font-size: 1.15rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Eyebrow label: small tonal pill, not a tracked hairline caption */
+.theme-material .md-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--md-primary-container);
+  color: var(--md-primary);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---- Elevation utilities — the signature depth system --------------------- */
+
+.theme-material .md-elevation-1 {
+  box-shadow: var(--md-elevation-1);
+}
+.theme-material .md-elevation-2 {
+  box-shadow: var(--md-elevation-2);
+}
+.theme-material .md-elevation-3 {
+  box-shadow: var(--md-elevation-3);
+}
+.theme-material .md-elevation-4 {
+  box-shadow: var(--md-elevation-4);
+}
+.theme-material .md-elevation-5 {
+  box-shadow: var(--md-elevation-5);
+}
+
+/* ---- Components: cards lift, buttons are pills, motion is emphasized ------ */
+
+.theme-material button,
+.theme-material [data-slot="button"] {
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  transition:
+    transform var(--md-fast) var(--md-ease),
+    box-shadow var(--md-med) var(--md-ease),
+    background-color var(--md-fast) var(--md-ease-standard),
+    color var(--md-fast) var(--md-ease-standard);
+}
+.theme-material [data-slot="button"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--md-elevation-2);
+}
+.theme-material [data-slot="button"]:active {
+  transform: translateY(0);
+  box-shadow: var(--md-elevation-1);
+}
+
+/* Cards: soft dp1 resting elevation, lifts to dp3 on hover — the signature move */
+.theme-material [data-slot="card"] {
+  border-radius: var(--md-radius-card);
+  border-width: 0;
+  background: var(--card);
+  box-shadow: var(--md-elevation-1);
+  transition:
+    box-shadow var(--md-med) var(--md-ease),
+    transform var(--md-med) var(--md-ease);
+}
+.theme-material [data-slot="card"]:hover {
+  box-shadow: var(--md-elevation-3);
+  transform: translateY(-4px);
+}
+
+/*
+ * Featured/priority card outline. The base `[data-slot="card"]` rule above
+ * sets border-width:0 at (0,2,0) specificity, which out-specifies a plain
+ * `border-2` utility (0,1,0) — so the featured service card's intended
+ * primary outline never rendered. This scoped modifier restores it at
+ * matching specificity: MD3 marks a priority card with a 2px primary
+ * outline + resting dp3 elevation.
+ */
+.theme-material [data-slot="card"].md-card-featured {
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--md-primary);
+  box-shadow: var(--md-elevation-3);
+}
+.theme-material [data-slot="card"].md-card-featured:hover {
+  box-shadow: var(--md-elevation-4);
+}
+
+.theme-material [data-slot="badge"] {
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.theme-material input,
+.theme-material textarea {
+  border-radius: 14px;
+  transition:
+    border-color var(--md-fast) var(--md-ease-standard),
+    box-shadow var(--md-fast) var(--md-ease-standard);
+}
+.theme-material input:focus-visible,
+.theme-material textarea:focus-visible {
+  box-shadow: 0 0 0 3px var(--md-primary-container);
+}
+
+/* ---- Motion: cards rise into place, staggered — one orchestrated moment --- */
+
+@keyframes md-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-material .md-rise {
+  animation: md-rise-in var(--md-med) var(--md-ease) both;
+}
+
+/*
+ * Scroll-reveal — extends motion past the hero so the whole page has the
+ * brief's "purposeful, meaningful transitions" rather than front-loading
+ * every animation on load. CSS scroll-driven animation (view timeline):
+ * progressive-enhancement only, guarded by @supports; browsers without it
+ * simply render the element in its final state. No JS, no client component.
+ */
+@supports (animation-timeline: view()) {
+  .theme-material .md-reveal {
+    animation: md-rise-in 0.6s var(--md-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
+/* FAB pulse — used once, on the primary CTA, to draw the eye like a live control */
+@keyframes md-fab-pulse {
+  0%,
+  100% {
+    box-shadow: var(--md-elevation-3);
+  }
+  50% {
+    box-shadow: var(--md-elevation-5);
+  }
+}
+
+.theme-material .md-fab-pulse {
+  animation: md-fab-pulse 2.8s var(--md-ease-standard) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-material .md-rise,
+  .theme-material .md-reveal,
+  .theme-material .md-fab-pulse {
+    animation: none;
+  }
+  .theme-material [data-slot="card"]:hover,
+  .theme-material [data-slot="button"]:hover {
+    transform: none;
+  }
+}

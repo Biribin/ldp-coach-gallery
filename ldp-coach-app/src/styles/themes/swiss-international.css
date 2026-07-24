@@ -1,0 +1,266 @@
+/**
+ * Swiss/International theme (brief #21) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration in this file lives inside the
+ * `.theme-swiss-international` class selector. Nothing here ever touches
+ * `:root`. `src/app/swiss-international/layout.tsx` applies this class to a
+ * wrapper element around the route's subtree; shadcn components read
+ * `var(--token)`, so they automatically adopt these values inside that
+ * subtree only, with zero bleed to any other route.
+ *
+ * Brief in one line: rigorous 12-column grid, ultra-clean grotesque
+ * typography, objective clarity, a single decisive signal-red used only as
+ * a systematic organizational marker (column numerals, active states, the
+ * one rule that breaks white). Paper white / ink black / signal red / a
+ * visible cool-gray grid scaffold — never a second saturated hue, never
+ * softened corners, never eased-organic motion.
+ */
+
+.theme-swiss-international {
+  /* Paper / ink — pure, objective, no warmth */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  /* Signal red — the single systematic accent (Swiss postal/federal red) */
+  --primary: oklch(0.55 0.21 25);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Cool neutral grid-gray field, never warm */
+  --secondary: oklch(0.94 0 0);
+  --secondary-foreground: oklch(0.145 0 0);
+  --accent: oklch(0.55 0.21 25);
+  --accent-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.44 0 0);
+  --destructive: oklch(0.55 0.21 25);
+
+  /* Hairline grid rules — visible, structural, never decorative */
+  --border: oklch(0.7 0 0);
+  --input: oklch(0.7 0 0);
+  --ring: oklch(0.55 0.21 25);
+
+  --chart-1: oklch(0.55 0.21 25);
+  --chart-2: oklch(0.145 0 0);
+  --chart-3: oklch(0.62 0 0);
+  --chart-4: oklch(0.82 0 0);
+  --chart-5: oklch(0.94 0 0);
+
+  /* Zero radius: the grid has corners, not curves */
+  --radius: 0px;
+
+  /* Display: grotesque Black — set in the route layout */
+  --font-heading: var(--font-archivo), var(--font-sans), Helvetica, Arial, sans-serif;
+  --font-body: var(--font-plex-sans), var(--font-sans), Helvetica, Arial, sans-serif;
+
+  /* Swiss-specific material tokens */
+  --ch-red: oklch(0.55 0.21 25);
+  --ch-ink: oklch(0.145 0 0);
+  --ch-grid-line: oklch(0.7 0 0);
+  --ch-grid-field: oklch(0.94 0 0);
+  --ch-grid-field-2: oklch(0.145 0 0);
+
+  /* Snappy, exact — no organic easing */
+  --ch-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ch-beat: 0.18s;
+}
+
+/* Scoped element/utility rules — only active under .theme-swiss-international */
+
+.theme-swiss-international {
+  font-family: var(--font-body);
+}
+
+.theme-swiss-international h1,
+.theme-swiss-international h2,
+.theme-swiss-international h3 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.theme-swiss-international h1 {
+  font-size: clamp(3rem, 9vw, 8rem);
+  letter-spacing: -0.03em;
+}
+
+.theme-swiss-international h2 {
+  font-size: clamp(2rem, 5.5vw, 4rem);
+}
+
+.theme-swiss-international h3 {
+  font-size: 1.05rem;
+  letter-spacing: -0.005em;
+  line-height: 1.15;
+}
+
+/* The 12-column grid scaffold — the signature device. Visible column rules
+ * rendered as real hairlines, not implied by gutters. Numbered markers
+ * label each column like a printer's registration guide. */
+.theme-swiss-international .ch-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  position: relative;
+}
+
+.theme-swiss-international .ch-grid-lines {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.theme-swiss-international .ch-grid-lines > span {
+  border-left: 1px solid var(--ch-grid-line);
+  height: 100%;
+  opacity: 0.35;
+}
+
+.theme-swiss-international .ch-grid-lines > span:last-child {
+  border-right: 1px solid var(--ch-grid-line);
+}
+
+/* Column coordinate numerals — objective labeling, not decoration */
+.theme-swiss-international .ch-coord {
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ch-red);
+  font-variant-numeric: tabular-nums;
+}
+
+.theme-swiss-international .ch-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ch-red);
+  font-variant-numeric: tabular-nums;
+}
+
+.theme-swiss-international .ch-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  border: 0;
+}
+
+.theme-swiss-international .ch-rule-thick {
+  height: 3px;
+  width: 100%;
+  background: var(--ch-ink);
+  border: 0;
+}
+
+/* Oversized tabular numerals for the Method sequence — the grid made huge */
+.theme-swiss-international .ch-num {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--ch-red);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+/* Buttons: square, exact, no rounding, snap on interaction */
+.theme-swiss-international button,
+.theme-swiss-international [data-slot="button"] {
+  border-radius: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition:
+    transform var(--ch-beat) var(--ch-ease),
+    background-color var(--ch-beat) var(--ch-ease),
+    color var(--ch-beat) var(--ch-ease);
+}
+.theme-swiss-international [data-slot="button"]:hover {
+  transform: translateY(-2px);
+}
+.theme-swiss-international [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+/* Cards: hard-edged, hairline bordered, no shadow, no radius */
+.theme-swiss-international [data-slot="card"] {
+  border-radius: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  background: var(--card);
+  box-shadow: none;
+  transition: border-color var(--ch-beat) var(--ch-ease);
+}
+.theme-swiss-international [data-slot="card"]:hover {
+  border-color: var(--ch-red);
+}
+
+.theme-swiss-international [data-slot="badge"] {
+  border-radius: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theme-swiss-international input,
+.theme-swiss-international textarea {
+  border-radius: 0;
+  transition: border-color var(--ch-beat) var(--ch-ease);
+}
+
+/* Data/table rows — the Programs section departs from cards entirely */
+.theme-swiss-international .ch-row {
+  border-top: 1px solid var(--border);
+  transition: background-color var(--ch-beat) var(--ch-ease);
+}
+.theme-swiss-international .ch-row:hover {
+  background-color: var(--ch-grid-field);
+}
+.theme-swiss-international .ch-row:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Entrance: a single snap-into-grid moment, used only on the hero coordinate
+ * markers — precise and exact, never a soft fade. */
+@keyframes ch-snap-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-swiss-international .ch-snap {
+  animation: ch-snap-in 0.5s var(--ch-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-swiss-international .ch-snap {
+    animation: none;
+  }
+  .theme-swiss-international [data-slot="button"]:hover,
+  .theme-swiss-international [data-slot="card"]:hover {
+    transform: none;
+  }
+}
+
+/* Visible keyboard focus — square, high-contrast ring, no offset softening */
+.theme-swiss-international *:focus-visible {
+  outline: 2px solid var(--ch-red);
+  outline-offset: 2px;
+}

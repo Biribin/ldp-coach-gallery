@@ -1,0 +1,227 @@
+/**
+ * Flat theme (brief #14) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-flat`. Nothing here
+ * ever touches `:root`. `src/app/flat/layout.tsx` applies this class to a
+ * wrapper around the route's subtree, so shadcn components (which read
+ * `var(--token)`) adopt these values only inside that subtree.
+ *
+ * Brief in one line: zero shadows/depth, bold solid colors, simple
+ * iconography, crisp cleanliness. So: flat opaque color blocks with hard
+ * edges (no blur, no gradient, no shadow anywhere), a rounded-geometric
+ * display face (Fredoka) paired with a warm humanist body face (Nunito),
+ * and sections that butt directly against each other in solid color —
+ * color IS the section boundary, not a subtle background tint.
+ */
+
+.theme-flat {
+  /* Bright, open neutrals — the "canvas" the color blocks sit on */
+  --background: oklch(0.98 0.006 95);
+  --foreground: oklch(0.22 0.03 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 265);
+
+  /* Primary: confident cobalt blue — trust + energy */
+  --primary: oklch(0.55 0.19 265);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary: sunflower yellow block */
+  --secondary: oklch(0.85 0.16 95);
+  --secondary-foreground: oklch(0.22 0.03 265);
+
+  /* Accent: coral — the CTA/energy color */
+  --accent: oklch(0.68 0.19 25);
+  --accent-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.95 0.01 95);
+  --muted-foreground: oklch(0.46 0.02 265);
+  --destructive: oklch(0.58 0.22 25);
+
+  /* Flat has no soft hairlines — borders are deliberate, solid, 2px+ */
+  --border: oklch(0.22 0.03 265 / 0.12);
+  --input: oklch(0.22 0.03 265 / 0.16);
+  --ring: oklch(0.55 0.19 265);
+
+  /* Bold flat chart set: blue, yellow, coral, green, ink */
+  --chart-1: oklch(0.55 0.19 265);
+  --chart-2: oklch(0.85 0.16 95);
+  --chart-3: oklch(0.68 0.19 25);
+  --chart-4: oklch(0.64 0.17 150);
+  --chart-5: oklch(0.22 0.03 265);
+
+  /* Crisp cleanliness: small consistent radius, never soft/blobby */
+  --radius: 10px;
+
+  --font-heading: var(--font-fredoka), var(--font-sans), sans-serif;
+  --font-body: var(--font-nunito), var(--font-sans), sans-serif;
+
+  /* Flat-specific solid palette tokens (named, not gradients) */
+  --flat-blue: oklch(0.55 0.19 265);
+  --flat-blue-ink: oklch(0.32 0.13 265);
+  --flat-yellow: oklch(0.85 0.16 95);
+  --flat-coral: oklch(0.68 0.19 25);
+  --flat-green: oklch(0.64 0.17 150);
+  --flat-ink: oklch(0.22 0.03 265);
+  --flat-paper: oklch(0.98 0.006 95);
+
+  --flat-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --flat-beat: 0.2s;
+}
+
+/* Typography: rounded geometric display, zero decorative flourish */
+.theme-flat h1,
+.theme-flat h2,
+.theme-flat h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.theme-flat h1 {
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  font-weight: 700;
+}
+
+.theme-flat h2 {
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-weight: 600;
+}
+
+.theme-flat h3 {
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+.theme-flat body,
+.theme-flat p,
+.theme-flat span,
+.theme-flat li,
+.theme-flat label,
+.theme-flat input {
+  font-family: var(--font-body);
+}
+
+.theme-flat .flat-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Zero depth: flatten every shadcn primitive to a hard, flat plane */
+.theme-flat [data-slot="card"],
+.theme-flat [data-slot="button"],
+.theme-flat [data-slot="badge"],
+.theme-flat input,
+.theme-flat textarea {
+  box-shadow: none !important;
+  background-image: none;
+}
+
+.theme-flat [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--flat-ink);
+  transition:
+    transform var(--flat-beat) var(--flat-ease),
+    background-color var(--flat-beat) var(--flat-ease);
+}
+
+.theme-flat [data-slot="card"]:hover {
+  transform: translate(-2px, -2px);
+}
+
+.theme-flat [data-slot="button"] {
+  border-radius: var(--radius);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  transition:
+    transform var(--flat-beat) var(--flat-ease),
+    background-color var(--flat-beat) var(--flat-ease),
+    color var(--flat-beat) var(--flat-ease);
+}
+
+.theme-flat [data-slot="button"]:hover {
+  transform: translateY(-2px);
+}
+
+.theme-flat [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+.theme-flat [data-slot="badge"] {
+  border-radius: 9999px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--flat-ink);
+  font-weight: 700;
+}
+
+.theme-flat input,
+.theme-flat textarea {
+  border-radius: var(--radius);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--flat-ink);
+  transition: background-color var(--flat-beat) var(--flat-ease);
+}
+
+/* Signature element: the flat "dial" — a solid-color circular numeral badge
+ * with a hard ink ring, no gradient/shadow, used for the Method sequence. */
+.theme-flat .flat-dial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  border: 3px solid var(--flat-ink);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.375rem;
+  flex-shrink: 0;
+}
+
+/* Simple flat iconography strokes — used by inline SVG icons in this page */
+.theme-flat .flat-icon {
+  stroke: var(--flat-ink);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* One orchestrated entrance moment on the hero — snappy, not soft */
+@keyframes flat-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-flat .flat-pop {
+  animation: flat-pop-in 0.5s var(--flat-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-flat .flat-pop,
+  .theme-flat [data-slot="card"],
+  .theme-flat [data-slot="button"] {
+    animation: none !important;
+    transition: none !important;
+  }
+}

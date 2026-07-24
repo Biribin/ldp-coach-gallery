@@ -1,0 +1,257 @@
+/**
+ * Metropolitan theme (brief #25) — route-scoped token overrides.
+ *
+ * ISOLATION SEAM: every declaration lives inside `.theme-metropolitan`.
+ * Nothing here touches `:root`. `src/app/metropolitan/layout.tsx` applies
+ * this class to a wrapper around the route's subtree.
+ *
+ * Brief in one line: urban sophistication, cultural depth, editorial-meets-
+ * city energy. So: a near-black ink-navy base (not pure black), a warm brass
+ * accent as the signature hue, a bordeaux secondary for cultural richness,
+ * and a persistent vertical "avenue line" motif running the length of the
+ * page like a street dividing districts.
+ */
+
+.theme-metropolitan {
+  /* Ink-navy night base — never pure black, carries a cool blue cast */
+  --background: oklch(0.19 0.02 265);
+  --foreground: oklch(0.93 0.014 80);
+  --card: oklch(0.23 0.022 264);
+  --card-foreground: oklch(0.93 0.014 80);
+  --popover: oklch(0.23 0.022 264);
+  --popover-foreground: oklch(0.93 0.014 80);
+
+  /* The signature accent: warm brass/gold */
+  --primary: oklch(0.72 0.11 78);
+  --primary-foreground: oklch(0.16 0.02 264);
+
+  /* Bordeaux secondary — cultural depth, used with restraint */
+  --secondary: oklch(0.32 0.09 18);
+  --secondary-foreground: oklch(0.93 0.014 80);
+  --accent: oklch(0.72 0.11 78);
+  --accent-foreground: oklch(0.16 0.02 264);
+
+  --muted: oklch(0.27 0.018 264);
+  --muted-foreground: oklch(0.63 0.02 265);
+  --destructive: oklch(0.58 0.16 25);
+
+  --border: oklch(0.34 0.02 264);
+  --input: oklch(0.34 0.02 264);
+  --ring: oklch(0.72 0.11 78);
+
+  --chart-1: oklch(0.72 0.11 78);
+  --chart-2: oklch(0.5 0.1 18);
+  --chart-3: oklch(0.63 0.02 265);
+  --chart-4: oklch(0.4 0.03 264);
+  --chart-5: oklch(0.85 0.03 80);
+
+  --radius: 2px;
+
+  /* Display: confident contemporary grotesk with editorial character */
+  --font-heading: var(--font-bricolage), var(--font-sans), sans-serif;
+  --font-body: var(--font-manrope), var(--font-sans), sans-serif;
+
+  /* Metropolitan-specific material tokens */
+  --met-brass: oklch(0.72 0.11 78);
+  --met-bordeaux: oklch(0.5 0.1 18);
+  --met-bordeaux-deep: oklch(0.32 0.09 18);
+  --met-steel: oklch(0.63 0.02 265);
+  --met-surface-raised: oklch(0.27 0.018 264);
+  --met-line: oklch(0.4 0.03 264);
+
+  --met-shadow: 0 24px 60px -32px oklch(0.05 0.02 264 / 0.65);
+  --met-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --met-beat: 0.5s;
+}
+
+.theme-metropolitan body {
+  font-family: var(--font-body);
+}
+
+.theme-metropolitan h1,
+.theme-metropolitan h2,
+.theme-metropolitan h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.theme-metropolitan h1 {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.theme-metropolitan h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.theme-metropolitan h3 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+/* The signature: a persistent vertical "avenue line" spine with cross-street
+ * ticks, running the height of a section. Applied to a positioned wrapper. */
+.theme-metropolitan .met-avenue {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--met-line) 8%,
+    var(--met-line) 92%,
+    transparent
+  );
+}
+
+.theme-metropolitan .met-avenue::before,
+.theme-metropolitan .met-avenue::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  width: 7px;
+  height: 1px;
+  background: var(--met-brass);
+}
+.theme-metropolitan .met-avenue::before {
+  top: 8%;
+}
+.theme-metropolitan .met-avenue::after {
+  bottom: 8%;
+}
+
+/* District marker — small tracked label paired with a brass tick,
+ * used only where content is genuinely sequential (method, services). */
+.theme-metropolitan .met-district {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--met-brass);
+}
+.theme-metropolitan .met-district::before {
+  content: "";
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--met-brass);
+}
+
+.theme-metropolitan .met-serif-accent {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.theme-metropolitan .met-hairline {
+  height: 1px;
+  width: 100%;
+  background: var(--met-line);
+  border: 0;
+}
+
+/* Buttons: sharp corners, brass fill, quick confident transition */
+.theme-metropolitan button,
+.theme-metropolitan [data-slot="button"] {
+  border-radius: var(--radius);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    transform var(--met-beat) var(--met-ease),
+    box-shadow var(--met-beat) var(--met-ease),
+    background-color var(--met-beat) var(--met-ease),
+    border-color var(--met-beat) var(--met-ease);
+}
+.theme-metropolitan [data-slot="button"]:hover {
+  transform: translateY(-2px);
+}
+.theme-metropolitan [data-slot="button"]:active {
+  transform: translateY(0);
+}
+
+/* Cards: raised ink surface, brass hairline on hover, deep drop shadow */
+.theme-metropolitan [data-slot="card"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--met-line);
+  background: var(--card);
+  box-shadow: var(--met-shadow);
+  transition:
+    border-color var(--met-beat) var(--met-ease),
+    transform var(--met-beat) var(--met-ease);
+}
+.theme-metropolitan [data-slot="card"]:hover {
+  border-color: color-mix(in oklch, var(--met-brass) 45%, var(--met-line));
+  transform: translateY(-4px);
+}
+
+.theme-metropolitan [data-slot="badge"] {
+  border-radius: var(--radius);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--met-brass);
+  color: var(--met-brass);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+}
+
+.theme-metropolitan input,
+.theme-metropolitan textarea {
+  border-radius: var(--radius);
+  transition:
+    border-color var(--met-beat) var(--met-ease),
+    background-color var(--met-beat) var(--met-ease);
+}
+
+/* Entrance: a single confident rise-and-settle for the hero only */
+@keyframes met-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-metropolitan .met-rise {
+  animation: met-rise-in 0.9s var(--met-ease) both;
+}
+
+@keyframes met-line-draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.theme-metropolitan .met-line-draw {
+  transform-origin: top;
+  animation: met-line-draw 1.4s var(--met-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-metropolitan .met-rise,
+  .theme-metropolitan .met-line-draw {
+    animation: none;
+  }
+}

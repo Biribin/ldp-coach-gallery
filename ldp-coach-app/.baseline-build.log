@@ -1,0 +1,27 @@
+
+> ldp-coach-app@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/app/gradient-modern/page.tsx:12:1
+Module not found: Can't resolve './ContactForm'
+  [90m10 |[0m [36mimport[0m { [33mGradientBlock[0m, [33mShapeGraphic[0m, [33mAvatarBlob[0m } [36mfrom[0m [32m"@/components/placeholders"[0m;
+  [90m11 |[0m [36mimport[0m { coachContent } [36mfrom[0m [32m"@/lib/content"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { [33mContactForm[0m } [36mfrom[0m [32m"./ContactForm"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m /**
+  [90m15 |[0m  * [33mGradient[0m [33mModern[0m page (brief #[35m06[0m) — color [36mas[0m atmosphere, not accent.
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./src/app/gradient-modern/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
