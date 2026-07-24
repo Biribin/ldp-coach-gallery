@@ -100,7 +100,7 @@
 }
 
 .theme-retro-futuristic h1 {
-  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
   letter-spacing: 0.01em;
   background: linear-gradient(
     92deg,
@@ -300,8 +300,91 @@
   animation: rf-rise-in 0.9s var(--rf-ease) both;
 }
 
+/* Scroll-driven entrance reveal — carries motion past the hero without JS.
+ * Defaults to the FINAL visible state so unsupported browsers show content;
+ * only browsers with scroll-linked animation support get the reveal. */
+.theme-retro-futuristic .rf-reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .theme-retro-futuristic .rf-reveal {
+    animation: rf-rise-in 0.7s var(--rf-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+/* ── Testimonials: "signal log" — a synthwave broadcast readout.
+ * Full-bleed horizon-dark band; each quote is a scanline transmission row
+ * with a glowing channel index + chrome callsign, NOT a card grid. */
+.theme-retro-futuristic .rf-log {
+  position: relative;
+  border-block: 1px solid var(--rf-hairline);
+  background: linear-gradient(
+    180deg,
+    var(--rf-night-deep) 0%,
+    oklch(0.14 0.05 320) 100%
+  );
+}
+
+.theme-retro-futuristic .rf-log::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    oklch(0.78 0.16 195 / 0.05) 3px,
+    oklch(0.78 0.16 195 / 0.05) 4px
+  );
+  opacity: 0.6;
+}
+
+.theme-retro-futuristic .rf-signal {
+  position: relative;
+  transition: background-color var(--rf-beat) var(--rf-ease);
+}
+
+.theme-retro-futuristic .rf-signal + .rf-signal {
+  border-top: 1px solid var(--rf-hairline);
+}
+
+.theme-retro-futuristic .rf-signal:hover {
+  background-color: oklch(0.78 0.16 195 / 0.04);
+}
+
+/* Live status dot pulsing beside the log header */
+.theme-retro-futuristic .rf-live {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--rf-magenta);
+  box-shadow: var(--rf-glow-magenta);
+  animation: rf-blink 1.6s steps(1, end) infinite;
+}
+
+@keyframes rf-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-retro-futuristic .rf-rise {
+  .theme-retro-futuristic .rf-rise,
+  .theme-retro-futuristic .rf-reveal {
     animation: none;
+  }
+  .theme-retro-futuristic .rf-live {
+    animation: none;
+    opacity: 1;
   }
 }

@@ -26,172 +26,172 @@ export const styles: StyleEntry[] = [
   {
     slug: "neobrutalist",
     name: "Neobrutalist",
-    description: "Raw, bold, high-contrast structure",
+    description: "Structure brute, affirmée, à fort contraste",
     briefNumber: 17,
   },
   {
     slug: "japandi",
     name: "Japandi",
-    description: "Japanese restraint × Scandinavian warmth — calm, warm minimalism",
+    description: "Sobriété japonaise × chaleur scandinave — un minimalisme calme et chaleureux",
     briefNumber: 1,
   },
   {
     slug: "gradient-modern",
     name: "Gradient Modern",
-    description: "Sophisticated multi-stop gradients — color as atmosphere, soft glow, contemporary energy",
+    description: "Dégradés multi-tons sophistiqués — la couleur comme atmosphère, halo doux, énergie contemporaine",
     briefNumber: 6,
   },
   {
     slug: "editorial",
     name: "Editorial",
-    description: "Magazine-inspired feature story — display serif, multi-column type, drop caps and pull quotes",
+    description: "Reportage inspiré de la presse magazine — serif display, colonnes multiples, lettrines et citations",
     briefNumber: 3,
   },
   {
     slug: "neo-geo",
     name: "Neo-Geo",
     description:
-      "Refined geometric patterns, mathematical rhythm, precise color-blocked shapes",
+      "Motifs géométriques raffinés, rythme mathématique, aplats de couleur précis",
     briefNumber: 2,
   },
   {
     slug: "bauhaus",
     name: "Bauhaus",
     description:
-      "Primary colors, pure geometric shapes on a strict grid — form follows function",
+      "Couleurs primaires, formes géométriques pures sur grille stricte — la forme suit la fonction",
     briefNumber: 5,
   },
   {
     slug: "corporate-professional",
     name: "Corporate Professional",
     description:
-      "Trust-building navy and cobalt, letterhead ledger, refined institutional authority",
+      "Bleu marine et cobalt qui inspirent confiance, registre à en-tête, autorité institutionnelle raffinée",
     briefNumber: 9,
   },
   {
     slug: "glassmorphism",
     name: "Glassmorphism",
     description:
-      "Translucent layered panels, backdrop blur, luminous depth over colorful backgrounds",
+      "Panneaux translucides superposés, flou d'arrière-plan, profondeur lumineuse sur fonds colorés",
     briefNumber: 10,
   },
   {
     slug: "minimal",
     name: "Minimal",
     description:
-      "Extreme reduction, maximum whitespace, a single cold accent spent twice",
+      "Réduction extrême, espace blanc maximal, une seule touche froide utilisée deux fois",
     briefNumber: 7,
   },
   {
     slug: "retro-futuristic",
     name: "Retro-futuristic",
     description:
-      "80s vision of the future — neon accents, chrome gradients, refined nostalgia",
+      "Vision du futur façon années 80 — néons, dégradés chromés, nostalgie raffinée",
     briefNumber: 8,
   },
   {
     slug: "art-deco",
     name: "Art Deco",
     description:
-      "Ornamental geometry, gold accents and symmetry — vintage luxury and glamour",
+      "Géométrie ornementale, touches dorées et symétrie — luxe et glamour vintage",
     briefNumber: 13,
   },
   {
     slug: "scandinavian",
     name: "Scandinavian",
     description:
-      "Hygge warmth, natural materials and soft neutrals — cozy, human minimalism",
+      "Chaleur hygge, matériaux naturels et neutres doux — un minimalisme cocooning et humain",
     briefNumber: 11,
   },
   {
     slug: "tech-forward",
     name: "Tech Forward",
     description:
-      "Precise, engineered, future-focused — fine grids, mono details, sharp modern UI",
+      "Précis, conçu comme une ingénierie, tourné vers l'avenir — grilles fines, détails mono, interface moderne et nette",
     briefNumber: 15,
   },
   {
     slug: "flat",
     name: "Flat",
     description:
-      "No depth, bold solid colors and simple iconography — crisp and clean",
+      "Sans profondeur, couleurs franches et iconographie simple — net et épuré",
     briefNumber: 14,
   },
   {
     slug: "kinetic",
     name: "Kinetic",
     description:
-      "Motion-driven energy — controlled animation, dynamic diagonals, athletic drive",
+      "Énergie portée par le mouvement — animation maîtrisée, diagonales dynamiques, élan athlétique",
     briefNumber: 12,
   },
   {
     slug: "monochromatic",
     name: "Monochromatic",
     description:
-      "One hue in many tonal steps — depth through tone, not color variety",
+      "Une seule teinte en de multiples nuances — la profondeur par le ton, non par la variété",
     briefNumber: 16,
   },
   {
     slug: "luxury-minimal",
     name: "Luxury Minimal",
     description:
-      "Premium restraint, generous space and refined detail — expensive silence",
+      "Sobriété premium, espace généreux et détails raffinés — un silence qui a du prix",
     briefNumber: 19,
   },
   {
     slug: "material",
     name: "Material",
     description:
-      "Elevation shadows, tonal surfaces and pill controls — MD3 motion and depth",
+      "Ombres d'élévation, surfaces tonales et contrôles en pilule — mouvement et profondeur MD3",
     briefNumber: 24,
   },
   {
     slug: "metropolitan",
     name: "Metropolitan",
     description:
-      "Urban sophistication — ink-navy, warm brass and bordeaux, cultured nightlife",
+      "Sophistication urbaine — bleu encre, laiton chaud et bordeaux, vie nocturne raffinée",
     briefNumber: 25,
   },
   {
     slug: "neumorphic",
     name: "Neumorphic",
     description:
-      "Soft extruded surfaces, dual light-and-dark shadows — tactile monochrome",
+      "Surfaces extrudées tout en douceur, ombres claires et sombres — un monochrome tactile",
     briefNumber: 20,
   },
   {
     slug: "swiss-international",
     name: "Swiss / International",
     description:
-      "Strict modular grid, systematic hierarchy — ultra-clean typographic discipline",
+      "Grille modulaire stricte, hiérarchie systématique — une discipline typographique ultra-nette",
     briefNumber: 21,
   },
   {
     slug: "typography-first",
     name: "Typography First",
     description:
-      "Type as the hero — huge expressive letterforms, dramatic scale contrast",
+      "La typographie en vedette — lettrages géants et expressifs, contrastes d'échelle spectaculaires",
     briefNumber: 23,
   },
   {
     slug: "dark-mode-first",
     name: "Dark Mode First",
     description:
-      "Designed dark-first — layered near-black surfaces, luminous accents, nocturnal elegance",
+      "Pensé dark-first — surfaces quasi noires superposées, accents lumineux, élégance nocturne",
     briefNumber: 4,
   },
   {
     slug: "modernist",
     name: "Modernist",
     description:
-      "Timeless clean lines, functional beauty and restrained palette — classic proportions",
+      "Lignes épurées et intemporelles, beauté fonctionnelle et palette sobre — des proportions classiques",
     briefNumber: 18,
   },
   {
     slug: "organic-fluid",
     name: "Organic / Fluid",
     description:
-      "Flowing blob shapes, natural curves and soft transitions — biomorphic layouts",
+      "Formes fluides et organiques, courbes naturelles et transitions douces — des mises en page biomorphiques",
     briefNumber: 22,
   },
 ];

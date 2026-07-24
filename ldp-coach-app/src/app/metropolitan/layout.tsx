@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces, Manrope } from "next/font/google";
 
 /**
  * `next/font` self-hosts Google fonts at build time — no remote <link> tag,
  * no runtime network request. The brief asks for a "sophisticated, confident,
  * cultured" voice with an urban edge; Bricolage Grotesque carries that in
  * headings (a contemporary grotesk with editorial ink-trap character), while
- * Manrope stays clean and warm-neutral for body copy. Same route-scoped
- * seam the japandi reference establishes.
+ * Manrope stays clean and warm-neutral for body copy. Fraunces supplies the
+ * genuine cultured serif register the brief calls for — used only on the
+ * editorial "serif accent" (district numerals, prices, pull-quote marks) so
+ * the metropolitan voice has both a modern grotesk and an old-city serif.
+ * Same route-scoped seam the japandi reference establishes.
  */
 const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["italic", "normal"],
 });
 
 const manrope = Manrope({
@@ -20,9 +29,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Metropolitan — Fitness Coach Landing Page Gallery",
+  title: "Metropolitan — Galerie de landing pages coach fitness",
   description:
-    "Metropolitan-styled landing page concept: urban sophistication and cultural depth — cosmopolitan, layered, editorial-meets-city energy.",
+    "Concept de landing page façon Metropolitan : sophistication urbaine et profondeur culturelle — cosmopolite, superposé, entre énergie éditoriale et vie citadine.",
 };
 
 /**
@@ -38,7 +47,7 @@ export default function MetropolitanLayout({
 }>) {
   return (
     <div
-      className={`theme-metropolitan ${bricolageGrotesque.variable} ${manrope.variable} min-h-screen bg-background text-foreground antialiased`}
+      className={`theme-metropolitan ${bricolageGrotesque.variable} ${fraunces.variable} ${manrope.variable} min-h-screen bg-background text-foreground antialiased`}
     >
       {children}
     </div>

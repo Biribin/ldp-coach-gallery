@@ -19,9 +19,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Dark Mode First — Fitness Coach Landing Page Gallery",
+  title: "Dark Mode First — Galerie de landing pages coach fitness",
   description:
-    "Dark Mode First styled landing page concept: designed dark-first, layered tonal elevation, luminous copper and cold-precision accents against near-black.",
+    "Concept de landing page façon Dark Mode First : pensé dark-first, élévation tonale par couches, accents cuivrés lumineux sur fond quasi noir.",
 };
 
 /**

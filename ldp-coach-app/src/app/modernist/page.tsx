@@ -1,32 +1,31 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { GradientBlock, ShapeGraphic, AvatarBlob } from "@/components/placeholders";
+import { AvatarBlob } from "@/components/placeholders";
 import { coachContent } from "@/lib/content";
 import { ContactForm } from "./ContactForm";
 
 /**
  * Modernist page (brief #18) — mid-century clean lines, functional beauty,
- * timeless proportion. Renders the same eight-section arc as the japandi
- * reference (hero -> coach intro -> method -> services -> benefits ->
- * testimonials -> CTA -> contact), sourcing every line of copy from
- * `coachContent` and every image from the offline placeholder primitives.
- * The theme scope (`.theme-modernist`) is applied by the parent route
- * layout, not here.
+ * timeless proportion. Sources every line of copy from `coachContent` and
+ * every image from the offline placeholder primitives. The theme scope
+ * (`.theme-modernist`) is applied by the parent route layout, not here.
  *
- * Composition intent: this is mid-century (Eames/Knoll), not 1920s Bauhaus
- * and not 1960s Swiss grid-math — both already exist as separate routes in
- * this gallery. The signature device is the "shelf datum": a horizontal rule
- * with two rectangular pegs, standing in for modular-furniture joinery,
- * recurring as the only section divider. The hero breaks from centered
- * convention with a deliberate asymmetric split; services breaks the 3-card
- * grid into an uneven 5/7 column composition; testimonials run as a dense
- * stacked ledger rather than cards, for rhythm variety across the page.
+ * DEEP RECOMPOSE — the point of this page is COMPOSITION, not color:
+ *
+ *  • Signature (one loud gesture): the hero is a real "specimen cabinet" — a
+ *    mid-century modular storage wall of UNEQUAL cells (Eames/Nelson units):
+ *    a wood panel, a teal-tint field, a stat cell, a peg. Nothing else on the
+ *    page shouts, so the cabinet reads.
+ *  • The "shelf datum" hairline-with-pegs is demoted to quiet section joinery.
+ *  • A running catalog index (Fig. 01 … Fig. 07) threads the sections like a
+ *    furniture-catalog specimen list.
+ *  • Every section has genuinely different geometry: cabinet (hero) → offset
+ *    editorial 4/8 (intro) → horizontal numbered datum-band (method) → uneven
+ *    feature-plus-ledger 5/7 (services) → hairline pegboard modules
+ *    (benefits) → asymmetric numbered specimen ledger, one lead quote + two
+ *    stacked (testimonials, NOT a 3-card grid) → flat walnut band (CTA) →
+ *    offset form (contact). No two sections repeat a card-grid recipe.
+ *  • Motion: hero rises on load; every below-hero section reveals on scroll
+ *    via CSS scroll-driven timelines (no JS), disabled under reduced-motion.
  */
 export default function ModernistPage() {
   const {
@@ -42,14 +41,16 @@ export default function ModernistPage() {
     contact,
   } = coachContent;
 
+  const [leadTestimonial, ...restTestimonials] = testimonials.quotes;
+
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-24 px-6 py-20 sm:gap-32 sm:px-10 sm:py-28">
-      {/* 1. Hero — a thesis, not a centered title: asymmetric split, the
-          headline set hard against the left edge while a wood-tone block
-          anchors the right, breaking the grid immediately. */}
-      <section className="grid grid-cols-1 gap-10 pt-4 sm:grid-cols-12 sm:gap-8 sm:pt-8">
-        <div className="mo-rise sm:col-span-7">
-          <span className="mo-eyebrow">Coaching, considered</span>
+    <main className="mx-auto flex max-w-6xl flex-col gap-24 px-6 py-16 sm:gap-32 sm:px-10 sm:py-24">
+      {/* 1. Hero — the SIGNATURE. Asymmetric split: a thesis headline hard
+          against the left, a real modular "specimen cabinet" anchoring the
+          right. The cabinet is the one loud object on the page. */}
+      <section className="grid grid-cols-1 items-center gap-12 pt-2 sm:grid-cols-12 sm:gap-10 sm:pt-6">
+        <div className="mo-rise sm:col-span-6 lg:col-span-6">
+          <span className="mo-eyebrow">Le coaching, pensé avec soin</span>
           <h1 className="mt-6 max-w-xl">{heroHeadline}</h1>
           <p className="mt-8 max-w-md text-lg leading-relaxed text-foreground/75">
             {heroSubcopy}
@@ -59,33 +60,50 @@ export default function ModernistPage() {
               {cta.buttonLabel}
             </Button>
             <Button size="lg" variant="outline" className="px-8">
-              {services.heading}
+              Découvrir la méthode
             </Button>
           </div>
         </div>
+
+        {/* The specimen cabinet: unequal modular cells, hairline mullions,
+            one wood panel, one teal field, one stat cell, one peg. */}
         <div
-          className="mo-rise relative sm:col-span-5"
+          className="mo-rise sm:col-span-6 lg:col-span-6"
           style={{ animationDelay: "0.15s" }}
         >
-          <GradientBlock
-            aspect="aspect-[3/4]"
-            variant="linear"
-            angle={165}
-            from="var(--mo-walnut)"
-            via="var(--mo-clay)"
-            to="var(--mo-paper)"
-          />
-          <div className="absolute -bottom-5 left-0 right-8">
-            <div className="mo-shelf" />
+          <div
+            className="mo-cabinet aspect-[4/5]"
+            style={{ gridTemplateColumns: "1.35fr 1fr", gridTemplateRows: "1.6fr 1fr" }}
+            aria-hidden="true"
+          >
+            {/* tall wood cabinet door with a peg */}
+            <div className="mo-cell mo-cell--wood row-span-2">
+              <span className="mo-peg" style={{ top: "50%", right: "12px" }} />
+            </div>
+            {/* teal-tint open shelf, holds the tagline as a specimen label */}
+            <div className="mo-cell mo-cell--teal flex items-end p-5">
+              <p className="mo-serif text-sm leading-snug text-[var(--mo-walnut-deep)]">
+                {coachContent.tagline}
+              </p>
+            </div>
+            {/* stat drawer, tabular figure — quiet functional detail */}
+            <div className="mo-cell flex flex-col justify-center gap-1 p-5">
+              <span className="mo-serif text-4xl leading-none tabular-nums text-[var(--mo-teal)]">
+                10+
+              </span>
+              <span className="mo-index">Ans de coaching</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Coach intro — full-bleed rhythm break: text runs wide under a
-          shelf datum, the avatar sits inline as a small credential mark
-          rather than a portrait-scale anchor. */}
-      <section>
-        <div className="mo-shelf mb-14" />
+      {/* 2. Coach intro — offset editorial 4/8. Text runs wide under a shelf
+          datum; the avatar sits inline as a small credential mark. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 01</span>
+          <div className="mo-shelf" />
+        </div>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-12 sm:gap-12">
           <div className="sm:col-span-4">
             <h2>{intro.heading}</h2>
@@ -111,64 +129,62 @@ export default function ModernistPage() {
         </div>
       </section>
 
-      {/* 3. Method — dense stacked ledger, numerals set in the display serif
-          as the structural device (the content is genuinely sequential). */}
-      <section>
-        <div className="mo-shelf mb-14" />
-        <h2 className="mb-12 max-w-lg">{method.heading}</h2>
-        <div className="grid grid-cols-1 border-t border-[var(--mo-line)] sm:grid-cols-2">
+      {/* 3. Method — a HORIZONTAL numbered datum-band: four steps read left to
+          right across a single ruled register, each cell topped by an
+          oversized serif numeral. Distinct geometry from the vertical ledgers
+          elsewhere. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 02</span>
+          <div className="mo-shelf" />
+        </div>
+        <h2 className="mb-10 max-w-lg">{method.heading}</h2>
+        <div className="grid grid-cols-1 gap-px border border-[var(--mo-line)] bg-[var(--mo-line)] sm:grid-cols-2 lg:grid-cols-4">
           {method.steps.map((step, index) => (
-            <div
-              key={step.title}
-              className="flex gap-6 border-b border-[var(--mo-line)] py-10 pr-6 sm:odd:border-r sm:odd:pr-10"
-            >
-              <span className="mo-serif shrink-0 text-4xl leading-none tabular-nums text-[var(--mo-teal)]">
+            <div key={step.title} className="bg-background px-6 py-8">
+              <span className="mo-serif block text-5xl leading-none tabular-nums text-[var(--mo-teal)]">
                 {(index + 1).toString().padStart(2, "0")}
               </span>
-              <div>
-                <h3 className="mb-2">{step.title}</h3>
-                <p className="max-w-sm leading-relaxed text-foreground/70">
-                  {step.description}
-                </p>
-              </div>
+              <h3 className="mb-2 mt-6">{step.title}</h3>
+              <p className="text-sm leading-relaxed text-foreground/70">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 4. Services / programs — the grid break: an uneven 5/7 split
-          instead of three even cards. The lead program gets a full block,
-          the remaining two stack as a compact ledger beside it. */}
-      <section>
-        <div className="mo-shelf mb-14" />
-        <h2 className="mb-12">{services.heading}</h2>
+      {/* 4. Services / programs — the uneven 5/7 split: the lead program gets
+          a full feature panel, the remaining two stack as a compact ledger. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 03</span>
+          <div className="mo-shelf" />
+        </div>
+        <h2 className="mb-10">{services.heading}</h2>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-12">
-          <Card className="sm:col-span-5">
-            <CardHeader>
-              <ShapeGraphic
-                shape="rect"
-                className="mb-6 h-9 w-9"
-                color="var(--mo-teal)"
-              />
-              <CardTitle className="text-2xl">
-                {services.programs[0].name}
-              </CardTitle>
-              <CardDescription className="mt-4 leading-relaxed">
+          {/* lead program: a full walnut-framed feature block */}
+          <div className="flex flex-col justify-between border-2 border-[var(--mo-ink-line)] bg-card p-8 sm:col-span-5">
+            <div>
+              <span className="mo-index">Programme phare</span>
+              <h3 className="mt-4 text-2xl">{services.programs[0].name}</h3>
+              <p className="mt-4 leading-relaxed text-foreground/75">
                 {services.programs[0].description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
+              </p>
+            </div>
+            <div className="mt-8">
               <div className="mo-shelf mb-5" />
-              <p className="mo-serif text-xl font-medium text-[var(--mo-teal)]">
+              <p className="mo-serif text-2xl font-medium text-[var(--mo-teal)]">
                 {services.programs[0].priceLabel}
               </p>
-            </CardContent>
-          </Card>
-          <div className="flex flex-col gap-6 sm:col-span-7">
+            </div>
+          </div>
+          {/* supporting programs: compact divided ledger */}
+          <div className="flex flex-col divide-y divide-[var(--mo-line)] border-y border-[var(--mo-line)] sm:col-span-7">
             {services.programs.slice(1).map((program) => (
               <div
                 key={program.name}
-                className="flex flex-col gap-4 border border-[var(--mo-line)] p-7 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-4 py-7 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <h3 className="mb-2">{program.name}</h3>
@@ -185,14 +201,18 @@ export default function ModernistPage() {
         </div>
       </section>
 
-      {/* 5. Benefits — quiet grid, airy, no cards: functional clarity. */}
-      <section>
-        <div className="mo-shelf mb-14" />
-        <h2 className="mb-12">{benefits.heading}</h2>
-        <div className="grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {/* 5. Benefits — the pegboard: the cabinet's modular logic reused as a
+          light, de-carded hairline grid of modules, one teal tick each. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 04</span>
+          <div className="mo-shelf" />
+        </div>
+        <h2 className="mb-10">{benefits.heading}</h2>
+        <div className="mo-pegboard grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.items.map((item) => (
-            <div key={item.title}>
-              <div className="mb-4 h-px w-8 bg-[var(--mo-teal)]" />
+            <div key={item.title} className="mo-module p-7">
+              <div className="mb-4 h-1.5 w-8 rounded-[1px] bg-[var(--mo-teal)]" />
               <h3 className="mb-2">{item.title}</h3>
               <p className="text-sm leading-relaxed text-foreground/70">
                 {item.description}
@@ -202,42 +222,71 @@ export default function ModernistPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — dense stacked ledger (rhythm contrast against the
-          card grid used in services), each row a full-width quote line. */}
-      <section>
-        <div className="mo-shelf mb-14" />
-        <h2 className="mb-12">{testimonials.heading}</h2>
-        <div className="flex flex-col divide-y divide-[var(--mo-line)] border-y border-[var(--mo-line)]">
-          {testimonials.quotes.map((item) => (
+      {/* 6. Testimonials — a numbered specimen ledger, NOT a 3-card grid: one
+          large lead quote gets an asymmetric feature row, the remaining two
+          stack as compact ledger entries beneath. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 05</span>
+          <div className="mo-shelf" />
+        </div>
+        <h2 className="mb-10">{testimonials.heading}</h2>
+
+        {/* lead quote — the specimen, oversized serif with a big index numeral */}
+        <div className="grid grid-cols-1 gap-6 border-t-2 border-[var(--mo-ink-line)] pt-8 sm:grid-cols-12 sm:gap-8">
+          <div className="sm:col-span-2">
+            <span className="mo-serif text-6xl leading-none tabular-nums text-[var(--mo-teal)]">
+              01
+            </span>
+          </div>
+          <div className="sm:col-span-10">
+            <p className="mo-serif text-2xl leading-snug text-foreground sm:text-[1.75rem]">
+              &ldquo;{leadTestimonial.quote}&rdquo;
+            </p>
+            <div className="mt-6 flex items-center gap-3">
+              <AvatarBlob
+                name={leadTestimonial.name}
+                size={40}
+                color="var(--mo-walnut)"
+                textColor="var(--mo-paper)"
+              />
+              <div>
+                <p className="text-sm font-semibold">{leadTestimonial.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {leadTestimonial.role}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* supporting quotes — compact numbered ledger rows */}
+        <div className="mt-4 flex flex-col divide-y divide-[var(--mo-line)] border-y border-[var(--mo-line)]">
+          {restTestimonials.map((item, index) => (
             <div
               key={item.name}
-              className="grid grid-cols-1 gap-4 py-8 sm:grid-cols-12 sm:gap-8"
+              className="grid grid-cols-1 gap-4 py-7 sm:grid-cols-12 sm:gap-8"
             >
-              <div className="flex items-center gap-3 sm:col-span-3">
-                <AvatarBlob
-                  name={item.name}
-                  size={40}
-                  color="var(--mo-walnut)"
-                  textColor="var(--mo-paper)"
-                />
-                <div>
-                  <p className="text-sm font-semibold">{item.name}</p>
-                  <p className="text-xs text-muted-foreground">{item.role}</p>
-                </div>
+              <div className="sm:col-span-2">
+                <span className="mo-serif text-3xl leading-none tabular-nums text-[var(--mo-teal)]">
+                  {(index + 2).toString().padStart(2, "0")}
+                </span>
               </div>
-              <p className="mo-serif text-lg leading-relaxed text-foreground/85 sm:col-span-9">
+              <p className="mo-serif text-lg leading-relaxed text-foreground/85 sm:col-span-7">
                 &ldquo;{item.quote}&rdquo;
               </p>
+              <div className="sm:col-span-3">
+                <p className="text-sm font-semibold">{item.name}</p>
+                <p className="text-xs text-muted-foreground">{item.role}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 7. Call-to-action — flat walnut block, decisive, no gradient glow. */}
-      <section className="border border-[var(--mo-line)] bg-[var(--mo-walnut-deep)] px-8 py-16 text-center sm:px-16 sm:py-20">
-        <h2 className="mx-auto max-w-xl text-[var(--mo-paper)]">
-          {cta.heading}
-        </h2>
+      {/* 7. Call-to-action — flat deep-walnut band, decisive, no gradient glow. */}
+      <section className="mo-reveal border-2 border-[var(--mo-ink-line)] bg-[var(--mo-walnut-deep)] px-8 py-16 text-center sm:px-16 sm:py-20">
+        <h2 className="mx-auto max-w-xl text-[var(--mo-paper)]">{cta.heading}</h2>
         <p className="mx-auto mb-10 mt-5 max-w-md leading-relaxed text-[var(--mo-paper)]/75">
           {cta.subcopy}
         </p>
@@ -246,9 +295,12 @@ export default function ModernistPage() {
         </Button>
       </section>
 
-      {/* 8. Contact / booking */}
-      <section>
-        <div className="mo-shelf mb-14" />
+      {/* 8. Contact / booking — offset 4/8 form. */}
+      <section className="mo-reveal">
+        <div className="mb-10 flex items-center gap-6">
+          <span className="mo-index shrink-0">Fig. 06</span>
+          <div className="mo-shelf" />
+        </div>
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-12 sm:gap-16">
           <div className="sm:col-span-4">
             <h2 className="mb-6">{contact.heading}</h2>

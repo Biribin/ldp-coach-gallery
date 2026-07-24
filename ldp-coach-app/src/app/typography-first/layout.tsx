@@ -20,9 +20,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Typography First — Fitness Coach Landing Page Gallery",
+  title: "Typography First — Galerie de landing pages coach fitness",
   description:
-    "Typography First-styled landing page concept: huge expressive letterforms, dramatic scale contrast, minimal ornament — type as the entire design.",
+    "Concept de landing page façon Typography First : lettrages géants et expressifs, contrastes d'échelle spectaculaires, ornement minimal — la typographie comme design à part entière.",
 };
 
 /**

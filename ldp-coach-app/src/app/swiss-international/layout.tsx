@@ -23,9 +23,9 @@ const plexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Swiss/International — Fitness Coach Landing Page Gallery",
+  title: "Swiss/International — Galerie de landing pages coach fitness",
   description:
-    "Swiss/International-styled landing page concept: rigorous 12-column grid, ultra-clean grotesque typography, systematic red/black/white discipline.",
+    "Concept de landing page façon Swiss/International : grille rigoureuse à 12 colonnes, typographie grotesque ultra-nette, discipline systématique rouge/noir/blanc.",
 };
 
 /**

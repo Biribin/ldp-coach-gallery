@@ -20,9 +20,9 @@ const karla = Karla({
 });
 
 export const metadata: Metadata = {
-  title: "Scandinavian — Fitness Coach Landing Page Gallery",
+  title: "Scandinavian — Galerie de landing pages coach fitness",
   description:
-    "Scandinavian-styled landing page concept: hygge warmth, natural materials, wood tones, and cozy minimalism.",
+    "Concept de landing page façon Scandinavian : chaleur hygge, matériaux naturels, tons de bois et minimalisme cocooning.",
 };
 
 /**

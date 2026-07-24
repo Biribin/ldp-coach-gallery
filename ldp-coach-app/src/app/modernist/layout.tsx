@@ -23,9 +23,9 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Modernist — Fitness Coach Landing Page Gallery",
+  title: "Modernist — Galerie de landing pages coach fitness",
   description:
-    "Modernist-styled landing page concept: mid-century clean lines, functional beauty, restrained warm palette, classic proportion.",
+    "Concept de landing page façon Modernist : lignes épurées du milieu du siècle, beauté fonctionnelle, palette chaude et sobre, proportions classiques.",
 };
 
 /**

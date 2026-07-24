@@ -17,9 +17,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Glassmorphism — Fitness Coach Landing Page Gallery",
+  title: "Glassmorphism — Galerie de landing pages coach fitness",
   description:
-    "Glassmorphism-styled landing page concept: translucent frosted layers floating over luminous color, depth and light, weightless and elevated.",
+    "Concept de landing page façon Glassmorphism : couches translucides givrées flottant sur des couleurs lumineuses, profondeur et légèreté.",
 };
 
 /**

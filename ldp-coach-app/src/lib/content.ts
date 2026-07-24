@@ -63,132 +63,132 @@ export type CoachContent = {
 };
 
 export const coachContent: CoachContent = {
-  coachName: "Mara Voss",
-  tagline: "Strength coaching, built around your real life.",
-  heroHeadline: "Train with intent. Transform for good.",
+  coachName: "Cécilia Voss",
+  tagline: "Un coaching de force pensé pour votre vraie vie.",
+  heroHeadline: "Entraînez-vous avec intention. Transformez-vous durablement.",
   heroSubcopy:
-    "Personalized coaching for women who want visible results and a sustainable relationship with their bodies — online or in person.",
+    "Un coaching personnalisé pour les femmes qui veulent des résultats visibles et une relation durable avec leur corps — en ligne ou en présentiel.",
 
   intro: {
-    heading: "Meet Mara",
+    heading: "Découvrez Cécilia",
     paragraphs: [
-      "Mara Voss has spent over a decade helping women rebuild their strength, confidence, and relationship with movement — not through punishment, but through method.",
-      "Her approach blends evidence-based programming with real accountability: no fads, no shortcuts, just consistent work that compounds.",
-      "Whether you're starting from zero or picking up after years away, Mara meets you where you are and builds a plan that actually fits your life.",
+      "Depuis plus de dix ans, Cécilia Voss aide les femmes à reconstruire leur force, leur confiance et leur rapport au mouvement — non par la contrainte, mais par la méthode.",
+      "Son approche allie programmation fondée sur des preuves et véritable accompagnement : pas de tendances éphémères, pas de raccourcis, juste un travail constant qui porte ses fruits.",
+      "Que vous partiez de zéro ou repreniez après des années de pause, Cécilia part de là où vous en êtes et construit un plan qui s'adapte réellement à votre vie.",
     ],
   },
 
   method: {
-    heading: "The Method",
+    heading: "La Méthode",
     steps: [
       {
-        title: "Assess",
+        title: "Évaluer",
         description:
-          "A full baseline on movement quality, lifestyle, and goals — no cookie-cutter starting point.",
+          "Un bilan complet de la qualité de mouvement, du mode de vie et des objectifs — aucun point de départ standardisé.",
       },
       {
-        title: "Build",
+        title: "Construire",
         description:
-          "A progressive training plan sequenced around your schedule, recovery, and current capacity.",
+          "Un plan d'entraînement progressif organisé autour de votre emploi du temps, de votre récupération et de vos capacités actuelles.",
       },
       {
-        title: "Adjust",
+        title: "Ajuster",
         description:
-          "Weekly check-ins and data-driven tweaks so the plan evolves as you do.",
+          "Des points hebdomadaires et des ajustements fondés sur les données pour faire évoluer le plan avec vous.",
       },
       {
-        title: "Sustain",
+        title: "Pérenniser",
         description:
-          "Habits and systems designed to outlast the program — strength that sticks.",
+          "Des habitudes et des systèmes conçus pour durer au-delà du programme — une force qui reste.",
       },
     ],
   },
 
   services: {
-    heading: "Programs",
+    heading: "Programmes",
     programs: [
       {
-        name: "1:1 Online Coaching",
+        name: "Coaching en ligne 1:1",
         description:
-          "Fully custom programming, weekly video check-ins, and direct messaging support wherever you train.",
-        priceLabel: "From $180/mo",
+          "Programmation entièrement sur mesure, points vidéo hebdomadaires et suivi par messagerie directe, où que vous vous entraîniez.",
+        priceLabel: "Dès 180 €/mois",
       },
       {
-        name: "In-Person Sessions",
+        name: "Séances en présentiel",
         description:
-          "Hands-on coaching at Mara's studio — technique, intensity, and accountability in the room with you.",
-        priceLabel: "From $120/session",
+          "Un coaching pratique au studio de Cécilia — technique, intensité et accompagnement à vos côtés.",
+        priceLabel: "Dès 120 €/séance",
       },
       {
-        name: "Group Transformation Program",
+        name: "Programme de transformation en groupe",
         description:
-          "A 12-week cohort-based program combining structured training with peer accountability.",
-        priceLabel: "From $95/mo",
+          "Un programme collectif de 12 semaines alliant entraînement structuré et entraide entre pairs.",
+        priceLabel: "Dès 95 €/mois",
       },
     ],
   },
 
   benefits: {
-    heading: "Why Clients Stay",
+    heading: "Pourquoi elles restent",
     items: [
       {
-        title: "Real Accountability",
-        description: "Weekly check-ins that keep momentum honest.",
+        title: "Un accompagnement réel",
+        description: "Des points hebdomadaires qui maintiennent une dynamique honnête.",
       },
       {
-        title: "Programming That Adapts",
-        description: "Plans that flex with your schedule and recovery.",
+        title: "Une programmation qui s'adapte",
+        description: "Des plans flexibles selon votre emploi du temps et votre récupération.",
       },
       {
-        title: "Sustainable Progress",
-        description: "Built for years, not just a 6-week sprint.",
+        title: "Des progrès durables",
+        description: "Pensé pour des années, pas pour un sprint de 6 semaines.",
       },
       {
-        title: "Whole-Person Coaching",
-        description: "Training, nutrition guidance, and mindset in one plan.",
+        title: "Un coaching global",
+        description: "Entraînement, conseils nutritionnels et état d'esprit dans un seul plan.",
       },
       {
-        title: "Flexible Formats",
-        description: "Train online, in-person, or a mix of both.",
+        title: "Des formats flexibles",
+        description: "Entraînez-vous en ligne, en présentiel, ou les deux à la fois.",
       },
     ],
   },
 
   testimonials: {
-    heading: "Client Results",
+    heading: "Résultats clients",
     quotes: [
       {
         name: "Elena R.",
-        role: "Online Coaching Client, 8 months",
+        role: "Cliente coaching en ligne, 8 mois",
         quote:
-          "I've tried every program out there. This is the first one that actually adjusted to my life instead of demanding I adjust to it.",
+          "J'ai essayé tous les programmes possibles. C'est le premier qui s'est vraiment adapté à ma vie, au lieu de m'imposer de m'adapter à lui.",
       },
       {
         name: "Priya K.",
-        role: "In-Person Client, 1 year",
+        role: "Cliente en présentiel, 1 an",
         quote:
-          "Mara's coaching gave me back a body I trust. The strength is real, and so is the confidence that came with it.",
+          "Le coaching de Cécilia m'a redonné un corps en qui j'ai confiance. La force est bien réelle, tout comme la confiance qui l'accompagne.",
       },
       {
         name: "Jordan T.",
-        role: "Group Program Alum",
+        role: "Ancienne du programme de groupe",
         quote:
-          "The accountability from the group program is what made it stick. Twelve weeks in, I didn't want to stop.",
+          "L'entraide du programme de groupe, c'est ce qui a tout fait tenir. Douze semaines plus tard, je ne voulais plus m'arrêter.",
       },
     ],
   },
 
   cta: {
-    heading: "Ready to start?",
-    subcopy: "Spots are limited each month to keep coaching quality high.",
-    buttonLabel: "Book a Consultation",
+    heading: "Prête à commencer ?",
+    subcopy: "Places limitées chaque mois pour préserver la qualité du coaching.",
+    buttonLabel: "Réserver une consultation",
   },
 
   contact: {
-    heading: "Get in Touch",
+    heading: "Contactez-nous",
     subcopy:
-      "Tell us a bit about your goals and we'll follow up to schedule your first consultation.",
-    fields: ["Name", "Email", "Goals"],
-    submitLabel: "Send",
+      "Parlez-nous un peu de vos objectifs, nous reviendrons vers vous pour planifier votre première consultation.",
+    fields: ["Nom", "Email", "Objectifs"],
+    submitLabel: "Envoyer",
   },
 };

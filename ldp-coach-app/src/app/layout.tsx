@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GalleryNav } from "@/components/GalleryNav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fitness Coach Landing Page Gallery",
+  title: "Galerie de landing pages — Coach fitness",
   description:
-    "A gallery of one-page landing-page concepts for a fictional fitness coach, each built in a distinctly different visual design style.",
+    "Une galerie de concepts de landing page pour une coach fitness fictive, chacun décliné dans un style visuel radicalement différent.",
 };
 
 export default function RootLayout({
@@ -25,10 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <GalleryNav />
+      </body>
     </html>
   );
 }

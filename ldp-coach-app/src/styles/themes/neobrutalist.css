@@ -67,13 +67,15 @@
 
 .theme-neobrutalist h1 {
   font-size: clamp(2.75rem, 8vw, 6.5rem);
-  line-height: 0.95;
+  line-height: 0.9;
 }
 
 .theme-neobrutalist h2 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1;
 }
+
+/* ---- Structural primitives -------------------------------------------- */
 
 .theme-neobrutalist .nb-border {
   border: var(--nb-border-width) solid var(--foreground);
@@ -88,6 +90,23 @@
     var(--foreground);
 }
 
+/* Hard offset shadow leaning the opposite way — used for offset/overlap plates */
+.theme-neobrutalist .nb-shadow-left {
+  box-shadow: calc(var(--nb-shadow-offset) * -1) var(--nb-shadow-offset) 0 0
+    var(--foreground);
+}
+
+/* Oversized ledger numeral — the composition's structural voice */
+.theme-neobrutalist .nb-numeral {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+}
+
+/* ---- Interaction: hard "press" — shadow collapses, block slams down ---- */
+
 .theme-neobrutalist button,
 .theme-neobrutalist [data-slot="button"] {
   border-radius: 0;
@@ -97,9 +116,24 @@
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.02em;
+  box-shadow: calc(var(--nb-shadow-offset) / 2) calc(var(--nb-shadow-offset) / 2) 0 0
+    var(--foreground);
   transition:
-    transform 0.1s ease,
-    box-shadow 0.1s ease;
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.theme-neobrutalist button:hover,
+.theme-neobrutalist [data-slot="button"]:hover {
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--nb-shadow-offset) / 4) calc(var(--nb-shadow-offset) / 4) 0 0
+    var(--foreground);
+}
+
+.theme-neobrutalist button:active,
+.theme-neobrutalist [data-slot="button"]:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--foreground);
 }
 
 .theme-neobrutalist [data-slot="card"] {
@@ -116,4 +150,102 @@
   border-style: solid;
   border-color: var(--foreground);
   text-transform: uppercase;
+}
+
+/* Interactive hover slam on the offset ledger rows + plates */
+.theme-neobrutalist .nb-press {
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.theme-neobrutalist .nb-press:hover {
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--nb-shadow-offset) / 4) calc(var(--nb-shadow-offset) / 4) 0 0
+    var(--foreground);
+}
+
+/* ---- Signature: hard-scrolling brutalist marquee band ----------------- */
+
+.theme-neobrutalist .nb-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.theme-neobrutalist .nb-marquee-track {
+  display: inline-flex;
+  min-width: 100%;
+  align-items: center;
+  gap: 2.5rem;
+  padding-block: 0.75rem;
+  will-change: transform;
+  animation: nb-scroll 36s linear infinite;
+}
+
+.theme-neobrutalist .nb-marquee-item {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@keyframes nb-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* two identical halves in the track → shift by exactly one half */
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- Scroll-driven entrance reveals (progressive enhancement) ---------- */
+/* Below-hero blocks "slam" in from a hard offset. Guarded so browsers that
+   lack scroll-driven animations simply show the final resting state. */
+
+@supports (animation-timeline: view()) {
+  .theme-neobrutalist .nb-reveal {
+    animation: nb-slam-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
+@keyframes nb-slam-in {
+  from {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+/* ---- prefers-reduced-motion: kill all motion, keep final states -------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-neobrutalist .nb-marquee-track {
+    animation: none;
+    transform: none;
+  }
+  .theme-neobrutalist .nb-reveal {
+    animation: none;
+  }
+  .theme-neobrutalist button,
+  .theme-neobrutalist [data-slot="button"],
+  .theme-neobrutalist .nb-press {
+    transition: none;
+  }
+  .theme-neobrutalist button:hover,
+  .theme-neobrutalist [data-slot="button"]:hover,
+  .theme-neobrutalist button:active,
+  .theme-neobrutalist [data-slot="button"]:active,
+  .theme-neobrutalist .nb-press:hover {
+    transform: none;
+  }
 }

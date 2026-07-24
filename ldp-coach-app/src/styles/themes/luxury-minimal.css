@@ -237,6 +237,57 @@
   animation: lm-spine-travel 2.4s var(--lm-ease) 0.3s both;
 }
 
+/* Scroll-driven reveal — extends the page's unhurried motion past the hero
+ * without JS. Default state is the FINAL visible state so browsers without
+ * scroll-timeline support (and reduced-motion users) never see hidden content.
+ * The rise is slow and expo-eased to keep the "expensive, unhurried" feel. */
+.theme-luxury-minimal .lm-reveal {
+  opacity: 1;
+}
+
+@keyframes lm-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-luxury-minimal .lm-reveal {
+      animation: lm-reveal-in 1s var(--lm-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+/* Testimonials as a "maison register": one featured pull-quote set in the
+ * display serif at scale, then the remaining voices as hairline-divided
+ * entries — a private client ledger, NOT a card band. */
+.theme-luxury-minimal .lm-feature-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  color: var(--foreground);
+}
+
+/* Roman-numeral index marks in the register — bronze, spent as scarce accent */
+.theme-luxury-minimal .lm-index {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--lm-bronze);
+  letter-spacing: 0.02em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-luxury-minimal .lm-rise {
     animation: none;
@@ -244,5 +295,10 @@
   .theme-luxury-minimal .lm-spine-animated::after {
     animation: none;
     top: 0;
+  }
+  .theme-luxury-minimal .lm-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

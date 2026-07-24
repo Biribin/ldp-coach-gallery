@@ -249,7 +249,10 @@
   animation: gm-float-in 0.9s var(--gm-ease) both;
 }
 
-/* Slow ambient parallax float for signature hero orbs */
+/* Slow ambient parallax float for signature hero orbs.
+ * Applied to an INNER wrapper so it never collides with .gm-float on the same
+ * element (both set the `animation` shorthand; last rule would otherwise win
+ * and cancel the entrance). The pane floats in; its child drifts forever. */
 @keyframes gm-orb-drift {
   0%,
   100% {
@@ -266,8 +269,56 @@
   }
 }
 
+/* Scroll-driven entrance reveal — panels rise and de-blur "into focus" as they
+ * enter the viewport, extending the hero's floating motion down the whole page.
+ * Default (no @supports, reduced-motion) = FINAL visible state, so unsupported
+ * browsers never leave content hidden. */
+.theme-glassmorphism .gm-reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-glassmorphism .gm-reveal {
+      animation: gm-float-in 0.7s var(--gm-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+/* Testimonials "depth column" — receding panes read as layered glass at
+ * different focal depths (see section 6 in page.tsx). Back panes sit further
+ * away: slightly smaller scale + heavier surface blur, offset behind the front
+ * quote. This is the signature glass-depth vocabulary, not a flat 3-card row. */
+.theme-glassmorphism .gm-depth-back {
+  /* Reads as "set deeper in the glass": a heavier surface blur + gentle scale
+     recede, WITHOUT blurring its own text (legibility/AA stays intact). */
+  -webkit-backdrop-filter: var(--gm-blur-heavy);
+  backdrop-filter: var(--gm-blur-heavy);
+  transform: scale(0.97);
+  transform-origin: right center;
+}
+.theme-glassmorphism .gm-depth-back:hover {
+  transform: scale(0.97) translateY(-3px);
+}
+
+/* Hide the native scrollbar under the horizontal method "filmstrip" so the
+ * edgeless glass-scroll reads clean. Tailwind v4 has no built-in scrollbar
+ * utility and there is no plugin, so the `scrollbar-none` class in the JSX
+ * was a silent no-op; this route-scoped rule implements it. Content still
+ * scrolls (overflow-x-auto) — only the visible track is hidden. */
+.theme-glassmorphism .scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+}
+.theme-glassmorphism .scrollbar-none::-webkit-scrollbar {
+  display: none; /* WebKit/Blink */
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-glassmorphism .gm-float,
+  .theme-glassmorphism .gm-reveal,
+  .theme-glassmorphism .gm-orb,
   .theme-glassmorphism .gm-atmosphere {
     animation: none;
   }

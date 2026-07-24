@@ -34,6 +34,16 @@ const BLOCKS = [
   "var(--ng-teal)",
 ] as const;
 
+// Readable foreground for text sitting ON a saturated block. Cobalt / vermilion
+// / teal are dark enough for a near-white cap; amber (lightness ~0.83) needs the
+// ink foreground to clear AA. Keyed by index into BLOCKS.
+const ON_BLOCK_TEXT = [
+  "oklch(0.99 0.005 250)",
+  "oklch(0.99 0.005 250)",
+  "var(--ng-ink)",
+  "oklch(0.99 0.005 250)",
+] as const;
+
 /** A tessellated color-blocked motif — pure inline SVG, no external assets. */
 function TessellationMotif({ className }: { className?: string }) {
   return (
@@ -127,7 +137,7 @@ export default function NeoGeoPage() {
         <div className="relative grid grid-cols-1 gap-10 px-6 pb-16 pt-20 sm:px-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-8 lg:pb-24 lg:pt-28">
           <div>
             <span className="ng-eyebrow ng-snap-in inline-block">
-              Neo-Geo · Structured Transformation
+              Neo-Geo · Transformation structurée
             </span>
             <h1
               className="ng-snap-in mt-6 max-w-2xl text-foreground"
@@ -192,9 +202,9 @@ export default function NeoGeoPage() {
             className="relative ng-frame"
           />
         </div>
-        <div className="p-8 sm:p-12">
+        <div className="ng-reveal p-8 sm:p-12">
           <div className="mb-8 flex items-center gap-4">
-            <span className="ng-eyebrow">01 / The Architect</span>
+            <span className="ng-eyebrow">01 / L&apos;Architecte</span>
             <div className="ng-rule flex-1" />
           </div>
           <h2 className="max-w-xl">{intro.heading}</h2>
@@ -220,7 +230,7 @@ export default function NeoGeoPage() {
       {/* 3. Method — an elegant structure, an ordered proof */}
       <section className="border-x border-b border-[var(--ng-line-strong)] p-8 sm:p-12">
         <div className="mb-10 flex items-center gap-4">
-          <span className="ng-eyebrow">02 / The System</span>
+          <span className="ng-eyebrow">02 / Le Système</span>
           <div className="ng-rule flex-1" />
         </div>
         <h2 className="mb-12 max-w-2xl">{method.heading}</h2>
@@ -228,7 +238,8 @@ export default function NeoGeoPage() {
           {method.steps.map((step, index) => (
             <div
               key={step.title}
-              className="group relative flex flex-col gap-5 bg-card p-7"
+              className="ng-reveal group relative flex flex-col gap-5 bg-card p-7"
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
               {/* index numeral + a color-blocked geometric marker per step */}
               <div className="flex items-start justify-between">
@@ -273,7 +284,11 @@ export default function NeoGeoPage() {
         <h2 className="mb-12 max-w-2xl">{services.heading}</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {services.programs.map((program, index) => (
-            <Card key={program.name} className="flex flex-col overflow-hidden">
+            <Card
+              key={program.name}
+              className="ng-reveal flex flex-col overflow-hidden"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
               {/* color-blocked header band — precise, saturated, framed */}
               <div
                 aria-hidden="true"
@@ -281,7 +296,11 @@ export default function NeoGeoPage() {
                 style={{ background: BLOCKS[index % BLOCKS.length] }}
               >
                 <TessellationMotif className="absolute right-3 top-3 h-16 w-16 opacity-90" />
-                <span className="ng-index absolute bottom-2 left-4 text-4xl text-[var(--background)] mix-blend-difference">
+                {/* Numeral on a small framed plaque — predictable legibility on
+                    every band hue, replacing the mix-blend-difference gamble. */}
+                <span
+                  className="ng-index absolute bottom-2 left-2 flex h-9 min-w-9 items-center justify-center border border-[var(--ng-ink)] bg-[var(--background)] px-2 text-2xl text-foreground"
+                >
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
               </div>
@@ -305,71 +324,137 @@ export default function NeoGeoPage() {
       {/* 5. Benefits — logical outcomes, laid out on the grid */}
       <section className="border-x border-b border-[var(--ng-line-strong)] p-8 sm:p-12">
         <div className="mb-10 flex items-center gap-4">
-          <span className="ng-eyebrow">04 / Outcomes</span>
+          <span className="ng-eyebrow">04 / Résultats</span>
           <div className="ng-rule flex-1" />
         </div>
         <h2 className="mb-12 max-w-2xl">{benefits.heading}</h2>
-        <div className="grid grid-cols-1 gap-px bg-[var(--ng-line-strong)] sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.items.map((item, index) => (
-            <div key={item.title} className="flex gap-5 bg-card p-7">
-              <ShapeGraphic
-                shape={
-                  (["circle", "rect", "triangle", "polygon", "line"] as const)[
-                    index % 5
-                  ]
-                }
-                className="mt-1 h-7 w-7 shrink-0"
-                color={BLOCKS[index % BLOCKS.length]}
-              />
-              <div>
-                <h3 className="mb-2">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
+        {/* Distinct from the method hairline-mortar grid: a divided coordinate
+            ledger — each outcome a full-width row addressed by an index and a
+            color axis-bar, read like results tabulated in sequence. */}
+        <div className="border-t border-[var(--ng-line-strong)]">
+          {benefits.items.map((item, index) => {
+            const block = BLOCKS[index % BLOCKS.length];
+            return (
+              <div
+                key={item.title}
+                className="ng-reveal grid grid-cols-[auto_1fr] items-start gap-5 border-b border-[var(--ng-line-strong)] py-6 sm:grid-cols-[3.5rem_auto_1fr] sm:gap-8"
+                style={{ animationDelay: `${index * 0.04}s` }}
+              >
+                <span
+                  className="ng-index text-3xl leading-none sm:text-4xl"
+                  style={{ color: block }}
+                >
+                  {(index + 1).toString().padStart(2, "0")}
+                </span>
+                {/* color axis-bar + shape marker */}
+                <div className="col-start-1 row-start-2 flex items-center gap-3 sm:col-start-2 sm:row-start-1">
+                  <span
+                    aria-hidden="true"
+                    className="h-7 w-1.5"
+                    style={{ background: block }}
+                  />
+                  <ShapeGraphic
+                    shape={
+                      (
+                        ["circle", "rect", "triangle", "polygon", "line"] as const
+                      )[index % 5]
+                    }
+                    className="h-6 w-6 shrink-0"
+                    color={block}
+                  />
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <h3 className="mb-1.5">{item.title}</h3>
+                  <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* 6. Testimonials — credibility as verified data */}
-      <section className="border-x border-b border-[var(--ng-line-strong)] p-8 sm:p-12">
-        <div className="mb-10 flex items-center gap-4">
-          <span className="ng-eyebrow">05 / Verified</span>
-          <div className="ng-rule flex-1" />
-        </div>
-        <h2 className="mb-12 max-w-2xl">{testimonials.heading}</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {testimonials.quotes.map((item, index) => (
-            <Card key={item.name} className="flex flex-col p-7">
-              <span
-                aria-hidden="true"
-                className="ng-index text-5xl leading-none"
-                style={{ color: BLOCKS[index % BLOCKS.length] }}
-              >
-                &ldquo;
-              </span>
-              <p className="mt-4 flex-1 leading-relaxed text-foreground">
-                {item.quote}
-              </p>
-              <div className="ng-rule my-5" />
-              <div className="flex items-center gap-3">
-                <AvatarBlob
-                  name={item.name}
-                  size={40}
-                  color={BLOCKS[index % BLOCKS.length]}
-                  textColor="oklch(0.99 0.005 250)"
-                  className="ng-frame"
-                />
-                <div>
-                  <p className="font-[family-name:var(--font-heading)] text-sm font-bold">
-                    {item.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{item.role}</p>
-                </div>
-              </div>
-            </Card>
-          ))}
+      {/* 6. Testimonials — credibility as verified data, plotted on the field.
+          NOT a 3-card grid: a coordinate register where each quote is an entry
+          anchored to a color-coded plot point on the graph, read like data
+          samples on an axis rather than equal marketing cards. */}
+      <section className="relative overflow-hidden border-x border-b border-[var(--ng-line-strong)] p-8 sm:p-12">
+        <div className="ng-graph absolute inset-0 opacity-40" aria-hidden="true" />
+        <div className="relative">
+          <div className="mb-10 flex items-center gap-4">
+            <span className="ng-eyebrow">05 / Vérifié</span>
+            <div className="ng-rule flex-1" />
+          </div>
+          <h2 className="mb-4 max-w-2xl">{testimonials.heading}</h2>
+          <p className="ng-index mb-10 text-xs uppercase tracking-[0.28em] text-muted-foreground">
+            Résultats représentés · n = {testimonials.quotes.length.toString().padStart(2, "0")}
+          </p>
+          {/* Register: a divided vertical stack, each row an offset "sample"
+              carrying its own axis coordinate + plotted color point. */}
+          <div className="border-t border-[var(--ng-line-strong)]">
+            {testimonials.quotes.map((item, index) => {
+              const block = BLOCKS[index % BLOCKS.length];
+              return (
+                <article
+                  key={item.name}
+                  className="ng-reveal grid grid-cols-1 gap-5 border-b border-[var(--ng-line-strong)] py-8 sm:grid-cols-[auto_1fr] sm:gap-8"
+                  style={{ animationDelay: `${index * 0.04}s` }}
+                >
+                  {/* Coordinate + plotted point — the "data sample" address */}
+                  <div className="flex items-center gap-4 sm:w-40 sm:flex-col sm:items-start sm:gap-3">
+                    <span
+                      className="ng-index text-4xl leading-none"
+                      style={{ color: block }}
+                    >
+                      {(index + 1).toString().padStart(2, "0")}
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="ng-plot"
+                        style={{ background: block }}
+                      />
+                      <span className="ng-index text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                        x{(index + 1).toString().padStart(2, "0")} · y
+                        {(testimonials.quotes.length - index)
+                          .toString()
+                          .padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+                  {/* The quote itself — the sampled value */}
+                  <div className="max-w-3xl">
+                    <p className="text-lg leading-relaxed text-foreground sm:text-xl">
+                      <span
+                        aria-hidden="true"
+                        className="ng-index mr-2 align-baseline text-2xl"
+                        style={{ color: block }}
+                      >
+                        &ldquo;
+                      </span>
+                      {item.quote}
+                    </p>
+                    <div className="mt-5 flex items-center gap-3">
+                      <AvatarBlob
+                        name={item.name}
+                        size={36}
+                        color={block}
+                        textColor={ON_BLOCK_TEXT[index % ON_BLOCK_TEXT.length]}
+                        className="ng-frame"
+                      />
+                      <p className="font-[family-name:var(--font-heading)] text-sm font-bold">
+                        {item.name}
+                        <span className="ml-2 font-normal text-muted-foreground">
+                          — {item.role}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -377,9 +462,9 @@ export default function NeoGeoPage() {
       <section className="relative overflow-hidden border-x border-b border-[var(--ng-line-strong)] bg-[var(--ng-ink)] text-[var(--background)]">
         <div className="ng-graph absolute inset-0 opacity-[0.12]" aria-hidden="true" />
         <div className="relative grid grid-cols-1 items-center gap-10 p-10 sm:p-16 lg:grid-cols-[1.4fr_0.6fr]">
-          <div>
+          <div className="ng-reveal">
             <span className="ng-eyebrow text-[var(--ng-amber)]">
-              06 / The Solution
+              06 / La Solution
             </span>
             <h2 className="mt-6 max-w-xl text-[var(--background)]">
               {cta.heading}

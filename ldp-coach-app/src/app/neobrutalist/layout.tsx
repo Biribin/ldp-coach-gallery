@@ -12,9 +12,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Neobrutalist — Fitness Coach Landing Page Gallery",
+  title: "Neobrutalist — Galerie de landing pages coach fitness",
   description:
-    "Neobrutalist-styled landing page concept: raw, bold, high-contrast structure.",
+    "Concept de landing page façon Neobrutalist : structure brute, affirmée, à fort contraste.",
 };
 
 /**

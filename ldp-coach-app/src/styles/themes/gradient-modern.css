@@ -6,8 +6,7 @@
  * `src/app/gradient-modern/layout.tsx` applies this class to a wrapper
  * element around the route's subtree; shadcn components read `var(--token)`,
  * so they automatically adopt these values inside that subtree only, with
- * zero bleed to any other route. Reuses the same `.theme-<slug>` + nested
- * layout pattern established by the neobrutalist / japandi reference routes.
+ * zero bleed to any other route.
  *
  * Brief in one line: sophisticated multi-stop gradients, depth through color
  * transitions, soft glow, contemporary energy — color is *atmosphere*, not
@@ -15,8 +14,16 @@
  * (kept high-lightness so deep plum ink stays legible everywhere); generous
  * 20px radii; gradient-text overlines; solid coral primary with a coral→
  * rose→violet gradient helper for high-energy CTAs; soft diffuse glow shadows;
- * a contemporary geometric grotesque for headings; and liquid "breathing"
- * ambient motion on the hero visual.
+ * a contemporary geometric grotesque for headings; liquid "breathing" ambient
+ * motion on the hero visual; and scroll-timeline reveals down the page so the
+ * energy visibly builds as you descend (guarded, final-state-safe).
+ *
+ * COMPOSITION (reworked): distinctiveness now lives in the *geometry*, not
+ * only the color. No two sections repeat one recipe — an offset step ladder
+ * on a gradient spine (method), a feature-vs-stacked-list split (services), a
+ * full-bleed band with a 1-large + offset-list masonry (benefits), and a
+ * "prism cascade" — depth-staggered frameless quotes threaded on a vertical
+ * spectrum rail (testimonials, no card grid anywhere).
  */
 
 .theme-gradient-modern {
@@ -87,11 +94,10 @@
   --gm-beat: 0.9s;
 
   /*
-   * Atmospheric page surface: a fixed-ish sunrise→twilight wash laid over the
-   * peach base. All layers are high-lightness (≥0.9) so the deep-plum ink
-   * stays readable at every scroll position; the radials sit warm-pink blooms
-   * at the top and a cool lavender bloom toward the bottom so the spectrum
-   * visibly *evolves* down the single-scroll arc.
+   * Atmospheric page surface: a sunrise→twilight wash laid over the peach base.
+   * All layers are high-lightness (≥0.9) so the deep-plum ink stays readable at
+   * every scroll position; radial blooms sit warm-pink at the top and cool
+   * lavender toward the bottom so the spectrum visibly *evolves* down the arc.
    */
   background-color: var(--background);
   background-image:
@@ -160,7 +166,12 @@
   color: transparent;
 }
 
-/* Spectrum-clipped text — for one or two high-energy headline/emphasis words */
+/*
+ * Spectrum-clipped text — for high-energy headline/emphasis words, numerals
+ * and quote marks. The 200% background-size is now *used*: a slow, reduced-
+ * motion-safe hue drift makes the clipped color quietly flow like light
+ * (fixes the previously-inert 200% sizing on static usages).
+ */
 .theme-gradient-modern .gm-grad-text {
   background-image: linear-gradient(
     110deg,
@@ -171,12 +182,66 @@
     var(--gm-indigo)
   );
   background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gm-text-flow 9s var(--gm-ease) infinite alternate;
+}
+
+@keyframes gm-text-flow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/*
+ * Section eyebrow marker — replaces the repeated "pill + full-width hairline"
+ * row. A compact gradient-clipped index sitting above a short gradient tick,
+ * so every section header reads as part of the spectrum without cloning one
+ * identical divider bar across the whole page.
+ */
+.theme-gradient-modern .gm-index {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.theme-gradient-modern .gm-index-num {
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  background-image: linear-gradient(120deg, var(--gm-coral), var(--gm-violet));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* A soft pill that rides the gradient — for tags / step counters */
+.theme-gradient-modern .gm-index-label {
+  color: var(--muted-foreground);
+}
+
+/* Short gradient tick under a section eyebrow (bounded, not full-width) */
+.theme-gradient-modern .gm-tick {
+  height: 3px;
+  width: 3.5rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(
+    90deg,
+    var(--gm-coral),
+    var(--gm-rose) 55%,
+    var(--gm-violet)
+  );
+}
+
+/* A soft pill that rides the gradient — retained for the intro floating tag */
 .theme-gradient-modern .gm-pill {
   display: inline-flex;
   align-items: center;
@@ -282,7 +347,131 @@
     color var(--gm-beat) var(--gm-ease);
 }
 
-/* Entrance: a liquid rise — more travel + a whisper of scale, smooth ease */
+/* ----------------------------------------------------------------------- */
+/* Composition primitives                                                  */
+/* ----------------------------------------------------------------------- */
+
+/*
+ * METHOD — offset step ladder. Steps alternate indent and sit on a shared
+ * vertical gradient "spine" so the four moves read as one flowing ascent
+ * rather than a card grid. Numerals are oversized spectrum-clipped glyphs.
+ */
+.theme-gradient-modern .gm-ladder {
+  position: relative;
+}
+/* The spine + node live in a narrow left gutter; the oversized numeral sits to
+ * the RIGHT of the spine (not on top of it), and the step content clears the
+ * numeral. Previously the numeral was placed at left:0 with a ~3rem glyph box,
+ * so it overlapped both the spine and the node dot (the "bug"). */
+.theme-gradient-modern .gm-ladder::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.6rem;
+  width: 3px;
+  border-radius: 9999px;
+  background-image: linear-gradient(
+    180deg,
+    var(--gm-coral),
+    var(--gm-rose) 34%,
+    var(--gm-magenta) 60%,
+    var(--gm-violet) 82%,
+    var(--gm-indigo)
+  );
+  opacity: 0.85;
+}
+.theme-gradient-modern .gm-step {
+  position: relative;
+  padding-left: 5.75rem;
+}
+.theme-gradient-modern .gm-step-num {
+  position: absolute;
+  left: 1.9rem;
+  top: -0.35rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.7rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+/* the spectrum node dot anchoring each step to the spine */
+.theme-gradient-modern .gm-node {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.5rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: var(--card);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--gm-rose) 45%, transparent),
+    0 4px 14px -4px oklch(0.6 0.2 20 / 0.6);
+}
+
+/*
+ * BENEFITS band — a full-bleed atmospheric gradient section (breaks the flat
+ * page wash with a deeper spectrum sweep) holding a 1-large + offset list.
+ */
+.theme-gradient-modern .gm-band {
+  border-radius: 2rem;
+  background-image: linear-gradient(
+    145deg,
+    oklch(0.72 0.16 35 / 0.16),
+    oklch(0.62 0.2 350 / 0.14) 48%,
+    oklch(0.58 0.18 300 / 0.16)
+  );
+  border: 1px solid color-mix(in oklch, var(--gm-rose) 16%, var(--border));
+  box-shadow: var(--gm-shadow-soft);
+}
+/* Feature (first) benefit — a solid gradient tile, white text */
+.theme-gradient-modern .gm-feature {
+  border-radius: 1.4rem;
+  background-image: linear-gradient(
+    140deg,
+    var(--gm-coral),
+    var(--gm-rose) 46%,
+    var(--gm-violet) 92%
+  );
+  box-shadow: var(--gm-shadow-lift);
+  color: oklch(0.99 0.01 68);
+}
+/* Small benefit row divider dot */
+.theme-gradient-modern .gm-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(135deg, var(--gm-coral), var(--gm-violet));
+  box-shadow: 0 0 0 3px oklch(1 0 0 / 0.5);
+}
+
+/*
+ * TESTIMONIALS — "prism cascade". Frameless quotes, each depth-staggered
+ * (offset + scale via inline style) so cards cascade down the section.
+ * Deliberately NOT a card grid and NOT a full-bleed quote band (both taken
+ * elsewhere in the gallery).
+ */
+/* the refraction chip carrying each quote — soft glass with a hue-shifted edge */
+.theme-gradient-modern .gm-refract {
+  border-radius: 1.4rem;
+  background-color: oklch(1 0 0 / 0.5);
+  background-image: linear-gradient(
+    150deg,
+    oklch(1 0 0 / 0.6),
+    oklch(0.98 0.03 320 / 0.24)
+  );
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid oklch(1 0 0 / 0.6);
+  box-shadow: var(--gm-shadow-soft);
+}
+
+/* ----------------------------------------------------------------------- */
+/* Motion                                                                  */
+/* ----------------------------------------------------------------------- */
+
+/* Entrance: a liquid rise — more travel + a whisper of scale, smooth ease.
+ * Used on-load for hero only. */
 @keyframes gm-rise {
   from {
     opacity: 0;
@@ -296,6 +485,38 @@
 
 .theme-gradient-modern .gm-rise {
   animation: gm-rise 0.9s var(--gm-ease) both;
+}
+
+/*
+ * Scroll-driven reveals for every section below the hero. The base state is
+ * the FINAL visible state (opacity:1, no transform) so browsers without
+ * animation-timeline support — and reduced-motion users — always see content.
+ * Only when scroll timelines are supported do we run the entry animation.
+ */
+.theme-gradient-modern .gm-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-gradient-modern .gm-reveal {
+      animation: gm-reveal-kf 0.7s var(--gm-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 26%;
+    }
+  }
+}
+
+@keyframes gm-reveal-kf {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Ambient "breathing" gradient — color that shifts and flows, applied to the
@@ -318,7 +539,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-gradient-modern .gm-rise {
+  .theme-gradient-modern .gm-rise,
+  .theme-gradient-modern .gm-reveal,
+  .theme-gradient-modern .gm-grad-text {
     animation: none;
   }
   .theme-gradient-modern .gm-breathe {

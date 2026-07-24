@@ -27,9 +27,9 @@ const nunitoSans = Nunito_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Organic/Fluid — Fitness Coach Landing Page Gallery",
+  title: "Organic/Fluid — Galerie de landing pages coach fitness",
   description:
-    "Organic/Fluid-styled landing page concept: flowing blob shapes, natural curves, and biomorphic layouts — a holistic, harmonious approach to fitness and wellbeing.",
+    "Concept de landing page façon Organic/Fluid : formes organiques fluides, courbes naturelles et mises en page biomorphiques — une approche holistique et harmonieuse du fitness et du bien-être.",
 };
 
 /**

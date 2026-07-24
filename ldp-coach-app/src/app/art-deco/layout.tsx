@@ -23,9 +23,9 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
-  title: "Art Deco — Fitness Coach Landing Page Gallery",
+  title: "Art Deco — Galerie de landing pages coach fitness",
   description:
-    "Art Deco-styled landing page concept: golden-age ballroom glamour — ornamental geometry, gold accents, symmetrical vintage luxury.",
+    "Concept de landing page façon Art Déco : glamour des salles de bal d'antan — géométrie ornementale, touches dorées, luxe vintage symétrique.",
 };
 
 /**

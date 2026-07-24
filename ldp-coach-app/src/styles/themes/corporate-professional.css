@@ -9,11 +9,19 @@
  * subtree only, with zero bleed to any other route.
  *
  * Brief in one line: trust-building, established, refined — composed navy
- * and cobalt against warm ivory, structured "dossier/letterhead" rhythm,
+ * and cobalt against warm ivory, structured "dossier / letterhead" rhythm,
  * calm authority. So: a confident navy anchor, one saturated cobalt CTA hue,
  * warm-neutral paper background (never stark white or cream-terracotta),
- * a running vertical margin rule like a formal document, embossed hairline
+ * numbered "clause" headers like a formal document, embossed hairline
  * borders instead of hard offsets, and slow, polished, understated motion.
+ *
+ * Composition thesis (rework): the page reads like an official dossier /
+ * letterhead. The SIGNATURE is a full-bleed navy "letterhead certification
+ * banner" carrying the coach name + tabular credential figures. Around it,
+ * every section is a labelled "clause" with a monospaced-feeling numeric
+ * file tab, and no two sections share a card-grid recipe: method is a
+ * connected process rail, services a divided rate ledger, benefits a
+ * numbered warranty checklist, testimonials an asymmetric case file.
  */
 
 .theme-corporate-professional {
@@ -65,6 +73,8 @@
   --cp-ledger-bg: oklch(0.97 0.006 90);
   --cp-navy-ink: oklch(0.22 0.025 255);
   --cp-navy-soft: oklch(0.4 0.045 258);
+  /* Hairline over the dark letterhead banner (light-on-navy) */
+  --cp-line-onnavy: oklch(0.98 0.004 90 / 0.18);
 
   /* Restrained elevation — a quiet, dependable lift, never showy */
   --cp-shadow-card: 0 1px 2px -1px oklch(0.22 0.025 255 / 0.06),
@@ -107,22 +117,6 @@
   font-weight: 600;
 }
 
-/* Small tracked labels — letterhead-style eyebrows and section markers */
-.theme-corporate-professional .cp-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--cp-cobalt);
-}
-
-/* Running margin rule — the "dossier" spine that threads the whole page */
-.theme-corporate-professional .cp-spine {
-  position: relative;
-  padding-left: 1.75rem;
-  border-left: 2px solid var(--cp-line);
-}
-
 /* Serif voice for numerals, ledger figures, pull-statements */
 .theme-corporate-professional .cp-serif {
   font-family: var(--font-heading);
@@ -132,14 +126,72 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Letterhead-weight double rule used at the credential band */
+/* ---------------------------------------------------------------------------
+ * CLAUSE HEADER — the "file tab" that opens every section like a numbered
+ * document clause. A boxed tabular numeral, a hairline, and a tracked label.
+ * This is the recurring dossier rhythm that replaces the old repeated spine.
+ * ------------------------------------------------------------------------- */
+.theme-corporate-professional .cp-clause {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.theme-corporate-professional .cp-clause-no {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--cp-cobalt);
+  border-radius: var(--radius);
+  color: var(--cp-cobalt);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.theme-corporate-professional .cp-clause-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cp-cobalt);
+  white-space: nowrap;
+}
+.theme-corporate-professional .cp-clause-line {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--cp-line);
+}
+
+/* Plain eyebrow (hero / places without a numbered tab) */
+.theme-corporate-professional .cp-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cp-cobalt);
+}
+
+/* Cobalt CTA button variant — replaces the ad-hoc inline utility overrides.
+ * Applied via className="cp-cta" on shadcn Buttons so the cobalt intent is
+ * expressed once, consistently, instead of hardcoded per-button. */
+.theme-corporate-professional .cp-cta[data-slot="button"] {
+  background-color: var(--cp-cobalt);
+  color: var(--cp-cobalt-foreground);
+  border-color: var(--cp-cobalt);
+}
+.theme-corporate-professional .cp-cta[data-slot="button"]:hover {
+  background-color: color-mix(in oklch, var(--cp-cobalt) 88%, black);
+}
+
+/* Letterhead double rule used above the credential banner */
 .theme-corporate-professional .cp-letterhead-rule {
   height: 3px;
-  background: linear-gradient(
-    to right,
-    var(--cp-navy-ink) 0%,
-    var(--cp-navy-ink) 100%
-  );
+  background: var(--cp-navy-ink);
   position: relative;
 }
 .theme-corporate-professional .cp-letterhead-rule::after {
@@ -150,6 +202,40 @@
   top: 6px;
   height: 1px;
   background: var(--cp-line);
+}
+
+/* SIGNATURE: full-bleed navy letterhead certification banner */
+.theme-corporate-professional .cp-banner {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  position: relative;
+}
+/* Engraved top/bottom rules on the banner, like an official seal strip */
+.theme-corporate-professional .cp-banner-rule {
+  height: 1px;
+  background: var(--cp-line-onnavy);
+}
+
+/* Process rail: numbered nodes joined by a hairline connector spine.
+ * Each node's connector is drawn as a top border on the number token so the
+ * horizontal thread only reads on the wide (row) layout. */
+.theme-corporate-professional .cp-node {
+  position: relative;
+}
+.theme-corporate-professional .cp-node-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: var(--cp-cobalt);
+  flex: none;
+}
+
+/* Warranty-style numbered checklist row (benefits) */
+.theme-corporate-professional .cp-warrant-no {
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--cp-cobalt);
 }
 
 /* Buttons: composed, understated, confident — no flash */
@@ -209,7 +295,12 @@
     background-color var(--cp-beat) var(--cp-ease);
 }
 
-/* Entrance: a single composed rise — polished, not showy */
+/* ---------------------------------------------------------------------------
+ * MOTION
+ * Hero composes in on load. Below-hero sections reveal on scroll via CSS
+ * scroll-driven animation (no JS), guarded by @supports so unsupported
+ * browsers show the final state. Everything disabled under reduced-motion.
+ * ------------------------------------------------------------------------- */
 @keyframes cp-compose-in {
   from {
     opacity: 0;
@@ -225,7 +316,7 @@
   animation: cp-compose-in 0.8s var(--cp-ease) both;
 }
 
-/* Signature moment: the credential ledger band counts up its rule-width once on load */
+/* Signature banner: its engraved top rule draws across once on load */
 @keyframes cp-rule-draw {
   from {
     transform: scaleX(0);
@@ -240,9 +331,30 @@
   animation: cp-rule-draw 1s var(--cp-ease) both;
 }
 
+/* Scroll-driven entrance reveal for below-hero sections. */
+@keyframes cp-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .theme-corporate-professional .cp-reveal {
+    animation: cp-reveal 0.7s var(--cp-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-corporate-professional .cp-rise,
-  .theme-corporate-professional .cp-rule-draw {
+  .theme-corporate-professional .cp-rule-draw,
+  .theme-corporate-professional .cp-reveal {
     animation: none;
   }
 }

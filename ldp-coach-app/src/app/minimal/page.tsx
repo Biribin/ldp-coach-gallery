@@ -61,7 +61,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 2. Coach intro — understated, no photo surrogate, text alone */}
-      <section className="border-t pt-16">
+      <section className="mn-reveal border-t pt-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-[10rem_1fr] sm:gap-16">
           <h2 className="text-base font-medium tracking-tight text-muted-foreground sm:text-lg">
             {intro.heading}
@@ -77,7 +77,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 3. Method — reduced to its essence, a dense divided sequence */}
-      <section>
+      <section className="mn-reveal">
         <h2 className="mb-16">{method.heading}</h2>
         <div className="border-t">
           {method.steps.map((step, index) => (
@@ -98,7 +98,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 4. Services / programs — uncluttered clarity, no cards, no borders */}
-      <section>
+      <section className="mn-reveal">
         <h2 className="mb-16">{services.heading}</h2>
         <div className="flex flex-col gap-16 sm:gap-20">
           {services.programs.map((program) => (
@@ -112,7 +112,7 @@ export default function MinimalPage() {
                   {program.description}
                 </p>
               </div>
-              <span className="whitespace-nowrap text-lg font-light tracking-tight text-foreground/70">
+              <span className="mn-num whitespace-nowrap text-2xl tracking-tight text-foreground/70">
                 {program.priceLabel}
               </span>
             </div>
@@ -121,7 +121,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 5. Benefits — stated simply, one wide airy column, no icons */}
-      <section className="border-t pt-16">
+      <section className="mn-reveal border-t pt-16">
         <h2 className="mb-16 max-w-lg">{benefits.heading}</h2>
         <div className="grid grid-cols-1 gap-x-16 gap-y-12 sm:grid-cols-2">
           {benefits.items.map((item) => (
@@ -136,7 +136,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 6. Testimonials — shown with restraint, no avatars, quiet attribution */}
-      <section>
+      <section className="mn-reveal">
         <h2 className="mb-16">{testimonials.heading}</h2>
         <div className="flex flex-col gap-14">
           {testimonials.quotes.map((item) => (
@@ -154,7 +154,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 7. Call-to-action — isolated, clear, the accent spent a second time */}
-      <section className="flex flex-col items-start gap-10 border-t pt-20 text-left sm:items-center sm:pt-24 sm:text-center">
+      <section className="mn-reveal flex flex-col items-start gap-10 border-t pt-20 text-left sm:items-center sm:pt-24 sm:text-center">
         <h2 className="max-w-xl">{cta.heading}</h2>
         <p className="max-w-sm leading-relaxed text-muted-foreground">
           {cta.subcopy}
@@ -168,7 +168,7 @@ export default function MinimalPage() {
       </section>
 
       {/* 8. Contact / booking */}
-      <section className="border-t pt-16">
+      <section className="mn-reveal border-t pt-16">
         <div className="grid grid-cols-1 gap-14 sm:grid-cols-[1fr_1.2fr] sm:gap-20">
           <div>
             <h2 className="mb-6">{contact.heading}</h2>

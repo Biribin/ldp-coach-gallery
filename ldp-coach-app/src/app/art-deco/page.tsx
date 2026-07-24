@@ -96,7 +96,7 @@ export default function ArtDecoPage() {
           strict symmetry, not a plain centered title over a box. */}
       <section className="deco-fan-in relative flex flex-col items-center pt-8 text-center">
         <SunburstArch className="h-40 w-full max-w-2xl sm:h-52" />
-        <span className="deco-eyebrow -mt-6 sm:-mt-10">An Exclusive Coaching Atelier</span>
+        <span className="deco-eyebrow -mt-6 sm:-mt-10">Un Atelier de Coaching d&rsquo;Exception</span>
         <h1 className="mt-8 max-w-4xl text-[var(--deco-ivory)]">{heroHeadline}</h1>
         <div className="deco-rule my-8 max-w-xs" style={{ animationDelay: "0.2s" }} />
         <p
@@ -106,14 +106,11 @@ export default function ArtDecoPage() {
           {heroSubcopy}
         </p>
         <div
-          className="deco-rise mt-10 flex flex-wrap justify-center gap-5"
+          className="deco-rise mt-10 flex justify-center"
           style={{ animationDelay: "0.35s" }}
         >
-          <Button size="lg" className="px-10">
+          <Button size="lg" className="px-12">
             {cta.buttonLabel}
-          </Button>
-          <Button size="lg" variant="outline" className="px-10">
-            {services.heading}
           </Button>
         </div>
       </section>
@@ -130,7 +127,12 @@ export default function ArtDecoPage() {
             color="var(--deco-gold)"
           />
         </div>
-        <div className="deco-frame flex flex-col items-center p-10 text-center sm:p-14">
+        <div className="deco-reveal deco-frame flex flex-col items-center p-10 text-center sm:p-14">
+          {/* Bilateral-symmetry cue for mobile, where the flanking side
+              line-graphics are hidden. */}
+          <div className="deco-ornament mb-6 w-24 sm:hidden" aria-hidden="true">
+            <div className="deco-rule" />
+          </div>
           <AvatarBlob
             name={coachName}
             size={112}
@@ -160,8 +162,8 @@ export default function ArtDecoPage() {
 
       {/* 3. Method — the section that breaks the grid: a radial fan instead
           of a stacked list, since sunburst geometry IS the Art Deco motif. */}
-      <section className="flex flex-col items-center text-center">
-        <span className="deco-eyebrow">Her Signature Approach</span>
+      <section className="deco-reveal flex flex-col items-center text-center">
+        <span className="deco-eyebrow">Sa Méthode Signature</span>
         <h2 className="mt-4 mb-16 text-[var(--deco-ivory)]">{method.heading}</h2>
         <div className="grid w-full grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-4">
           {method.steps.map((step, index) => {
@@ -199,9 +201,9 @@ export default function ArtDecoPage() {
 
       {/* 4. Services / programs — exclusive offerings, symmetrical three-up,
           each an engraved gold-bordered plaque. */}
-      <section>
+      <section className="deco-reveal">
         <div className="flex flex-col items-center text-center">
-          <span className="deco-eyebrow">Exclusive Offerings</span>
+          <span className="deco-eyebrow">Offres d&rsquo;Exception</span>
           <h2 className="mt-4 mb-16 text-[var(--deco-ivory)]">{services.heading}</h2>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -233,8 +235,8 @@ export default function ArtDecoPage() {
 
       {/* 5. Benefits — aspirational outcomes, dense symmetrical grid, each
           marked with a small gold diamond rather than a bullet. */}
-      <section className="flex flex-col items-center text-center">
-        <span className="deco-eyebrow">Aspirational Outcomes</span>
+      <section className="deco-reveal flex flex-col items-center text-center">
+        <span className="deco-eyebrow">Des Résultats à la Hauteur</span>
         <h2 className="mt-4 mb-16 text-[var(--deco-ivory)]">{benefits.heading}</h2>
         <div className="grid grid-cols-1 gap-x-12 gap-y-12 text-left sm:grid-cols-2 lg:grid-cols-3">
           {benefits.items.map((item) => (
@@ -256,46 +258,104 @@ export default function ArtDecoPage() {
 
       <ChevronDivider index={4} />
 
-      {/* 6. Testimonials — elegant proof, full-bleed dark band with a
-          gold-quoted centerpiece to vary rhythm from the card grids above. */}
-      <section className="deco-frame flex flex-col items-center gap-12 bg-[var(--deco-ink)] px-8 py-16 text-center sm:px-16">
-        <span className="deco-eyebrow">Elegant Proof</span>
-        <h2 className="text-[var(--deco-ivory)]">{testimonials.heading}</h2>
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-3">
-          {testimonials.quotes.map((item) => (
-            <div key={item.name} className="flex flex-col items-center gap-4">
-              <span
-                aria-hidden="true"
-                className="text-5xl leading-none text-[var(--deco-gold)]"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                &ldquo;
-              </span>
-              <p className="max-w-xs text-base leading-relaxed text-foreground/85">
-                {item.quote}
-              </p>
-              <AvatarBlob
-                name={item.name}
-                size={44}
-                color="var(--deco-gold)"
-                textColor="var(--deco-obsidian)"
-              />
-              <div>
-                <p className="text-sm font-medium text-[var(--deco-ivory)]">{item.name}</p>
-                <p className="text-xs tracking-wide text-muted-foreground">{item.role}</p>
-              </div>
-            </div>
-          ))}
+      {/* 6. Testimonials — reworked into a Deco "marquee" triptych: the
+          strongest voice is set as a raised centered plaque, flanked by two
+          quieter quoted columns divided by vertical gold hairlines — bilateral
+          symmetry around a featured centerpiece, not a flat three-card grid. */}
+      <section className="deco-reveal flex flex-col items-center gap-14 bg-[var(--deco-ink)] px-6 py-16 text-center sm:px-12 sm:py-20">
+        <div className="flex flex-col items-center gap-4">
+          <span className="deco-eyebrow">Preuves d&rsquo;Élégance</span>
+          <h2 className="text-[var(--deco-ivory)]">{testimonials.heading}</h2>
+          <div className="deco-ornament w-40" aria-hidden="true">
+            <div className="deco-rule" />
+          </div>
         </div>
+        {(() => {
+          const quotes = testimonials.quotes;
+          const featuredIndex = Math.floor(quotes.length / 2);
+          const featured = quotes[featuredIndex];
+          const flanking = quotes.filter((_, i) => i !== featuredIndex);
+          const left = flanking.slice(0, Math.ceil(flanking.length / 2));
+          const right = flanking.slice(Math.ceil(flanking.length / 2));
+
+          const Column = ({
+            items,
+            align,
+          }: {
+            items: typeof quotes;
+            align: "left" | "right";
+          }) => (
+            <div
+              className={`flex flex-1 flex-col gap-10 ${
+                align === "left" ? "lg:text-right" : "lg:text-left"
+              } text-center`}
+            >
+              {items.map((item) => (
+                <figure key={item.name} className="flex flex-col gap-3">
+                  <blockquote
+                    className="leading-relaxed text-foreground/80"
+                    style={{ fontFamily: "var(--font-deco-body)" }}
+                  >
+                    {item.quote}
+                  </blockquote>
+                  <figcaption
+                    className={`flex flex-col items-center gap-0.5 ${
+                      align === "left" ? "lg:items-end" : "lg:items-start"
+                    }`}
+                  >
+                    <span className="deco-eyebrow text-[0.7rem]">{item.name}</span>
+                    <span className="text-xs tracking-wide text-muted-foreground">
+                      {item.role}
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          );
+
+          return (
+            <div className="flex w-full max-w-5xl flex-col items-stretch gap-12 lg:flex-row lg:items-center lg:gap-10">
+              <Column items={left} align="left" />
+              <div className="deco-rule-v hidden lg:block" aria-hidden="true" />
+              {/* Featured centerpiece plaque */}
+              <figure className="deco-frame deco-plaque flex flex-1 flex-col items-center gap-5 px-8 py-10 text-center sm:px-10">
+                <span
+                  aria-hidden="true"
+                  className="text-6xl leading-none text-[var(--deco-gold)]"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  &ldquo;
+                </span>
+                <blockquote className="max-w-sm text-lg leading-relaxed text-foreground/90">
+                  {featured.quote}
+                </blockquote>
+                <AvatarBlob
+                  name={featured.name}
+                  size={52}
+                  color="var(--deco-gold)"
+                  textColor="var(--deco-obsidian)"
+                />
+                <figcaption className="flex flex-col items-center gap-0.5">
+                  <span className="deco-eyebrow">{featured.name}</span>
+                  <span className="text-xs tracking-wide text-muted-foreground">
+                    {featured.role}
+                  </span>
+                </figcaption>
+              </figure>
+              <div className="deco-rule-v hidden lg:block" aria-hidden="true" />
+              <Column items={right} align="right" />
+            </div>
+          );
+        })()}
       </section>
 
       <ChevronDivider index={5} />
 
       {/* 7. Call-to-action — an invitation to something exclusive, framed
           by a second, smaller sunburst arch mirroring the hero. */}
-      <section className="relative flex flex-col items-center px-8 py-16 text-center sm:px-16 sm:py-20">
+      <section className="deco-reveal relative flex flex-col items-center px-8 py-16 text-center sm:px-16 sm:py-20">
         <SunburstArch className="pointer-events-none absolute inset-x-0 top-0 h-32 w-full max-w-xl self-center opacity-60" />
-        <span className="deco-eyebrow relative mt-10">An Invitation</span>
+        <span className="deco-eyebrow relative mt-10">Une Invitation</span>
         <h2 className="relative mx-auto mt-6 max-w-xl text-[var(--deco-ivory)]">{cta.heading}</h2>
         <p className="relative mx-auto mb-10 mt-5 max-w-md leading-relaxed text-foreground/75">
           {cta.subcopy}
@@ -308,8 +368,8 @@ export default function ArtDecoPage() {
       <ChevronDivider index={6} />
 
       {/* 8. Contact / booking — an engraved invitation card. */}
-      <section className="flex flex-col items-center gap-10 text-center">
-        <span className="deco-eyebrow">Request an Introduction</span>
+      <section className="deco-reveal flex flex-col items-center gap-10 text-center">
+        <span className="deco-eyebrow">Solliciter une Présentation</span>
         <h2 className="max-w-xl text-[var(--deco-ivory)]">{contact.heading}</h2>
         <p className="max-w-md leading-relaxed text-foreground/75">{contact.subcopy}</p>
         <div className="w-full max-w-2xl">

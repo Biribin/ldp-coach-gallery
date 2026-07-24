@@ -18,9 +18,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Corporate Professional — Fitness Coach Landing Page Gallery",
+  title: "Corporate Professional — Galerie de landing pages coach fitness",
   description:
-    "Corporate Professional-styled landing page concept: composed navy and cobalt, structured sections, credibility and calm authority.",
+    "Concept de landing page façon Corporate Professional : bleu marine et cobalt posés, sections structurées, crédibilité et autorité sereine.",
 };
 
 /**

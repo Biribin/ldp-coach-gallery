@@ -121,12 +121,18 @@
 }
 
 /* Double-line frame: the "ornamental geometric border" motif, reused on
- * cards, the hero frame, and section dividers. */
+ * cards, the hero frame, and section dividers.
+ *
+ * The second line is drawn as an inset box-shadow ring rather than a CSS
+ * `outline` with positive offset, so it never bleeds outside the element's
+ * own box — this keeps the double frame from crowding the viewport edge on
+ * narrow screens (the prior outline-offset:6px pushed a hairline past the
+ * content max-width). */
 .theme-art-deco .deco-frame {
   position: relative;
   border: 1px solid var(--deco-gold);
-  outline: 1px solid color-mix(in oklch, var(--deco-gold) 45%, transparent);
-  outline-offset: 6px;
+  box-shadow: inset 0 0 0 6px transparent,
+    inset 0 0 0 7px color-mix(in oklch, var(--deco-gold) 45%, transparent);
 }
 
 /* Stepped corner ornament — small ziggurat notches at each frame corner */
@@ -249,9 +255,77 @@
   animation: deco-rise-in 0.9s var(--deco-ease) both;
 }
 
+/* Vertical hairline gold rule — the mirrored counterpart of .deco-rule,
+ * dividing the flanking columns of the testimonial marquee. */
+.theme-art-deco .deco-rule-v {
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--deco-gold) 50%,
+    transparent
+  );
+  border: 0;
+}
+
+/* Small horizontal ornament that carries the bilateral-symmetry signature
+ * down to mobile, where the flanking side line-graphics are hidden. A pair
+ * of gold diamonds bracketing a hairline — a compact stepped motif. */
+.theme-art-deco .deco-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.theme-art-deco .deco-ornament::before,
+.theme-art-deco .deco-ornament::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: rotate(45deg);
+  background: var(--deco-gold);
+}
+
+/* The featured testimonial plaque: a filled ink face lifted just off the
+ * flanking columns, crowned by its own gold rule. */
+.theme-art-deco .deco-plaque {
+  background: color-mix(in oklch, var(--deco-ink) 82%, var(--deco-gold));
+}
+
+/* Motion past the hero: scroll-driven entrance reveals. Default state is the
+ * FINAL visible state so browsers without animation-timeline support (and
+ * reduced-motion users) see fully-rendered content. */
+.theme-art-deco .deco-reveal {
+  opacity: 1;
+}
+
+@keyframes deco-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scaleY(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-art-deco .deco-reveal {
+      transform-origin: center top;
+      animation: deco-reveal-in 0.7s var(--deco-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-art-deco .deco-fan-in,
-  .theme-art-deco .deco-rise {
+  .theme-art-deco .deco-rise,
+  .theme-art-deco .deco-reveal {
     animation: none;
   }
 }

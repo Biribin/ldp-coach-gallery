@@ -12,9 +12,20 @@
  * warmer and cozier than Japandi (which uses cool oklch neutrals + a single
  * sparing clay accent). Scandinavian commits harder to color: honey-wood,
  * moss-forest, and lingonberry-berry sit on a warm oat surface, not a
- * desaturated neutral one. Signature motif: a "braided rule" (a knitted-cable
- * illusion built from repeating CSS gradients) marks every section break
- * instead of a hairline — nothing else in the gallery uses this device.
+ * desaturated neutral one.
+ *
+ * COMPOSITION (reworked for distinctiveness):
+ *   - Signature #1 (through-line): the "braided rule" — a knitted-cable
+ *     illusion built from two interleaved repeating CSS gradients, used as the
+ *     divider instead of a hairline. Nothing else in the gallery uses it.
+ *   - Signature #2 (the bold moment): the Method is a "hearth-stone shelf" —
+ *     four warm stones sitting ON a braided rail that literally threads
+ *     through them, connected rather than four separate cards.
+ *   - Anti-convergence: testimonials are NOT a 3-card grid. They are a
+ *     "guestbook" — one large hand-warm feature quote pinned beside two small
+ *     stacked stitched entries, asymmetric.
+ *   - Motion: gentle scroll-driven reveals (CSS animation-timeline, guarded)
+ *     on every below-hero section, disabled under reduced-motion.
  */
 
 .theme-scandinavian {
@@ -59,9 +70,12 @@
 
   /* Scandinavian-specific material tokens */
   --sc-wood: #b9764a; /* honey-wood, the primary echo */
+  --sc-wood-deep: #9c5f38; /* darker plank edge / grain */
   --sc-forest: #4a5d45; /* muted moss/pine */
+  --sc-forest-soft: #6f8168; /* lightened moss for tags */
   --sc-berry: #a63d40; /* lingonberry — sparing decisive accent */
   --sc-wool: #ede1d0; /* undyed wool surface */
+  --sc-wool-warm: #e6d3b8; /* warmer wool, for row banding */
   --sc-cream: #faf3e9; /* oat background */
   --sc-charcoal: #3a342e; /* warm soot text, never pure black */
 
@@ -111,6 +125,9 @@
 
 /* Small tracked eyebrow labels */
 .theme-scandinavian .sc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -118,10 +135,22 @@
   color: var(--sc-wood);
 }
 
+/* A tiny stitched hearth-dot that prefaces an eyebrow, echoing the wool motif */
+.theme-scandinavian .sc-eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--sc-berry);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sc-berry) 22%, transparent);
+}
+
 /* SIGNATURE: the braided rule — a knitted-cable illusion built entirely from
  * repeating CSS gradients. Replaces the hairline divider used elsewhere in
- * the gallery. Two interleaved diagonal weaves in wood + wool tones. */
+ * the gallery. Two interleaved diagonal weaves in wood + forest tones.
+ * Uses `display:block` so it is safe as a standalone element OR a flex child. */
 .theme-scandinavian .sc-braid {
+  display: block;
   height: 14px;
   width: 100%;
   background-image:
@@ -161,11 +190,116 @@
     8px 0;
 }
 
-/* Cozy warm surface panel — the wood-band alternate to a plain card */
+/* Cozy warm surface panel — the wood-band alternate to a plain card.
+ * Carries a soft grain via a faint layered gradient so the plank reads as
+ * material, not a flat fill. */
 .theme-scandinavian .sc-plank {
-  background: var(--sc-wood);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0.035) 0px,
+      rgb(255 255 255 / 0.035) 2px,
+      transparent 2px,
+      transparent 46px
+    ),
+    linear-gradient(160deg, var(--sc-wood) 0%, var(--sc-wood-deep) 100%);
   color: var(--primary-foreground);
-  border-radius: var(--radius);
+}
+
+/* SIGNATURE #2: the hearth-stone shelf. A braided rail runs horizontally
+ * behind a row of warm "stones", so the four method steps read as one
+ * connected object hung on a rail, not four detached cards. */
+.theme-scandinavian .sc-shelf {
+  position: relative;
+}
+.theme-scandinavian .sc-shelf::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2.9rem; /* threads through the numeral band of each stone */
+  height: 14px;
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      var(--sc-wood) 0px,
+      var(--sc-wood) 7px,
+      transparent 7px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      65deg,
+      var(--sc-forest) 0px,
+      var(--sc-forest) 7px,
+      transparent 7px,
+      transparent 14px
+    );
+  background-size: 28px 14px, 28px 14px;
+  background-position: 0 0, 14px 0;
+  background-repeat: repeat-x;
+  border-radius: 9999px;
+  opacity: 0.55;
+}
+/* The rail is a horizontal metaphor; below the stacking breakpoint the stones
+ * stack vertically, so the rail would read as a stray line — hide it there. */
+@media (max-width: 1023px) {
+  .theme-scandinavian .sc-shelf::before {
+    display: none;
+  }
+}
+
+/* A single hearth stone: a warm rounded tile that sits over the rail with a
+ * cream numeral disc, so the rail appears to pass behind it. */
+.theme-scandinavian .sc-stone {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--sc-shadow-soft);
+  transition:
+    transform var(--sc-beat) var(--sc-ease),
+    box-shadow var(--sc-beat) var(--sc-ease);
+}
+.theme-scandinavian .sc-stone:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sc-shadow-lift);
+}
+.theme-scandinavian .sc-stone-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: var(--sc-wool);
+  border: 2px solid color-mix(in srgb, var(--sc-wood) 45%, var(--border));
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--sc-wood-deep);
+}
+
+/* The "guestbook" wool banding for testimonial side-entries */
+.theme-scandinavian .sc-entry {
+  border-left: 3px solid color-mix(in srgb, var(--sc-wood) 55%, transparent);
+  padding-left: 1.25rem;
+}
+
+/* A hanging wool tag used on the feature quote — a soft berry chip with a
+ * little "thread" notch, evoking a knitted label sewn onto the quote. */
+.theme-scandinavian .sc-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem 0.35rem 0.9rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--sc-berry) 14%, var(--sc-cream));
+  color: var(--sc-berry);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* Buttons: soft, rounded, unhurried transitions */
@@ -225,7 +359,11 @@
     background-color var(--sc-beat) var(--sc-ease);
 }
 
-/* Entrance: a gentle warm settle, used on the hero */
+/* ---- Motion --------------------------------------------------------------
+ * Hero entrance settle (fires on load), plus scroll-driven reveals for every
+ * below-hero section so the "gentle, warm reveal on scroll" the brief asks
+ * for actually materializes. */
+
 @keyframes sc-settle-in {
   from {
     opacity: 0;
@@ -241,8 +379,36 @@
   animation: sc-settle-in 0.9s var(--sc-ease) both;
 }
 
+/* Scroll-driven reveal: default state is fully visible (no JS, no opacity:0
+ * trap) so unsupported browsers show finished content; only where
+ * animation-timeline is supported do we start hidden and settle in on scroll. */
+@keyframes sc-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .theme-scandinavian .sc-reveal {
+    animation: sc-reveal-in 0.7s var(--sc-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-scandinavian .sc-rise {
+  .theme-scandinavian .sc-rise,
+  .theme-scandinavian .sc-reveal {
     animation: none;
+  }
+  .theme-scandinavian .sc-stone,
+  .theme-scandinavian [data-slot="card"],
+  .theme-scandinavian [data-slot="button"] {
+    transition: none;
   }
 }

@@ -18,11 +18,14 @@
   /* Warm putty/greige base — surface and background sit within ~1-2% of each
      other; the softness of neumorphism depends on this near-invisible jump */
   --background: oklch(0.895 0.008 75);
-  --foreground: oklch(0.36 0.014 65);
+  /* Deepened from 0.36 -> 0.3 so body text (previously read at ~/65 opacity)
+     clears WCAG AA against the putty base even where shadow-only affordances
+     do the framing. */
+  --foreground: oklch(0.3 0.016 65);
   --card: oklch(0.895 0.008 75);
-  --card-foreground: oklch(0.36 0.014 65);
+  --card-foreground: oklch(0.3 0.016 65);
   --popover: oklch(0.9 0.008 75);
-  --popover-foreground: oklch(0.36 0.014 65);
+  --popover-foreground: oklch(0.3 0.016 65);
 
   /* The one accent permitted to emerge: muted dusty mauve-taupe (never clay/
      terracotta — kept a distinct hue family from the gallery's other warm
@@ -36,7 +39,8 @@
   --accent-foreground: oklch(0.4 0.05 22);
 
   --muted: oklch(0.885 0.008 75);
-  --muted-foreground: oklch(0.55 0.016 60);
+  /* Darkened for AA on small meta text (roles, form labels) over putty. */
+  --muted-foreground: oklch(0.46 0.018 60);
   --destructive: oklch(0.55 0.09 35);
 
   /* No visible hairline border in this style — depth reads through shadow
@@ -294,9 +298,50 @@
   animation: nm-thumb-glide 3.6s var(--nm-ease) infinite;
 }
 
+/* Testimonials "soft control console": one inset rail holding a featured
+   raised quote pane plus recessed channel rows — reuses the dial motif rather
+   than the raised-disc, so it extends the signature instead of repeating it. */
+.theme-neumorphic .nm-console {
+  border-radius: calc(var(--radius) * 1.4);
+  box-shadow: var(--nm-shadow-inset-lg);
+  background: var(--nm-surface);
+}
+.theme-neumorphic .nm-channel {
+  border-radius: var(--radius);
+  box-shadow: var(--nm-shadow-inset);
+  background: var(--nm-surface);
+}
+/* A small horizontal dial marker seating a thumb at the far end — the "this
+   channel is selected" reading, echoing the hero scroll-cue. */
+.theme-neumorphic .nm-channel-dial {
+  position: relative;
+  border-radius: 999px;
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-inset);
+}
+.theme-neumorphic .nm-channel-dial > .nm-dial-thumb {
+  border-radius: 999px;
+  background: var(--nm-surface);
+  box-shadow: var(--nm-shadow-raised-sm);
+}
+
+/* Scroll-driven entrance reveal for sections past the hero — pure CSS, guarded
+   so unsupported browsers keep the final visible state (opacity:1). */
+.theme-neumorphic .nm-reveal {
+  opacity: 1;
+}
+@supports (animation-timeline: view()) {
+  .theme-neumorphic .nm-reveal {
+    animation: nm-settle-in 0.7s var(--nm-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-neumorphic .nm-rise,
-  .theme-neumorphic .nm-thumb-breathe {
+  .theme-neumorphic .nm-thumb-breathe,
+  .theme-neumorphic .nm-reveal {
     animation: none;
   }
 }

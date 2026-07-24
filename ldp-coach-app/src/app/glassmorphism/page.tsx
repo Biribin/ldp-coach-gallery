@@ -47,16 +47,20 @@ export default function GlassmorphismPage() {
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-6">
           {/* Back pane: soft, heavily blurred, offset up-left — pure atmosphere carrier */}
           <div
-            className="gm-glass gm-glass--heavy gm-float gm-orb col-span-1 -mb-16 hidden aspect-square rounded-[2rem] lg:col-span-4 lg:block lg:translate-y-10"
+            className="gm-glass gm-glass--heavy gm-float col-span-1 -mb-16 hidden aspect-square rounded-[2rem] lg:col-span-4 lg:block lg:translate-y-10"
             style={{ animationDelay: "0.05s" }}
           >
-            <GradientBlock
-              aspect="aspect-square"
-              className="h-full w-full rounded-[2rem] opacity-70 mix-blend-overlay"
-              variant="radial"
-              from="var(--gm-glow-sky)"
-              to="transparent"
-            />
+            {/* Inner wrapper carries the perpetual orb drift so it never collides
+                with .gm-float's entrance animation on the pane itself. */}
+            <div className="gm-orb h-full w-full">
+              <GradientBlock
+                aspect="aspect-square"
+                className="h-full w-full rounded-[2rem] opacity-70 mix-blend-overlay"
+                variant="radial"
+                from="var(--gm-glow-sky)"
+                to="transparent"
+              />
+            </div>
           </div>
 
           {/* Mid pane: the headline, largest and frontmost, asymmetric placement */}
@@ -64,7 +68,7 @@ export default function GlassmorphismPage() {
             className="gm-glass gm-glass--lift gm-float relative z-10 col-span-1 px-8 py-14 sm:px-12 sm:py-16 lg:col-span-8 lg:-ml-20 lg:px-16 lg:py-20"
             style={{ animationDelay: "0.15s" }}
           >
-            <Badge className="mb-8">Online &amp; in-person coaching</Badge>
+            <Badge className="mb-8">Coaching en ligne et en présentiel</Badge>
             <h1 className="max-w-2xl text-balance">{heroHeadline}</h1>
             <p className="mt-8 max-w-lg text-lg leading-relaxed text-foreground/80">
               {heroSubcopy}
@@ -84,12 +88,12 @@ export default function GlassmorphismPage() {
             className="gm-glass gm-float relative z-20 col-span-1 -mt-10 ml-auto hidden w-56 rounded-2xl p-5 sm:block lg:col-span-4 lg:col-start-9 lg:-mt-6 lg:w-auto"
             style={{ animationDelay: "0.3s" }}
           >
-            <p className="gm-eyebrow">Est. results</p>
+            <p className="gm-eyebrow">Résultats est.</p>
             <p className="mt-3 text-4xl font-medium" style={{ fontFamily: "var(--font-heading)" }}>
               200+
             </p>
             <p className="mt-1 text-sm text-foreground/70">
-              transformations coached to completion
+              transformations menées à terme
             </p>
           </div>
         </div>
@@ -98,7 +102,7 @@ export default function GlassmorphismPage() {
       {/* 2. Coach intro — presented on an elegant single glass pane, avatar breaking the edge */}
       <section className="px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <div className="gm-glass relative overflow-visible px-8 py-14 sm:px-14 sm:py-16">
+          <div className="gm-glass gm-reveal relative overflow-visible px-8 py-14 sm:px-14 sm:py-16">
             <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-14">
               <div className="shrink-0 sm:-mt-24">
                 <AvatarBlob
@@ -110,14 +114,14 @@ export default function GlassmorphismPage() {
                 />
               </div>
               <div>
-                <p className="gm-eyebrow mb-4">Meet your coach</p>
+                <p className="gm-eyebrow mb-4">À propos</p>
                 <h2 className="mb-3">{intro.heading}</h2>
                 <p className="mb-8 text-sm font-semibold tracking-wide text-primary">
                   {coachName}
                 </p>
                 <div className="flex max-w-2xl flex-col gap-5">
                   {intro.paragraphs.map((paragraph, index) => (
-                    <p key={index} className="leading-relaxed text-foreground/80">
+                    <p key={index} className="leading-relaxed text-foreground/85">
                       {paragraph}
                     </p>
                   ))}
@@ -128,18 +132,24 @@ export default function GlassmorphismPage() {
         </div>
       </section>
 
-      {/* 3. Method — a horizontal filmstrip of glass steps, full-bleed, breaking the container grid */}
+      {/* 3. Method — a horizontal filmstrip of glass steps. On wide screens the
+          four steps fit and center as a block under the heading; on narrow
+          screens the row scrolls horizontally (snap). The inner track is
+          w-max + mx-auto so it hugs its content and centers within the section. */}
       <section className="px-6 sm:px-0 lg:px-0">
         <div className="mx-auto mb-12 max-w-5xl px-0 sm:px-10 lg:px-16">
-          <p className="gm-eyebrow mb-4">How it works</p>
+          <p className="gm-eyebrow mb-4">La Méthode</p>
           <h2 className="max-w-xl">{method.heading}</h2>
         </div>
-        <div className="scrollbar-none flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-6 sm:px-10 lg:px-16">
+        <div className="scrollbar-none snap-x snap-mandatory overflow-x-auto px-6 pb-6 sm:px-10 lg:px-16">
+          {/* items-stretch → all four plates take the tallest card's height, so
+              they align on BOTH the top and bottom edges even when one step's
+              description wraps to more lines than the others. */}
+          <div className="mx-auto flex w-max items-stretch gap-6">
           {method.steps.map((step, index) => (
             <div
               key={step.title}
-              className="gm-glass gm-glass--lift gm-float flex w-72 shrink-0 snap-start flex-col gap-5 px-8 py-10 sm:w-80"
-              style={{ animationDelay: `${0.05 * index}s` }}
+              className="gm-glass gm-glass--lift flex w-64 shrink-0 snap-start flex-col gap-5 px-8 py-10 sm:w-64"
             >
               <span
                 className="text-5xl leading-none tabular-nums text-primary"
@@ -148,9 +158,10 @@ export default function GlassmorphismPage() {
                 {(index + 1).toString().padStart(2, "0")}
               </span>
               <h3>{step.title}</h3>
-              <p className="leading-relaxed text-foreground/70">{step.description}</p>
+              <p className="leading-relaxed text-foreground/80">{step.description}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
@@ -159,7 +170,7 @@ export default function GlassmorphismPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-14 flex items-end justify-between gap-6">
             <div>
-              <p className="gm-eyebrow mb-4">Programs</p>
+              <p className="gm-eyebrow mb-4">Programmes</p>
               <h2 className="max-w-xl">{services.heading}</h2>
             </div>
           </div>
@@ -171,7 +182,7 @@ export default function GlassmorphismPage() {
                 "var(--gm-glow-sky)",
               ][index % 3];
               return (
-                <Card key={program.name} className="relative overflow-hidden">
+                <Card key={program.name} className="gm-reveal relative overflow-hidden">
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-40 blur-2xl"
@@ -206,14 +217,13 @@ export default function GlassmorphismPage() {
       {/* 5. Benefits — airy stacked list, no cards, generous space between glass rows */}
       <section className="px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-4xl">
-          <p className="gm-eyebrow mb-4">Why clients stay</p>
+          <p className="gm-eyebrow mb-4">Pourquoi elles restent</p>
           <h2 className="mb-14 max-w-xl">{benefits.heading}</h2>
           <div className="flex flex-col gap-4">
-            {benefits.items.map((item, index) => (
+            {benefits.items.map((item) => (
               <div
                 key={item.title}
-                className="gm-glass gm-float flex items-center gap-6 px-7 py-6 sm:px-9"
-                style={{ animationDelay: `${0.04 * index}s` }}
+                className="gm-glass gm-reveal flex items-center gap-6 px-7 py-6 sm:px-9"
               >
                 <span
                   aria-hidden="true"
@@ -222,7 +232,7 @@ export default function GlassmorphismPage() {
                 />
                 <div>
                   <h3 className="mb-1">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-foreground/70">
+                  <p className="text-sm leading-relaxed text-foreground/80">
                     {item.description}
                   </p>
                 </div>
@@ -232,49 +242,79 @@ export default function GlassmorphismPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — three glass cards resting at slightly different elevations */}
+      {/* 6. Testimonials — a "depth column": one featured quote held at the front
+          focal plane, the remaining voices resting as receding glass panes at
+          greater blur/lower opacity behind it, so credibility reads through
+          layered translucency rather than a flat row of equal cards. */}
       <section className="px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-6xl">
-          <p className="gm-eyebrow mb-4">Client results</p>
+          <p className="gm-eyebrow mb-4">Témoignages</p>
           <h2 className="mb-14 max-w-xl">{testimonials.heading}</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {testimonials.quotes.map((item, index) => (
-              <Card
-                key={item.name}
-                className={index === 1 ? "sm:-translate-y-6" : undefined}
-              >
-                <CardContent className="flex flex-col gap-5">
+          {(() => {
+            const [lead, ...rest] = testimonials.quotes;
+            return (
+              <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1.35fr_1fr] lg:gap-8">
+                {/* Front focal plane — the featured voice, largest & clearest */}
+                <figure className="gm-glass gm-glass--lift gm-reveal relative z-10 flex flex-col gap-6 px-8 py-12 sm:px-12 sm:py-14">
                   <span
                     aria-hidden="true"
-                    className="text-4xl leading-none text-primary"
+                    className="text-7xl leading-none text-primary/80"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     &ldquo;
                   </span>
-                  <p className="leading-relaxed text-foreground/85">{item.quote}</p>
-                  <div className="mt-2 flex items-center gap-3">
+                  <blockquote className="-mt-6 text-2xl leading-snug text-foreground/90 sm:text-3xl">
+                    {lead.quote}
+                  </blockquote>
+                  <figcaption className="mt-2 flex items-center gap-4">
                     <AvatarBlob
-                      name={item.name}
-                      size={40}
-                      color="var(--gm-glow-violet)"
+                      name={lead.name}
+                      size={52}
+                      color="var(--gm-glow-coral)"
                       textColor="var(--primary-foreground)"
+                      className="ring-2 ring-(--gm-white-veil)"
                     />
                     <div>
-                      <p className="text-sm font-semibold">{item.name}</p>
-                      <p className="text-xs text-muted-foreground">{item.role}</p>
+                      <p className="text-sm font-semibold">{lead.name}</p>
+                      <p className="text-xs text-muted-foreground">{lead.role}</p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </figcaption>
+                </figure>
+                {/* Receding planes — supporting voices set deeper in the glass */}
+                <div className="flex flex-col gap-6 lg:pt-10">
+                  {rest.map((item) => (
+                    <figure
+                      key={item.name}
+                      className="gm-glass gm-glass--lift gm-depth-back flex flex-col gap-4 px-7 py-8 sm:px-8"
+                    >
+                      <blockquote className="leading-relaxed text-foreground/85">
+                        {item.quote}
+                      </blockquote>
+                      <figcaption className="flex items-center gap-3">
+                        <AvatarBlob
+                          name={item.name}
+                          size={38}
+                          color="var(--gm-glow-violet)"
+                          textColor="var(--primary-foreground)"
+                        />
+                        <div>
+                          <p className="text-sm font-semibold">{item.name}</p>
+                          <p className="text-xs text-muted-foreground">{item.role}</p>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
       {/* 7. Call-to-action — a single heavy-blur slab, full-bleed within the container, the deepest glass on the page */}
       <section className="px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <div className="gm-glass gm-glass--heavy relative overflow-hidden px-8 py-20 text-center sm:px-20">
+          <div className="gm-glass gm-glass--heavy gm-reveal relative overflow-hidden px-8 py-20 text-center sm:px-20">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-60"
@@ -284,9 +324,9 @@ export default function GlassmorphismPage() {
               }}
             />
             <div className="relative">
-              <p className="gm-eyebrow mb-6">Ready when you are</p>
+              <p className="gm-eyebrow mb-6">Prête quand vous l'êtes</p>
               <h2 className="mx-auto max-w-xl">{cta.heading}</h2>
-              <p className="mx-auto mb-10 mt-5 max-w-md leading-relaxed text-foreground/75">
+              <p className="mx-auto mb-10 mt-5 max-w-md leading-relaxed text-foreground/85">
                 {cta.subcopy}
               </p>
               <Button size="lg" className="px-10">
@@ -300,12 +340,12 @@ export default function GlassmorphismPage() {
       {/* 8. Contact / booking — form resting on its own glass pane */}
       <section className="px-6 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <div className="gm-glass px-8 py-14 sm:px-14 sm:py-16">
+          <div className="gm-glass gm-reveal px-8 py-14 sm:px-14 sm:py-16">
             <div className="grid grid-cols-1 gap-12 sm:grid-cols-[1fr_1.2fr] sm:gap-16">
               <div>
-                <p className="gm-eyebrow mb-4">Get in touch</p>
+                <p className="gm-eyebrow mb-4">Contact</p>
                 <h2 className="mb-6">{contact.heading}</h2>
-                <p className="max-w-md leading-relaxed text-foreground/75">
+                <p className="max-w-md leading-relaxed text-foreground/85">
                   {contact.subcopy}
                 </p>
               </div>

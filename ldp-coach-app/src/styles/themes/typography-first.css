@@ -112,17 +112,6 @@
   color: var(--tf-coral);
 }
 
-/* Giant ghost numerals used as a watermark behind section content */
-.theme-typography-first .tf-ghost-num {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--tf-line);
-  user-select: none;
-  pointer-events: none;
-}
-
 /* Coral fill spanning a word/phrase — the signature "shout" treatment */
 .theme-typography-first .tf-shout {
   color: var(--tf-coral);
@@ -207,8 +196,95 @@
   animation: tf-slam-in 0.8s var(--tf-ease) both;
 }
 
+/* Scroll-driven reveals extend the motion past the hero: type "rises and
+   settles" as each section enters the viewport. The .tf-reveal default is the
+   FINAL visible state so browsers without animation-timeline stay legible;
+   the reveal only engages where scroll-linked timelines are supported. */
+.theme-typography-first .tf-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes tf-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A wider "wipe" the oversized service rows use — the word slides up from a
+   clipped baseline, echoing the poster-type entrance. */
+@keyframes tf-wipe-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-typography-first .tf-reveal {
+      animation: tf-rise-in 0.7s var(--tf-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+
+    .theme-typography-first .tf-reveal-word {
+      opacity: 1;
+      animation: tf-wipe-up 0.7s var(--tf-ease) both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 30%;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-typography-first .tf-slam {
     animation: none;
   }
+}
+
+/* Services as a typographic price ledger: giant program names in the display
+   voice, hairline-separated, price set as a right-aligned coral figure — the
+   type-as-hero vocabulary instead of a boxed 3-up card row. */
+.theme-typography-first .tf-service-row {
+  border-bottom: 2px solid var(--tf-line);
+}
+.theme-typography-first .tf-service-row:first-child {
+  border-top: 2px solid var(--tf-line);
+}
+.theme-typography-first .tf-service-name {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.94;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  transition: color var(--tf-beat) var(--tf-ease);
+}
+.theme-typography-first .tf-service-row:hover .tf-service-name {
+  color: var(--tf-coral);
+}
+.theme-typography-first .tf-service-index {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--tf-ochre);
+}
+.theme-typography-first .tf-service-price {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--tf-coral);
+  line-height: 1;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
 }

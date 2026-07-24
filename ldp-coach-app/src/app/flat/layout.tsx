@@ -21,9 +21,9 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Flat — Fitness Coach Landing Page Gallery",
+  title: "Flat — Galerie de landing pages coach fitness",
   description:
-    "Flat-styled landing page concept: zero shadows, bold solid color blocks, simple iconography, crisp cheerful clarity.",
+    "Concept de landing page façon Flat : zéro ombre, aplats de couleurs francs, iconographie simple, clarté nette et enjouée.",
 };
 
 /**

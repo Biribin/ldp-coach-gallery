@@ -86,8 +86,12 @@
 }
 
 .theme-swiss-international h1 {
-  font-size: clamp(3rem, 9vw, 8rem);
+  /* Sized so the longest French token ("TRANSFORMEZ-", "DURABLEMENT") fits
+   * within the hero's 8-column span and never overflows into the right column
+   * (which carries the vertical separator + subcopy/buttons). */
+  font-size: clamp(2.25rem, 5.5vw, 5rem);
   letter-spacing: -0.03em;
+  overflow-wrap: break-word;
 }
 
 .theme-swiss-international h2 {
@@ -118,6 +122,14 @@
   z-index: 0;
 }
 
+/* Keep the registration scaffold strictly BEHIND content: direct grid children
+ * are lifted above the hairline overlay so numerals/type never sit under a
+ * paint-order line (the overlay is the guide, the content is the subject). */
+.theme-swiss-international .ch-grid > *:not(.ch-grid-lines) {
+  position: relative;
+  z-index: 1;
+}
+
 .theme-swiss-international .ch-grid-lines > span {
   border-left: 1px solid var(--ch-grid-line);
   height: 100%;
@@ -146,20 +158,6 @@
   text-transform: uppercase;
   color: var(--ch-red);
   font-variant-numeric: tabular-nums;
-}
-
-.theme-swiss-international .ch-rule {
-  height: 1px;
-  width: 100%;
-  background: var(--border);
-  border: 0;
-}
-
-.theme-swiss-international .ch-rule-thick {
-  height: 3px;
-  width: 100%;
-  background: var(--ch-ink);
-  border: 0;
 }
 
 /* Oversized tabular numerals for the Method sequence — the grid made huge */
@@ -247,6 +245,62 @@
 
 .theme-swiss-international .ch-snap {
   animation: ch-snap-in 0.5s var(--ch-ease) both;
+}
+
+/* Scroll-driven registration reveal — carries the hero's snap-into-grid beat
+ * down the page so the "elements aligning to the grid" motion is not
+ * hero-only. Defaults to the FINAL state so unsupported browsers show content;
+ * only browsers with animation-timeline animate on scroll entry. */
+@keyframes ch-align-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-swiss-international .ch-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-swiss-international .ch-reveal {
+      animation: ch-align-in 0.55s var(--ch-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+/* Testimonials as a witness register — numbered rows, not cards. A large
+ * red index numeral | oversized quote | hairline-ruled attribution column,
+ * echoing the Programs data register so proof reads as ordered evidence. */
+.theme-swiss-international .ch-witness {
+  border-top: 2px solid var(--ch-ink);
+}
+
+.theme-swiss-international .ch-witness-row {
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--ch-beat) var(--ch-ease);
+}
+
+.theme-swiss-international .ch-witness-row:hover {
+  background-color: var(--ch-grid-field);
+}
+
+.theme-swiss-international .ch-witness-num {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--ch-red);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-size: clamp(2.5rem, 5vw, 4rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

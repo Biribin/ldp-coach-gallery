@@ -271,8 +271,57 @@
   animation: tf-assemble 0.5s var(--tf-ease) both;
 }
 
+/*
+ * Scroll-reveal that extends the "assemble on entry" motion past the hero to
+ * every lower section, JS-free. Default state is the FINAL visible state
+ * (opacity:1) so browsers without animation-timeline show content normally;
+ * only supporting browsers animate the reveal as the element enters view.
+ */
+.theme-tech-forward .tf-reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-tech-forward .tf-reveal {
+      animation: tf-assemble 0.6s var(--tf-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
+/*
+ * Testimonials as a "verified telemetry log" — a stacked data-record ledger,
+ * not a card grid. Each record is a hairline-boxed row with a signal-green
+ * left rail and a mono record header, echoing the instrument-panel signature.
+ */
+.theme-tech-forward .tf-log {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.theme-tech-forward .tf-log-row {
+  position: relative;
+  border-left: 2px solid var(--tf-signal);
+  background: var(--card);
+  transition:
+    background-color var(--tf-beat) var(--tf-ease),
+    border-left-color var(--tf-beat) var(--tf-ease);
+}
+
+.theme-tech-forward .tf-log-row + .tf-log-row {
+  border-top: 1px solid var(--border);
+}
+
+.theme-tech-forward .tf-log-row:hover {
+  background: var(--tf-signal-dim);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-tech-forward .tf-in,
+  .theme-tech-forward .tf-reveal,
   .theme-tech-forward .tf-hud::after,
   .theme-tech-forward .tf-blink {
     animation: none;

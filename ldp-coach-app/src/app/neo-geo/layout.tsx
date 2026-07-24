@@ -16,9 +16,9 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Neo-Geo — Fitness Coach Landing Page Gallery",
+  title: "Neo-Geo — Galerie de landing pages coach fitness",
   description:
-    "Neo-Geo-styled landing page concept: refined geometric patterns, mathematical rhythm, and precise color-blocked shapes — structured, systematic transformation.",
+    "Concept de landing page façon Neo-Geo : motifs géométriques raffinés, rythme mathématique, aplats de couleur précis — une transformation structurée et systématique.",
 };
 
 /**

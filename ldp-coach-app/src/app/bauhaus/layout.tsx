@@ -18,9 +18,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Bauhaus — Fitness Coach Landing Page Gallery",
+  title: "Bauhaus — Galerie de landing pages coach fitness",
   description:
-    "Bauhaus-styled landing page concept: primary colors, geometric shapes on a strict grid — form follows function, honest no-nonsense transformation.",
+    "Concept de landing page façon Bauhaus : couleurs primaires, formes géométriques sur grille stricte — la forme suit la fonction, une transformation sans détour.",
 };
 
 /**

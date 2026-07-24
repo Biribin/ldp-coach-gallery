@@ -50,7 +50,7 @@ export default function BauhausPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr]">
           <div className="flex flex-col justify-center border-b-[3px] border-[var(--bh-ink)] px-6 py-16 sm:px-12 sm:py-24 lg:border-b-0 lg:border-r-[3px]">
             <span className="bh-eyebrow bh-rise">
-              Bauhaus · Form Follows Function
+              Bauhaus · La forme suit la fonction
             </span>
             <h1
               className="bh-rise mt-8 max-w-xl"
@@ -78,7 +78,7 @@ export default function BauhausPage() {
           </div>
           {/* Signature: an asymmetric primary-shape composition, Kandinsky-honest */}
           <div
-            className="bh-rise relative flex min-h-[320px] items-center justify-center bg-[var(--bh-paper)] p-10"
+            className="bh-rise relative flex min-h-[360px] items-center justify-center bg-[var(--bh-paper)] p-10 sm:min-h-[440px]"
             style={{ animationDelay: "0.1s" }}
             aria-hidden="true"
           >
@@ -117,7 +117,7 @@ export default function BauhausPage() {
             <span className="bh-eyebrow">01</span>
             <div className="bh-rule flex-1" />
           </div>
-          <h2 className="mb-4 max-w-lg">{intro.heading}</h2>
+          <h2 className="bh-reveal mb-4 max-w-lg">{intro.heading}</h2>
           <p className="mb-8 text-sm font-semibold uppercase tracking-[0.15em] text-[var(--bh-blue)]">
             {coachName} — {tagline}
           </p>
@@ -140,12 +140,12 @@ export default function BauhausPage() {
           <span className="bh-eyebrow">02</span>
           <div className="bh-rule flex-1" />
         </div>
-        <h2 className="mb-12 max-w-xl">{method.heading}</h2>
-        <div className="grid grid-cols-1 gap-0 border-[3px] border-[var(--bh-ink)] sm:grid-cols-2 lg:grid-cols-4">
+        <h2 className="bh-reveal mb-12 max-w-xl">{method.heading}</h2>
+        <div className="bh-reveal grid grid-cols-1 gap-0 border-[3px] border-[var(--bh-ink)] sm:grid-cols-2 lg:grid-cols-4">
           {method.steps.map((step, index) => (
             <div
               key={step.title}
-              className="flex flex-col gap-5 border-[var(--bh-ink)] p-7 [&:not(:last-child)]:border-b-[3px] sm:[&:not(:last-child)]:border-b-0 sm:[&:not(:nth-child(2n))]:border-r-[3px] lg:[&:not(:last-child)]:border-r-[3px]"
+              className="flex flex-col gap-5 border-[var(--bh-ink)] p-7 [&:not(:last-child)]:border-b-[3px] sm:[&:nth-child(-n+2)]:border-b-[3px] sm:[&:nth-child(n+3)]:border-b-0 sm:[&:nth-child(odd)]:border-r-[3px] lg:[&:nth-child(-n+3)]:border-b-0 lg:[&:not(:last-child)]:border-r-[3px]"
             >
               <div className="flex items-center justify-between">
                 <span className="text-4xl font-extrabold leading-none tabular-nums">
@@ -175,8 +175,8 @@ export default function BauhausPage() {
           <span className="bh-eyebrow">03</span>
           <div className="bh-rule flex-1" />
         </div>
-        <h2 className="mb-12 max-w-xl">{services.heading}</h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <h2 className="bh-reveal mb-12 max-w-xl">{services.heading}</h2>
+        <div className="bh-reveal grid grid-cols-1 gap-6 sm:grid-cols-3">
           {services.programs.map((program, index) => (
             <Card key={program.name} className="flex flex-col overflow-hidden">
               <div
@@ -214,65 +214,141 @@ export default function BauhausPage() {
           <span className="bh-eyebrow">04</span>
           <div className="bh-rule flex-1" />
         </div>
-        <h2 className="mb-12 max-w-xl">{benefits.heading}</h2>
-        <div className="grid grid-cols-1 gap-0 border-[3px] border-[var(--bh-ink)] sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.items.map((item, index) => (
-            <div
-              key={item.title}
-              className="flex gap-4 border-[var(--bh-ink)] p-7 [&:not(:last-child)]:border-b-[3px] sm:[&:not(:last-child)]:border-b-[3px] sm:[&:not(:nth-child(2n))]:border-r-[3px] lg:[&:not(:nth-child(3n))]:border-r-[3px]"
-            >
-              <span
-                aria-hidden="true"
-                className="mt-1 h-4 w-4 shrink-0"
-                style={{
-                  background: TRIAD[index % TRIAD.length],
-                  borderRadius: index % 2 === 0 ? "9999px" : "0",
-                }}
-              />
-              <div>
-                <h3 className="mb-2">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-foreground/70">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
+        <h2 className="bh-reveal mb-12 max-w-xl">{benefits.heading}</h2>
+        {/*
+          Asymmetric benefit board: the first outcome runs full-width as a
+          color-flooded feature bar; the remaining four fill a clean 2-col
+          (sm) / 4-col (lg) register with no orphan half-cell — the audit's
+          lone-cell rhythm break is designed out, not patched.
+        */}
+        <div className="bh-reveal border-[3px] border-[var(--bh-ink)]">
+          {(() => {
+            const [feature, ...rest] = benefits.items;
+            return (
+              <>
+                <div
+                  className="flex flex-col gap-3 border-b-[3px] border-[var(--bh-ink)] p-8 sm:flex-row sm:items-center sm:gap-8"
+                  style={{ background: "var(--bh-yellow)" }}
+                >
+                  <div className="flex items-center gap-4 sm:w-56 sm:shrink-0">
+                    <span
+                      aria-hidden="true"
+                      className="h-8 w-8 shrink-0 rounded-full bg-[var(--bh-ink)]"
+                    />
+                    <h3 className="text-[var(--bh-ink)]">{feature.title}</h3>
+                  </div>
+                  <p className="leading-relaxed text-[var(--bh-ink)]/80">
+                    {feature.description}
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                  {rest.map((item, index) => (
+                    <div
+                      key={item.title}
+                      className="flex flex-col gap-4 border-[var(--bh-ink)] p-7 [&:not(:last-child)]:border-b-[3px] sm:[&:nth-child(-n+2)]:border-b-[3px] sm:[&:nth-child(n+3)]:border-b-0 sm:[&:nth-child(odd)]:border-r-[3px] lg:[&:nth-child(-n+3)]:border-b-0 lg:[&:not(:last-child)]:border-r-[3px]"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="h-5 w-5 shrink-0"
+                        style={{
+                          background: TRIAD[index % TRIAD.length],
+                          borderRadius: index % 2 === 0 ? "9999px" : "0",
+                        }}
+                      />
+                      <div>
+                        <h3 className="mb-2">{item.title}</h3>
+                        <p className="text-sm leading-relaxed text-foreground/70">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
-      {/* 6. Testimonials — evidence, presented as verified data cards */}
+      {/* 6. Testimonials — evidence as an asymmetric specimen board */}
       <section className="border-b-[3px] border-[var(--bh-ink)] px-6 py-14 sm:px-12 sm:py-16">
         <div className="mb-10 flex items-center gap-4">
           <span className="bh-eyebrow">05</span>
           <div className="bh-rule flex-1" />
         </div>
-        <h2 className="mb-12 max-w-xl">{testimonials.heading}</h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {testimonials.quotes.map((item, index) => (
-            <Card key={item.name} className="flex flex-col gap-5 p-7">
-              <span
-                aria-hidden="true"
-                className="h-2 w-10"
-                style={{ background: TRIAD[index % TRIAD.length] }}
-              />
-              <p className="flex-1 leading-relaxed text-foreground/85">
-                {item.quote}
-              </p>
-              <div className="bh-rule-thin" />
-              <div className="flex items-center gap-3">
-                <AvatarBlob
-                  name={item.name}
-                  size={40}
-                  color={TRIAD[index % TRIAD.length]}
-                  textColor="var(--bh-ink)"
-                />
-                <div>
-                  <p className="text-sm font-bold">{item.name}</p>
-                  <p className="text-xs text-muted-foreground">{item.role}</p>
+        <h2 className="bh-reveal mb-12 max-w-xl">{testimonials.heading}</h2>
+        {/*
+          Specimen board (not a 3-card grid): a single black-ruled frame in an
+          asymmetric Bauhaus arrangement — the first proof is a featured band
+          with a flat primary-color plate carrying its initials; the remaining
+          proofs sit in equal cells below, divided by grid rules, never gaps.
+        */}
+        <div className="bh-reveal bh-board">
+          {(() => {
+            const [feature, ...rest] = testimonials.quotes;
+            return (
+              <>
+                <div className="bh-board-feature">
+                  <div
+                    className="bh-board-plate"
+                    style={{ background: TRIAD[0] }}
+                  >
+                    <AvatarBlob
+                      name={feature.name}
+                      size={104}
+                      color="var(--bh-ink)"
+                      textColor="var(--bh-paper)"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-6 p-8 sm:p-10">
+                    <span
+                      aria-hidden="true"
+                      className="h-2 w-12"
+                      style={{ background: TRIAD[0] }}
+                    />
+                    <p className="text-lg leading-relaxed text-foreground/90">
+                      {feature.quote}
+                    </p>
+                    <div className="mt-auto">
+                      <p className="text-sm font-bold">{feature.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {feature.role}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Card>
-          ))}
+                <div className="bh-board-grid">
+                  {rest.map((item, index) => (
+                    <div key={item.name} className="bh-board-cell flex flex-col gap-5">
+                      <span
+                        aria-hidden="true"
+                        className="h-2 w-10"
+                        style={{ background: TRIAD[(index + 1) % TRIAD.length] }}
+                      />
+                      <p className="flex-1 leading-relaxed text-foreground/85">
+                        {item.quote}
+                      </p>
+                      <div className="bh-rule-thin" />
+                      <div className="flex items-center gap-3">
+                        <AvatarBlob
+                          name={item.name}
+                          size={40}
+                          color={TRIAD[(index + 1) % TRIAD.length]}
+                          textColor="var(--bh-ink)"
+                        />
+                        <div>
+                          <p className="text-sm font-bold">{item.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.role}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
@@ -288,8 +364,8 @@ export default function BauhausPage() {
           className="absolute -bottom-8 -left-8 h-32 w-32"
           style={{ background: "var(--bh-yellow)" }}
         />
-        <div className="relative">
-          <span className="bh-eyebrow justify-center text-[var(--bh-paper)]">
+        <div className="bh-reveal relative">
+          <span className="bh-eyebrow bh-eyebrow-invert justify-center">
             06
           </span>
           <h2 className="mx-auto mt-6 max-w-xl text-[var(--bh-paper)]">

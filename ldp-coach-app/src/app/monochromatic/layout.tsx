@@ -23,9 +23,9 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Monochromatic — Fitness Coach Landing Page Gallery",
+  title: "Monochromatic — Galerie de landing pages coach fitness",
   description:
-    "Monochromatic-styled landing page concept: one hue explored across its full tonal range — depth and rhythm through tone, not color variety.",
+    "Concept de landing page façon Monochromatic : une seule teinte explorée dans toute sa gamme tonale — profondeur et rythme par la nuance, non la variété.",
 };
 
 /**

@@ -22,9 +22,9 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Luxury Minimal — Fitness Coach Landing Page Gallery",
+  title: "Luxury Minimal — Galerie de landing pages coach fitness",
   description:
-    "Luxury Minimal-styled landing page concept: premium restraint, generous space, refined serif details — expensive silence.",
+    "Concept de landing page façon Luxury Minimal : sobriété premium, espace généreux, détails serif raffinés — un silence qui a du prix.",
 };
 
 /**

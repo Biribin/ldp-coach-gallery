@@ -260,6 +260,43 @@
   animation: ng-snap-in var(--ng-beat) var(--ng-snap) both;
 }
 
+/* Scroll-driven entrance for sections past the hero — a crisp snap keyed to
+ * scroll position. Defaults to the FINAL visible state so browsers without
+ * animation-timeline support (or reduced-motion) show content immediately. */
+.theme-neo-geo .ng-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes ng-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .theme-neo-geo .ng-reveal {
+    animation: ng-reveal 0.6s var(--ng-snap) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
+/* Plotted-point marker for the testimonials coordinate register — a small
+ * framed square sitting exactly on the graph field, color-coded per entry. */
+.theme-neo-geo .ng-plot {
+  position: relative;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1px solid var(--ng-ink);
+  flex: none;
+}
+
 /* A slow, controlled rotation for the interlocking hero motif — engineered,
  * never idle-drifting: steady linear turn, one full rotation per cycle. */
 @keyframes ng-rotate {
@@ -282,6 +319,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .theme-neo-geo .ng-snap-in,
+  .theme-neo-geo .ng-reveal,
   .theme-neo-geo .ng-rotate,
   .theme-neo-geo .ng-rotate-rev {
     animation: none;

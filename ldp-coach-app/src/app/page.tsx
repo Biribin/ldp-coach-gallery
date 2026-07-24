@@ -13,15 +13,15 @@ export default function Home() {
       <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-6 py-24 sm:px-10">
         <div className="flex flex-col gap-3">
           <h1 className="text-3xl font-semibold tracking-tight">
-            Fitness Coach Landing Page Gallery
+            Galerie de landing pages — Coach fitness
           </h1>
           <p className="max-w-xl text-muted-foreground">
-            A gallery of one-page landing-page concepts for a fictional fitness
-            coach, each built in a distinctly different visual design style.
-            Pick a style below to view its full page.
+            Une galerie de concepts de landing page pour une coach fitness
+            fictive, chacun décliné dans un style visuel radicalement
+            différent. Choisissez un style ci-dessous pour voir la page complète.
           </p>
         </div>
-        <nav aria-label="Design styles">
+        <nav aria-label="Styles de design">
           <ul className="flex flex-col divide-y divide-border border-y border-border">
             {styles.map((style) => (
               <li key={style.slug}>

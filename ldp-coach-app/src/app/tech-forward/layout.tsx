@@ -27,9 +27,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tech Forward — Fitness Coach Landing Page Gallery",
+  title: "Tech Forward — Galerie de landing pages coach fitness",
   description:
-    "Tech Forward-styled landing page concept: precise, engineered, data-driven coaching rendered as a clean instrument-panel interface.",
+    "Concept de landing page façon Tech Forward : un coaching précis, conçu comme une ingénierie, piloté par la donnée, rendu sous forme de tableau de bord épuré.",
 };
 
 /**

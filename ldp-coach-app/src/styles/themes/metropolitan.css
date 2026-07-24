@@ -50,6 +50,9 @@
   /* Display: confident contemporary grotesk with editorial character */
   --font-heading: var(--font-bricolage), var(--font-sans), sans-serif;
   --font-body: var(--font-manrope), var(--font-sans), sans-serif;
+  /* Cultured serif register — the genuine editorial voice for numerals,
+   * prices and pull-quote marks (was misnamed "serif" but ran the grotesk). */
+  --font-accent: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
   /* Metropolitan-specific material tokens */
   --met-brass: oklch(0.72 0.11 78);
@@ -100,7 +103,10 @@
  * ticks, running the height of a section. Applied to a positioned wrapper. */
 .theme-metropolitan .met-avenue {
   position: absolute;
-  left: 0;
+  /* Horizontal placement comes from the JSX responsive utilities
+   * (left-6 sm:left-12 lg:left-20) so the spine aligns to the content
+   * gutter. This theme CSS is unlayered, so a hard-coded `left` here would
+   * override those utilities and pin the avenue to the far edge. */
   top: 0;
   bottom: 0;
   width: 1px;
@@ -151,7 +157,7 @@
 }
 
 .theme-metropolitan .met-serif-accent {
-  font-family: var(--font-heading);
+  font-family: var(--font-accent);
   font-style: italic;
   font-weight: 500;
 }
@@ -244,14 +250,82 @@
   }
 }
 
-.theme-metropolitan .met-line-draw {
+/* The avenue spine now "draws" as each district scrolls into frame — the
+ * street extends block by block. Default (no scroll-timeline support) leaves
+ * the line fully drawn (scaleY 1) so nothing is hidden. */
+.theme-metropolitan .met-avenue {
   transform-origin: top;
-  animation: met-line-draw 1.4s var(--met-ease) both;
+}
+
+@keyframes met-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll-driven entrance for districts below the hero. Defaults to the final
+ * visible state so unsupported browsers show everything; motion only engages
+ * where view() timelines exist. */
+.theme-metropolitan .met-reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .theme-metropolitan .met-avenue {
+    animation: met-line-draw 1s var(--met-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+  .theme-metropolitan .met-reveal {
+    animation: met-reveal-up 0.7s var(--met-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 26%;
+  }
+}
+
+/* Testimonials as a "district gallery wall": a featured lead placard beside
+ * two stacked placards. Each placard is a bordeaux plaque framed by a hairline
+ * with a brass top-rule, evoking cultural-district signage rather than a
+ * generic 3-card row. */
+.theme-metropolitan .met-placard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: color-mix(in oklch, var(--met-bordeaux-deep) 82%, black);
+  border: 1px solid color-mix(in oklch, var(--met-brass) 22%, transparent);
+  padding: 2rem;
+}
+.theme-metropolitan .met-placard::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  height: 2px;
+  width: clamp(2.5rem, 20%, 5rem);
+  background: var(--met-brass);
+}
+.theme-metropolitan .met-placard-lead {
+  justify-content: center;
+  background: color-mix(in oklch, var(--met-bordeaux) 30%, var(--met-bordeaux-deep));
+}
+.theme-metropolitan .met-placard-index {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--met-brass);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .theme-metropolitan .met-rise,
-  .theme-metropolitan .met-line-draw {
+  .theme-metropolitan .met-avenue,
+  .theme-metropolitan .met-reveal {
     animation: none;
   }
 }

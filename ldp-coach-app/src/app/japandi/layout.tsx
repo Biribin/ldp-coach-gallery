@@ -16,9 +16,9 @@ const notoSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Japandi — Fitness Coach Landing Page Gallery",
+  title: "Japandi — Galerie de landing pages coach fitness",
   description:
-    "Japandi-styled landing page concept: Japanese restraint meeting Scandinavian warmth — calm, warm-minimal, quietly embodied.",
+    "Concept de landing page façon Japandi : sobriété japonaise et chaleur scandinave — un minimalisme calme et incarné.",
 };
 
 /**

@@ -10,10 +10,16 @@
  * established by the neobrutalist reference route.
  *
  * Brief in one line: Japanese restraint × Scandinavian warmth — subtracted,
- * material-honest, calm. So: soft neutrals, a *single* warm clay accent used
- * sparingly as an emotional note (never decoration), hairline rules instead
- * of heavy borders, diffuse shadows instead of hard offsets, gentle serif
- * headings in title case, and slow organic easing.
+ * material-honest, calm. So: soft neutrals, TWO intentional whispers (a warm
+ * clay accent AND a muted sage), hairline rules instead of heavy borders,
+ * diffuse shadows instead of hard offsets, gentle serif headings in title
+ * case, and slow organic easing.
+ *
+ * Composition thesis for the rework: the page is a "serene ordered room" —
+ * a rock garden (karesansui) hero, a stacked shokunin price ledger instead of
+ * a card grid, a tatami alternating-panel benefits strip, and a single
+ * featured pull-quote instead of three testimonial cards. No two sections
+ * repeat the same geometry, and reveals arrive on scroll like a slow breath.
  */
 
 .theme-japandi {
@@ -25,7 +31,7 @@
   --popover: oklch(0.985 0.005 85);
   --popover-foreground: oklch(0.27 0.01 75);
 
-  /* The single intentional accent: muted warm clay / terracotta */
+  /* The primary intentional accent: muted warm clay / terracotta */
   --primary: oklch(0.61 0.086 52);
   --primary-foreground: oklch(0.985 0.005 85);
 
@@ -59,11 +65,13 @@
 
   /* Japandi-specific material tokens */
   --jp-line: oklch(0.88 0.01 80); /* hairline rule */
-  --jp-clay: oklch(0.61 0.086 52); /* the one accent echo */
-  --jp-sage: oklch(0.74 0.025 150); /* muted sage — whisper only */
+  --jp-clay: oklch(0.61 0.086 52); /* the first accent — a warm emotional note */
+  --jp-sage: oklch(0.6 0.04 150); /* the second whisper — muted sage, now used */
+  --jp-sage-tint: oklch(0.93 0.018 150); /* palest sage wash for tatami panels */
   --jp-stone: oklch(0.91 0.012 78); /* warm surface tone */
   --jp-ink-soft: oklch(0.42 0.012 74); /* secondary text */
   --jp-wood: oklch(0.7 0.025 65); /* raw-wood warm mid */
+  --jp-paper: oklch(0.985 0.005 85); /* raised paper surface */
 
   /* Soft, diffuse depth — the opposite of a hard offset shadow */
   --jp-shadow-soft: 0 1px 2px -1px oklch(0.27 0.01 75 / 0.06),
@@ -116,11 +124,9 @@
   color: var(--jp-clay);
 }
 
-.theme-japandi .jp-rule {
-  height: 1px;
-  width: 100%;
-  background: var(--jp-line);
-  border: 0;
+/* Sage variant of the eyebrow — the second accent given a real, quiet home */
+.theme-japandi .jp-eyebrow-sage {
+  color: var(--jp-sage);
 }
 
 /* Serif voice for non-heading accents (numerals, price, pull-quote).
@@ -201,7 +207,92 @@
     background-color var(--jp-beat) var(--jp-ease);
 }
 
-/* Entrance: a single slow "deep breath" rise, used sparingly on the hero */
+/* ---- Signature: the rock garden (karesansui) ------------------------------
+ * Raked concentric lines around a still stone. Pure CSS — a set of nested
+ * radial rings plus a warm stone. Sage-tinted rake lines, clay stone.
+ * This is the ONE bold moment; everything else stays quiet so it reads. */
+.theme-japandi .jp-garden {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  background:
+    repeating-radial-gradient(
+      circle at 62% 58%,
+      transparent 0,
+      transparent 12px,
+      color-mix(in oklch, var(--jp-sage) 42%, transparent) 12px,
+      color-mix(in oklch, var(--jp-sage) 42%, transparent) 13px
+    ),
+    var(--jp-sage-tint);
+  box-shadow: var(--jp-shadow-soft);
+  overflow: hidden;
+}
+/* The still stone — the settled centre of the raked field */
+.theme-japandi .jp-garden::after {
+  content: "";
+  position: absolute;
+  left: 58%;
+  top: 54%;
+  width: 22%;
+  height: 18%;
+  transform: translate(-50%, -50%);
+  border-radius: 48% 52% 55% 45% / 55% 48% 52% 45%;
+  background: linear-gradient(
+    145deg,
+    var(--jp-wood),
+    color-mix(in oklch, var(--jp-clay) 55%, var(--jp-wood))
+  );
+  box-shadow: inset 0 2px 6px oklch(1 0 0 / 0.25),
+    0 6px 16px -8px oklch(0.27 0.01 75 / 0.4);
+}
+/* A single smaller companion stone — asymmetry, never centred */
+.theme-japandi .jp-garden-pebble {
+  position: absolute;
+  left: 30%;
+  top: 68%;
+  width: 9%;
+  height: 8%;
+  transform: translate(-50%, -50%);
+  border-radius: 55% 45% 50% 50% / 50% 55% 45% 50%;
+  background: color-mix(in oklch, var(--jp-clay) 30%, var(--jp-stone));
+  box-shadow: 0 3px 8px -5px oklch(0.27 0.01 75 / 0.4);
+}
+
+/* ---- Tatami panel: alternating woven-tone fields for benefits ------------- */
+.theme-japandi .jp-tatami {
+  border-radius: var(--radius);
+  border: 1px solid var(--jp-line);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 22px,
+      color-mix(in oklch, var(--jp-sage) 8%, transparent) 22px,
+      color-mix(in oklch, var(--jp-sage) 8%, transparent) 23px
+    ),
+    var(--jp-paper);
+}
+.theme-japandi .jp-tatami-alt {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 22px,
+      color-mix(in oklch, var(--jp-clay) 7%, transparent) 22px,
+      color-mix(in oklch, var(--jp-clay) 7%, transparent) 23px
+    ),
+    var(--jp-stone);
+}
+
+/* Ledger price row (services): hairline-separated horizontal entries */
+.theme-japandi .jp-ledger-row {
+  transition: background-color var(--jp-beat) var(--jp-ease);
+}
+.theme-japandi .jp-ledger-row:hover {
+  background: color-mix(in oklch, var(--jp-clay) 5%, transparent);
+}
+
+/* ---- Motion: a slow deep-breath entrance --------------------------------- */
 @keyframes jp-breathe-in {
   from {
     opacity: 0;
@@ -213,12 +304,30 @@
   }
 }
 
+/* Hero uses the on-load rise (above the fold, nothing to reveal on scroll) */
 .theme-japandi .jp-rise {
   animation: jp-breathe-in 1.2s var(--jp-ease) both;
 }
 
+/* Below-hero sections reveal on scroll-into-view via CSS scroll-driven
+ * animation, guarded so unsupported browsers simply show the final state.
+ * This fixes the "motion only fires on load / only on the hero" gap. */
+.theme-japandi .jp-reveal {
+  opacity: 1;
+}
+@supports (animation-timeline: view()) {
+  .theme-japandi .jp-reveal {
+    animation: jp-breathe-in 0.9s var(--jp-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-japandi .jp-rise {
+  .theme-japandi .jp-rise,
+  .theme-japandi .jp-reveal {
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

@@ -22,7 +22,9 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  /* The one scarce accent: cold indigo, spent twice only (hero + final CTA) */
+  /* Base action color stays near-black ink: buttons and rings read as pure
+     restraint. The one scarce accent (cold indigo, --mn-accent) is spent
+     deliberately elsewhere, NOT through --primary. */
   --primary: oklch(0.145 0 0);
   --primary-foreground: oklch(1 0 0);
 
@@ -54,7 +56,7 @@
   --mn-line: oklch(0.88 0 0);
   --mn-secondary-text: oklch(0.56 0 0);
   --mn-surface: oklch(0.97 0 0);
-  --mn-accent: oklch(0.32 0.11 265); /* the single cold indigo, used exactly twice */
+  --mn-accent: oklch(0.32 0.11 265); /* the single cold indigo accent: hero underline + final CTA */
 
   --mn-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --mn-beat: 0.2s;
@@ -98,13 +100,6 @@
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--mn-secondary-text);
-}
-
-.theme-minimal .mn-rule {
-  height: 1px;
-  width: 100%;
-  background: var(--mn-line);
-  border: 0;
 }
 
 /* The single accent, spent exactly twice: hero underline + final CTA */
@@ -201,9 +196,33 @@
   animation: mn-draw 0.9s var(--mn-ease) 0.4s both;
 }
 
+/* Below-fold sections earn a single quiet arrival as they enter the viewport,
+   so the promised "essential, purposeful" motion carries past the hero rather
+   than firing all at once on load. Pure CSS scroll-driven — no JS. Guarded so
+   unsupported browsers simply show the final resting state. */
+@keyframes mn-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .theme-minimal .mn-reveal {
+    animation: mn-reveal 0.7s var(--mn-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-minimal .mn-in,
-  .theme-minimal .mn-draw {
+  .theme-minimal .mn-draw,
+  .theme-minimal .mn-reveal {
     animation: none;
   }
 }

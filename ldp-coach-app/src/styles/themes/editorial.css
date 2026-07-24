@@ -68,6 +68,8 @@
   --ed-rule: oklch(0.86 0.004 85); /* hairline rule */
   --ed-rule-strong: oklch(0.16 0.012 75); /* ink rule, masthead/section */
   --ed-paper: oklch(0.97 0.004 85); /* sidebar / callout surface */
+  --ed-red-tint: oklch(0.72 0.13 27); /* crimson lifted for use on ink band */
+  --ed-paper-muted: oklch(0.72 0.006 85); /* paper caption ink on ink band */
 
   /* Crisp, refined easing — in service of reading, never slow */
   --ed-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -155,6 +157,31 @@
   font-family: var(--font-heading);
 }
 
+/* Body text — long-form reading voice: measured leading, ink-soft color,
+ * refined kerning. Previously referenced by class name but never defined
+ * (audit defect: .ed-body was a no-op). Now the real body-copy style. */
+.theme-editorial .ed-body {
+  font-family: var(--font-sans);
+  color: var(--ed-ink);
+  line-height: 1.7;
+  letter-spacing: 0.003em;
+  font-weight: 400;
+}
+
+/* Ink-inverted band (dark surface). Crimson eyebrow would vanish on ink, so
+ * on the band the kicker switches to a warm paper tint and captions to a
+ * muted paper. Uses dedicated tokens (below) — no runtime color-mix. */
+.theme-editorial .ed-band {
+  background: var(--ed-rule-strong);
+  color: var(--ed-paper);
+}
+.theme-editorial .ed-band .ed-eyebrow {
+  color: var(--ed-red-tint);
+}
+.theme-editorial .ed-band .ed-caption {
+  color: var(--ed-paper-muted);
+}
+
 /* Drop cap — the classic magazine opening. First letter of a lead paragraph
  * set large in the display serif, crimson, floated. */
 .theme-editorial .ed-dropcap::first-letter {
@@ -182,21 +209,6 @@
     column-rule: 0;
     text-align: left;
   }
-}
-
-/* Pull quote — oversized display serif, crimson vertical bar, sink-in rule */
-.theme-editorial .ed-pullquote {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-style: italic;
-  color: var(--ed-ink);
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-}
-
-.theme-editorial .ed-bar {
-  width: 3px;
-  background: var(--ed-red);
 }
 
 /* Buttons: rectangular hairline, crimson ink, crisp ease — a print CTA tag,
@@ -252,4 +264,171 @@
 .theme-editorial textarea {
   transition:
     border-color var(--ed-beat) var(--ed-ease);
+}
+
+/* ------------------------------------------------------------------ *
+ * SCROLL-REVEAL MOTION
+ *
+ * Audit defect: `.ed-reveal` was applied in the markup but defined
+ * NOWHERE — every intended entrance was dead and the page had zero
+ * motion despite the brief asking for "gentle reveals, refined
+ * scrolling." Fixed here.
+ *
+ * Contract: `.ed-reveal` defaults to the FINAL visible state (opacity
+ * 1, no transform) so browsers without scroll-driven animation — and
+ * users with reduced-motion — always see fully-rendered content. Only
+ * where `animation-timeline: view()` is supported do we hand the
+ * entrance to the scroll position, so the reveal is genuinely
+ * scroll-linked rather than firing once on load.
+ * ------------------------------------------------------------------ */
+.theme-editorial .ed-reveal {
+  opacity: 1;
+}
+
+@keyframes ed-ink-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A quieter variant for large blocks — fade only, no travel */
+@keyframes ed-ink-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-editorial .ed-reveal {
+      animation: ed-ink-rise 0.6s var(--ed-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+    .theme-editorial .ed-reveal-soft {
+      animation: ed-ink-fade 0.7s var(--ed-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-editorial .ed-reveal,
+  .theme-editorial .ed-reveal-soft {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * NEW STRUCTURAL VOCABULARY (deep recompose)
+ * ------------------------------------------------------------------ */
+
+/* Masthead running foot / dateline: uppercase tracked meta on a hairline */
+.theme-editorial .ed-hang {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Department ledger row (method): a running list with a hanging serif folio,
+ * baseline rule, and a title that sits on the same optical line as the number.
+ * Structurally a *ledger*, not a card grid. */
+.theme-editorial .ed-ledger-row {
+  border-top: 1px solid var(--ed-rule);
+}
+.theme-editorial .ed-ledger-row:first-child {
+  border-top: 2px solid var(--ed-rule-strong);
+}
+
+/* Feature-well lead entry (services): the one program blown up as the lead
+ * article of the well — crimson standfirst rule, generous measure. */
+.theme-editorial .ed-well-lead {
+  border-top: 3px solid var(--ed-red);
+}
+
+/* Secondary well entries: hairline-separated list, hanging index numeral. */
+.theme-editorial .ed-well-item {
+  border-top: 1px solid var(--ed-rule);
+}
+
+/* Letters column (testimonials): newsprint "Letters to the Editor" —
+ * genuine multi-column flow of correspondence, each letter opening with a
+ * crimson serif initial and closing with a right-aligned signature. This is
+ * the section's signature: NOT cards, NOT one big pull quote, NOT a band. */
+.theme-editorial .ed-letters {
+  column-gap: 3rem;
+  column-rule: 1px solid var(--ed-rule);
+}
+@media (min-width: 768px) {
+  .theme-editorial .ed-letters {
+    column-count: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .theme-editorial .ed-letters {
+    column-count: 3;
+  }
+}
+.theme-editorial .ed-letter {
+  break-inside: avoid;
+  margin: 0 0 2.25rem;
+}
+.theme-editorial .ed-letter:last-child {
+  margin-bottom: 0;
+}
+.theme-editorial .ed-letter-body {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.42;
+  color: var(--ed-ink);
+  letter-spacing: -0.005em;
+}
+.theme-editorial .ed-letter-body::first-letter {
+  font-weight: 800;
+  font-size: 2.6em;
+  line-height: 0.8;
+  float: left;
+  padding: 0.04em 0.09em 0 0;
+  color: var(--ed-red);
+  font-style: normal;
+}
+.theme-editorial .ed-letter-sig {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ed-soft);
+  text-align: right;
+  margin-top: 0.85rem;
+}
+.theme-editorial .ed-letter-sig strong {
+  color: var(--ed-red);
+  font-weight: 700;
+}
+
+/* Marginalia (intro sidebar): a hanging note in the margin — small serif,
+ * separated by a crimson tick. */
+.theme-editorial .ed-margin-note {
+  border-top: 3px solid var(--ed-red);
+}
+
+/* Colophon end-mark for the closing statement */
+.theme-editorial .ed-endmark {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  background: var(--ed-red);
+  vertical-align: baseline;
 }

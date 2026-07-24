@@ -17,9 +17,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Gradient Modern — Fitness Coach Landing Page Gallery",
+  title: "Gradient Modern — Galerie de landing pages coach fitness",
   description:
-    "Gradient Modern landing page concept: sophisticated multi-stop gradients, depth through color transitions, soft glow, and contemporary energy — color as atmosphere, not accent.",
+    "Concept de landing page Gradient Modern : dégradés multi-tons sophistiqués, profondeur par les transitions de couleur, halo doux et énergie contemporaine.",
 };
 
 /**

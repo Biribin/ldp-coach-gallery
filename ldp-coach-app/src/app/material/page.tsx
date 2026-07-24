@@ -82,10 +82,10 @@ export default function MaterialPage() {
         >
           <ShapeGraphic shape="circle" className="mb-2 h-9 w-9" color="var(--md-tertiary)" />
           <p className="text-sm font-semibold text-[var(--md-ink)]">
-            {method.steps.length}-step method
+            Méthode en {method.steps.length} étapes
           </p>
           <p className="text-xs leading-relaxed text-muted-foreground">
-            {method.heading} — assess, build, adjust, sustain.
+            {method.heading} — évaluer, construire, ajuster, pérenniser.
           </p>
         </div>
         <div
@@ -130,7 +130,7 @@ export default function MaterialPage() {
 
       {/* 3. Method — a rising staircase: each step sits higher, with deeper elevation */}
       <section className="md-reveal">
-        <span className="md-eyebrow">Structured steps</span>
+        <span className="md-eyebrow">Étapes structurées</span>
         <h2 className="mb-16 mt-5">{method.heading}</h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
           {method.steps.map((step, index) => (
@@ -160,7 +160,7 @@ export default function MaterialPage() {
       {/* 4. Services / programs — elevated card grid, distinct priority per card */}
       <section className="md-reveal">
         <span className="md-eyebrow">{services.heading}</span>
-        <h2 className="mb-14 mt-5">Programs built around your life</h2>
+        <h2 className="mb-14 mt-5">Des programmes adaptés à votre vie</h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           {services.programs.map((program, index) => (
             <Card
@@ -196,7 +196,7 @@ export default function MaterialPage() {
       {/* 5. Benefits — quiet icon-row list, no card repetition */}
       <section className="md-reveal rounded-[28px] bg-[var(--md-surface-dim)] px-6 py-14 sm:px-14 sm:py-16">
         <span className="md-eyebrow">{benefits.heading}</span>
-        <h2 className="mb-12 mt-5 max-w-lg">Why clients stay with the program</h2>
+        <h2 className="mb-12 mt-5 max-w-lg">Pourquoi elles restent fidèles au programme</h2>
         <div className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
           {benefits.items.map((item) => (
             <div key={item.title} className="flex items-start gap-4">
@@ -217,7 +217,7 @@ export default function MaterialPage() {
       {/* 6. Testimonials — horizontal proof-card row, tangible proof cards */}
       <section className="md-reveal">
         <span className="md-eyebrow">{testimonials.heading}</span>
-        <h2 className="mb-14 mt-5">Results, in their own words</h2>
+        <h2 className="mb-14 mt-5">Des résultats, dans leurs mots</h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           {testimonials.quotes.map((item, index) => (
             <Card key={item.name} className={index === 1 ? "sm:-translate-y-4" : ""}>
@@ -245,7 +245,7 @@ export default function MaterialPage() {
 
       {/* 7. Call-to-action — one oversized pill FAB moment, the recurring signature */}
       <section className="flex flex-col items-center rounded-[28px] bg-[var(--md-primary)] px-8 py-20 text-center sm:px-16">
-        <span className="md-eyebrow bg-white/15 text-white">Ready when you are</span>
+        <span className="md-eyebrow bg-white/15 text-white">Prête quand vous l&apos;êtes</span>
         <h2 className="mx-auto mt-6 max-w-xl text-[var(--primary-foreground)]">
           {cta.heading}
         </h2>
@@ -264,7 +264,7 @@ export default function MaterialPage() {
       <section className="md-reveal grid grid-cols-1 gap-12 sm:grid-cols-[1fr_1.2fr] sm:gap-16">
         <div>
           <span className="md-eyebrow">{contact.heading}</span>
-          <h2 className="mb-6 mt-5">Let&apos;s build your plan</h2>
+          <h2 className="mb-6 mt-5">Construisons votre plan</h2>
           <p className="max-w-md leading-relaxed text-muted-foreground">
             {contact.subcopy}
           </p>

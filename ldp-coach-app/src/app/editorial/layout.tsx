@@ -19,9 +19,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Editorial — Fitness Coach Landing Page Gallery",
+  title: "Editorial — Galerie de landing pages coach fitness",
   description:
-    "Editorial-styled landing page concept: a coaching feature story set like a sophisticated print magazine — display serif, multi-column type, drop caps and pull quotes.",
+    "Concept de landing page façon Editorial : un reportage coaching mis en page comme un magazine papier raffiné — serif display, colonnes multiples, lettrines et citations.",
 };
 
 /**

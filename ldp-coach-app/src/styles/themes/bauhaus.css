@@ -119,6 +119,13 @@
   text-transform: uppercase;
   color: var(--bh-ink);
 }
+/* Inverted eyebrow — for the eyebrow on the deep-blue CTA band, where the
+ * default ink color would render near-black on blue (~2.3:1). This theme CSS
+ * is unlayered so a bare text-[...] utility can't win; this scoped modifier
+ * matches specificity and flips to paper white. */
+.theme-bauhaus .bh-eyebrow.bh-eyebrow-invert {
+  color: var(--bh-paper);
+}
 .theme-bauhaus .bh-eyebrow::before {
   content: "";
   width: 9px;
@@ -211,8 +218,89 @@
   animation: bh-assemble 0.6s var(--bh-ease) both;
 }
 
+/*
+ * Scroll-driven entrance for the sections below the fold — the same
+ * "assemble with purpose" gesture as the hero, but triggered as each block
+ * scrolls into view so motion extends past the first impression. Defaults to
+ * the FINAL visible state so browsers without scroll timelines (and reduced
+ * motion) simply show the content, never a blank block.
+ */
+.theme-bauhaus .bh-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-bauhaus .bh-reveal {
+      animation: bh-assemble 0.6s var(--bh-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-bauhaus .bh-rise {
     animation: none;
+  }
+}
+
+/*
+ * Testimonials "specimen board": one black-ruled frame subdivided into an
+ * asymmetric Bauhaus composition — the first proof runs full-width as a
+ * featured band (primary color plate + quote), the remaining proofs sit in
+ * equal grid cells below, all separated by 3px grid rules rather than gaps.
+ */
+.theme-bauhaus .bh-board {
+  border: 3px solid var(--bh-ink);
+}
+.theme-bauhaus .bh-board-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-bottom: 3px solid var(--bh-ink);
+}
+@media (min-width: 768px) {
+  .theme-bauhaus .bh-board-feature {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.1fr);
+  }
+}
+.theme-bauhaus .bh-board-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  border-bottom: 3px solid var(--bh-ink);
+}
+@media (min-width: 768px) {
+  .theme-bauhaus .bh-board-plate {
+    border-bottom: 0;
+    border-right: 3px solid var(--bh-ink);
+  }
+}
+.theme-bauhaus .bh-board-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .theme-bauhaus .bh-board-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.theme-bauhaus .bh-board-cell {
+  padding: 1.75rem;
+}
+.theme-bauhaus .bh-board-cell:not(:last-child) {
+  border-bottom: 3px solid var(--bh-ink);
+}
+@media (min-width: 640px) {
+  /*
+    Two-column register with 3 proofs: base rule already draws the bottom
+    divider under the first row and none under the final (last-child) cell.
+    Here we only add the vertical seam on the left-column cell, and never on a
+    lone last cell so no border dangles into empty space.
+  */
+  .theme-bauhaus .bh-board-cell:nth-child(odd):not(:last-child) {
+    border-right: 3px solid var(--bh-ink);
   }
 }

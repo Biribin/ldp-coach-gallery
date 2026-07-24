@@ -38,11 +38,6 @@ export default function MetropolitanPage() {
     contact,
   } = coachContent;
 
-  // Subtle "skyline" step: a gentle alternating offset that suggests an urban
-  // silhouette without breaking the row's readability. Kept small so the four
-  // steps still read as one aligned group.
-  const skylineHeights = ["sm:pt-0", "sm:pt-6", "sm:pt-0", "sm:pt-6"];
-
   return (
     <main className="flex flex-col">
       {/* 1. Hero — thesis: an oversized, asymmetric skyline headline, not a
@@ -87,9 +82,9 @@ export default function MetropolitanPage() {
 
       {/* 2. Coach intro — the avenue line begins here and runs the page. */}
       <section className="relative border-b border-[var(--met-line)] px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
-        <div className="met-avenue met-line-draw left-6 sm:left-12 lg:left-20" />
-        <div className="mx-auto max-w-7xl pl-8 sm:pl-14">
-          <span className="met-district">District 01 — The Coach</span>
+        <div className="met-avenue left-6 sm:left-12 lg:left-20" />
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 01 — La Coach</span>
           <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[auto_1fr] lg:gap-20">
             <AvatarBlob
               name={coachName}
@@ -115,18 +110,18 @@ export default function MetropolitanPage() {
         </div>
       </section>
 
-      {/* 3. Method — a horizontal skyline strip; uneven card heights read
-          like a city block silhouette instead of a matched grid. */}
+      {/* 3. Method — a horizontal strip of four steps sharing one top baseline
+          (numerals, titles and body all start aligned across the row). */}
       <section className="relative border-b border-[var(--met-line)] bg-[var(--met-surface-raised)] px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
         <div className="met-avenue left-6 sm:left-12 lg:left-20" />
-        <div className="mx-auto max-w-7xl pl-8 sm:pl-14">
-          <span className="met-district">District 02 — The Method</span>
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 02 — La Méthode</span>
           <h2 className="mt-10 max-w-2xl">{method.heading}</h2>
           <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden border border-[var(--met-line)] bg-[var(--met-line)] sm:grid-cols-4">
             {method.steps.map((step, index) => (
               <div
                 key={step.title}
-                className={`flex flex-col gap-4 bg-[var(--background)] px-6 py-10 sm:py-14 ${skylineHeights[index % skylineHeights.length]}`}
+                className="flex flex-col gap-4 bg-[var(--background)] px-6 py-10 sm:py-14"
               >
                 <span className="met-serif-accent text-5xl leading-none text-[var(--met-brass)]">
                   {(index + 1).toString().padStart(2, "0")}
@@ -145,8 +140,8 @@ export default function MetropolitanPage() {
           beside two stacked blocks, not three matching cards. */}
       <section className="relative border-b border-[var(--met-line)] px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
         <div className="met-avenue left-6 sm:left-12 lg:left-20" />
-        <div className="mx-auto max-w-7xl pl-8 sm:pl-14">
-          <span className="met-district">District 03 — Programs</span>
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 03 — Programmes</span>
           <h2 className="mt-10 max-w-2xl">{services.heading}</h2>
           <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3">
             {services.programs.map((program, index) => (
@@ -181,8 +176,8 @@ export default function MetropolitanPage() {
       {/* 5. Benefits — a dense two-column ledger, no cards, quieter rhythm. */}
       <section className="relative border-b border-[var(--met-line)] bg-[var(--met-surface-raised)] px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
         <div className="met-avenue left-6 sm:left-12 lg:left-20" />
-        <div className="mx-auto max-w-7xl pl-8 sm:pl-14">
-          <span className="met-district">District 04 — Why Clients Stay</span>
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 04 — Pourquoi elles restent</span>
           <h2 className="mt-10 max-w-2xl">{benefits.heading}</h2>
           <div className="mt-16 divide-y divide-[var(--met-line)] border-y border-[var(--met-line)]">
             {benefits.items.map((item, index) => (
@@ -203,35 +198,72 @@ export default function MetropolitanPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — full-bleed bordeaux panel, quoted sources. */}
+      {/* 6. Testimonials — the "district gallery wall": one large featured
+          placard beside two stacked placards, keeping the avenue spine so the
+          street stays continuous through the section. Bordeaux plaques with a
+          brass top-rule read as cultural-district signage, not a card grid. */}
       <section className="relative border-b border-[var(--met-line)] bg-[var(--met-bordeaux-deep)] px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
-        <div className="mx-auto max-w-7xl">
-          <span className="met-district">District 05 — Client Results</span>
+        <div className="met-avenue left-6 sm:left-12 lg:left-20" />
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 05 — Résultats clients</span>
           <h2 className="mt-10 max-w-2xl">{testimonials.heading}</h2>
-          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {testimonials.quotes.map((item) => (
-              <div key={item.name} className="flex flex-col gap-6">
-                <span
-                  aria-hidden="true"
-                  className="met-serif-accent text-6xl leading-none text-[var(--met-brass)]"
-                >
-                  &ldquo;
-                </span>
-                <p className="leading-relaxed text-foreground/90">{item.quote}</p>
-                <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-6">
+          <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-[1.35fr_1fr]">
+            {testimonials.quotes.slice(0, 1).map((item, index) => (
+              <figure key={item.name} className="met-placard met-placard-lead">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="met-serif-accent text-7xl leading-none text-[var(--met-brass)]"
+                  >
+                    &ldquo;
+                  </span>
+                  <span className="met-placard-index text-2xl">
+                    {(index + 1).toString().padStart(2, "0")}
+                  </span>
+                </div>
+                <blockquote className="text-xl leading-relaxed text-foreground/95 sm:text-2xl">
+                  {item.quote}
+                </blockquote>
+                <figcaption className="mt-auto flex items-center gap-3 border-t border-[var(--met-brass)]/20 pt-6">
                   <AvatarBlob
                     name={item.name}
-                    size={40}
+                    size={44}
                     color="var(--met-brass)"
                     textColor="var(--met-bordeaux-deep)"
                   />
                   <div>
                     <p className="text-sm font-semibold">{item.name}</p>
-                    <p className="text-xs text-muted-foreground">{item.role}</p>
+                    <p className="text-xs text-foreground/60">{item.role}</p>
                   </div>
-                </div>
-              </div>
+                </figcaption>
+              </figure>
             ))}
+            <div className="flex flex-col gap-6">
+              {testimonials.quotes.slice(1).map((item, index) => (
+                <figure key={item.name} className="met-placard flex-1">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <blockquote className="leading-relaxed text-foreground/90">
+                      {item.quote}
+                    </blockquote>
+                    <span className="met-placard-index shrink-0 text-lg">
+                      {(index + 2).toString().padStart(2, "0")}
+                    </span>
+                  </div>
+                  <figcaption className="mt-auto flex items-center gap-3 border-t border-[var(--met-brass)]/20 pt-5">
+                    <AvatarBlob
+                      name={item.name}
+                      size={36}
+                      color="var(--met-brass)"
+                      textColor="var(--met-bordeaux-deep)"
+                    />
+                    <div>
+                      <p className="text-sm font-semibold">{item.name}</p>
+                      <p className="text-xs text-foreground/60">{item.role}</p>
+                    </div>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -255,8 +287,8 @@ export default function MetropolitanPage() {
       {/* 8. Contact / booking */}
       <section className="relative px-6 py-20 sm:px-12 sm:py-28 lg:px-20">
         <div className="met-avenue left-6 sm:left-12 lg:left-20" />
-        <div className="mx-auto max-w-7xl pl-8 sm:pl-14">
-          <span className="met-district">District 06 — Get In Touch</span>
+        <div className="met-reveal mx-auto max-w-7xl pl-8 sm:pl-14">
+          <span className="met-district">District 06 — Contact</span>
           <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <div>
               <h2 className="max-w-md">{contact.heading}</h2>

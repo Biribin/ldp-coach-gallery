@@ -218,6 +218,18 @@
   background: var(--mono-800);
 }
 
+/*
+ * Headings on the dark bands. The base heading rule above hard-codes
+ * color: var(--mono-950) (near-black), which would otherwise render dark
+ * ink on these dark bands (invisible on band-950, barely legible on
+ * band-800). Lift them to the light tint so the tonal descent stays
+ * readable — mirroring the eyebrow/rule band overrides above.
+ */
+.theme-monochromatic .mono-band-800 :is(h1, h2, h3),
+.theme-monochromatic .mono-band-950 :is(h1, h2, h3) {
+  color: var(--mono-100);
+}
+
 /* Diagonal tonal-gradient break (benefits section) — the ONE place the grid
  * breaks: a full-bleed band sweeping across all six tonal steps at once. */
 .theme-monochromatic .mono-spectrum-band {
@@ -230,6 +242,51 @@
     var(--mono-800) 76%,
     var(--mono-950) 100%
   );
+}
+
+/* Testimonials as a "tonal stratum" — instead of a default 3-card grid, each
+ * quote is a full-width horizontal row sitting on a progressively deeper step
+ * of the single hue, so the section itself performs the tonal descent. The
+ * step (surface + text tones) is driven per-row by inline CSS custom props
+ * (--strat-surface / --strat-inverse / --strat-quiet) so no shadcn --card
+ * token is overridden by a brittle inline background. */
+.theme-monochromatic .mono-stratum {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--mono-800);
+}
+.theme-monochromatic .mono-stratum-row {
+  background: var(--strat-surface);
+  color: var(--strat-inverse);
+  padding: 2.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+.theme-monochromatic .mono-stratum-row + .mono-stratum-row {
+  border-top: 1px solid var(--mono-800);
+}
+.theme-monochromatic .mono-stratum-mark {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 0.7;
+  color: var(--strat-quiet);
+}
+.theme-monochromatic .mono-stratum-quote {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  line-height: 1.3;
+  color: var(--strat-inverse);
+}
+@media (min-width: 768px) {
+  .theme-monochromatic .mono-stratum-row {
+    grid-template-columns: 3.5rem 1fr 14rem;
+    gap: 2.5rem;
+    padding: 2.5rem 3rem;
+  }
 }
 
 @keyframes mono-rise {
@@ -261,9 +318,37 @@
   animation: mono-fill 0.6s var(--mono-ease) both;
 }
 
+/* Scroll-driven entrance for sections BELOW the hero — extends the "motion
+ * that plays within the single-color world" past the load moment. Defaults to
+ * the final visible state so unsupported browsers show fully-rendered content;
+ * only browsers with scroll-timeline support get the tonal reveal. */
+.theme-monochromatic .mono-reveal {
+  opacity: 1;
+}
+@keyframes mono-reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  .theme-monochromatic .mono-reveal {
+    animation: mono-reveal-in 0.7s var(--mono-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-monochromatic .mono-rise,
+  .theme-monochromatic .mono-reveal,
   .theme-monochromatic .mono-ruler > span {
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

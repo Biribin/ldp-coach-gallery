@@ -21,9 +21,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Retro-futuristic — Fitness Coach Landing Page Gallery",
+  title: "Retro-futuristic — Galerie de landing pages coach fitness",
   description:
-    "Retro-futuristic-styled landing page concept: an 80s vision of the future — neon accents, chrome gradients, horizon grids, refined nostalgia.",
+    "Concept de landing page façon Retro-futuristic : une vision du futur façon années 80 — néons, dégradés chromés, grilles d'horizon, nostalgie raffinée.",
 };
 
 /**

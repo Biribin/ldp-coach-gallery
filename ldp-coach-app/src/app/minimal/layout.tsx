@@ -17,9 +17,9 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Minimal — Fitness Coach Landing Page Gallery",
+  title: "Minimal — Galerie de landing pages coach fitness",
   description:
-    "Minimal-styled landing page concept: extreme reduction, maximum whitespace, essential elements only.",
+    "Concept de landing page façon Minimal : réduction extrême, espace blanc maximal, uniquement l'essentiel.",
 };
 
 /**

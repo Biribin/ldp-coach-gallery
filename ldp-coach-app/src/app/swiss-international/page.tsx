@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { GradientBlock, ShapeGraphic, AvatarBlob } from "@/components/placeholders";
 import { coachContent } from "@/lib/content";
 import { ContactForm } from "./ContactForm";
@@ -52,8 +51,7 @@ export default function SwissInternationalPage() {
       <section className="relative border-b-2 border-(--ch-ink) px-4 pb-16 pt-10 sm:px-8 sm:pt-16">
         <div className="ch-grid relative">
           <GridCoords />
-          <div className="col-span-12 mb-10 flex items-center justify-between border-b border-border pb-4">
-            <span className="ch-eyebrow">Swiss / International</span>
+          <div className="col-span-12 mb-10 flex items-center justify-end border-b border-border pb-4">
             <span className="ch-coord hidden sm:inline">01&ndash;08</span>
           </div>
 
@@ -83,7 +81,7 @@ export default function SwissInternationalPage() {
             style={{ animationDelay: "0.12s" }}
           >
             <div className="mb-3 flex items-center justify-between">
-              <span className="ch-coord">Fig. 01 — Program Field</span>
+              <span className="ch-coord">Fig. 01 — Champ des programmes</span>
               <span className="ch-coord">12 / 12</span>
             </div>
             <GradientBlock
@@ -104,7 +102,7 @@ export default function SwissInternationalPage() {
           <div className="col-span-12 mb-10 flex items-center gap-4 sm:col-span-3">
             <span className="ch-eyebrow">02</span>
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Profile
+              Profil
             </span>
           </div>
           <div className="col-span-12 sm:col-span-9">
@@ -145,14 +143,14 @@ export default function SwissInternationalPage() {
               <span className="ch-eyebrow">03</span>
               <h2 className="text-white">{method.heading}</h2>
             </div>
-            <span className="ch-coord hidden sm:inline">04 Steps</span>
+            <span className="ch-coord hidden sm:inline">04 Étapes</span>
           </div>
 
           <div className="col-span-12 grid grid-cols-1 gap-0 sm:grid-cols-4">
             {method.steps.map((step, index) => (
               <div
                 key={step.title}
-                className="flex flex-col gap-4 border-t border-white/20 py-8 pr-6 sm:border-l sm:border-t-0 sm:pl-6 sm:first:border-l-0"
+                className="ch-reveal flex flex-col gap-4 border-t border-white/20 py-8 pr-6 sm:border-l sm:border-t-0 sm:pl-6 sm:first:border-l-0"
               >
                 <span className="ch-num text-6xl sm:text-7xl">
                   {(index + 1).toString().padStart(2, "0")}
@@ -178,21 +176,21 @@ export default function SwissInternationalPage() {
               <h2>{services.heading}</h2>
             </div>
             <span className="ch-coord hidden sm:inline">
-              {services.programs.length.toString().padStart(2, "0")} Entries
+              {services.programs.length.toString().padStart(2, "0")} Entrées
             </span>
           </div>
 
           <div className="col-span-12">
             <div className="hidden border-b border-border pb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground sm:grid sm:grid-cols-[3rem_1fr_16rem_10rem]">
-              <span>No.</span>
-              <span>Program</span>
-              <span>Detail</span>
-              <span className="text-right">Rate</span>
+              <span>N°</span>
+              <span>Programme</span>
+              <span>Détail</span>
+              <span className="text-right">Tarif</span>
             </div>
             {services.programs.map((program, index) => (
               <div
                 key={program.name}
-                className="ch-row grid grid-cols-1 gap-3 py-6 sm:grid-cols-[3rem_1fr_16rem_10rem] sm:items-center sm:gap-6"
+                className="ch-row ch-reveal grid grid-cols-1 gap-3 py-6 sm:grid-cols-[3rem_1fr_16rem_10rem] sm:items-center sm:gap-6"
               >
                 <span className="ch-coord">
                   {(index + 1).toString().padStart(2, "0")}
@@ -220,11 +218,20 @@ export default function SwissInternationalPage() {
           </div>
           <div className="col-span-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
             {benefits.items.map((item, index) => (
-              <div key={item.title} className="border-t-2 border-(--ch-ink) pt-4">
-                <span className="ch-coord">
-                  {(index + 1).toString().padStart(2, "0")}
-                </span>
-                <h3 className="mb-2 mt-3">{item.title}</h3>
+              <div
+                key={item.title}
+                className="ch-reveal flex flex-col border-t-2 border-(--ch-ink) pt-4"
+              >
+                <div className="mb-3 flex items-baseline justify-between">
+                  <span className="ch-num text-4xl">
+                    {(index + 1).toString().padStart(2, "0")}
+                  </span>
+                  <span className="ch-coord">
+                    {(index + 1).toString().padStart(2, "0")}/
+                    {benefits.items.length.toString().padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="mb-2">{item.title}</h3>
                 <p className="text-sm leading-relaxed text-foreground/70">
                   {item.description}
                 </p>
@@ -234,39 +241,47 @@ export default function SwissInternationalPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — organized proof, three columns with a bold red
-          quotation rule as the only decorative device. */}
+      {/* 6. Testimonials — a witness register: numbered evidence rows (not
+          cards), oversized red index | quote | hairline attribution column,
+          echoing the Programs data register so proof reads as ordered record. */}
       <section className="border-b border-border px-4 py-20 sm:px-8">
         <div className="ch-grid">
-          <div className="col-span-12 mb-12 flex items-center gap-4">
-            <span className="ch-eyebrow">06</span>
-            <h2>{testimonials.heading}</h2>
+          <div className="col-span-12 mb-10 flex items-center justify-between border-b border-border pb-4">
+            <div className="flex items-center gap-4">
+              <span className="ch-eyebrow">06</span>
+              <h2>{testimonials.heading}</h2>
+            </div>
+            <span className="ch-coord hidden sm:inline">
+              {testimonials.quotes.length.toString().padStart(2, "0")} Résultats
+            </span>
           </div>
-          <div className="col-span-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {testimonials.quotes.map((item) => (
-              <Card key={item.name} className="flex flex-col justify-between">
-                <CardContent className="flex flex-col gap-6">
-                  <span
-                    aria-hidden="true"
-                    className="ch-rule-thick w-8 bg-(--ch-red)"
+          <div className="col-span-12 ch-witness">
+            {testimonials.quotes.map((item, index) => (
+              <div
+                key={item.name}
+                className="ch-witness-row ch-reveal grid grid-cols-1 gap-4 py-8 sm:grid-cols-[5rem_1fr_15rem] sm:items-start sm:gap-10"
+              >
+                <span className="ch-witness-num">
+                  {(index + 1).toString().padStart(2, "0")}
+                </span>
+                <p className="max-w-2xl text-lg leading-snug text-foreground sm:text-xl">
+                  {item.quote}
+                </p>
+                <div className="flex items-center gap-3 border-t border-(--ch-ink) pt-4 sm:border-t-0 sm:border-l sm:pl-6">
+                  <AvatarBlob
+                    name={item.name}
+                    size={40}
+                    color="var(--ch-ink)"
+                    textColor="oklch(1 0 0)"
                   />
-                  <p className="text-base leading-relaxed text-foreground/85">
-                    {item.quote}
-                  </p>
-                  <div className="mt-2 flex items-center gap-3 border-t border-border pt-4">
-                    <AvatarBlob
-                      name={item.name}
-                      size={36}
-                      color="var(--ch-ink)"
-                      textColor="oklch(1 0 0)"
-                    />
-                    <div>
-                      <p className="text-sm font-semibold">{item.name}</p>
-                      <p className="text-xs text-muted-foreground">{item.role}</p>
-                    </div>
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.06em]">
+                      {item.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{item.role}</p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>

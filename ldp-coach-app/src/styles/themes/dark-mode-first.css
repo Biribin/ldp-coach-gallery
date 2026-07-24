@@ -145,8 +145,13 @@
 .theme-dark-mode-first .dmf-power-line {
   position: relative;
   width: 2px;
+  /* Explicit floor so the gauge never collapses if the Method flex ever
+     stops stretching its children; stretch still lets it grow past this. */
+  min-height: 22rem;
+  align-self: stretch;
   background: var(--dmf-line-strong);
-  overflow: hidden;
+  /* Let the copper glow bleed a little rather than hard-clip it */
+  overflow: visible;
 }
 .theme-dark-mode-first .dmf-power-line::after {
   content: "";
@@ -250,8 +255,61 @@
   animation: dmf-emerge 0.9s var(--dmf-ease) both;
 }
 
+/* Scroll-driven entrance for every section below the fold — content lifts out
+   of shadow into focused light as it enters the viewport. Defaults to the FINAL
+   visible state so unsupported browsers never hide content; only browsers that
+   support scroll-linked timelines get the animated reveal. */
+.theme-dark-mode-first .dmf-reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .theme-dark-mode-first .dmf-reveal {
+    animation: dmf-emerge 0.8s var(--dmf-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
+/* Testimonials as an instrument "signal readout": each proof is a stacked row
+   with a live level-meter bar on the left, a luminous quote, and a readout
+   footer — the oscilloscope gauge vocabulary, NOT a 3-card grid. */
+.theme-dark-mode-first .dmf-signal {
+  position: relative;
+  border-top: 1px solid var(--dmf-line);
+  transition: background-color var(--dmf-beat) var(--dmf-ease);
+}
+.theme-dark-mode-first .dmf-signal:last-child {
+  border-bottom: 1px solid var(--dmf-line);
+}
+.theme-dark-mode-first .dmf-signal:hover {
+  background: color-mix(in oklch, var(--dmf-copper) 5%, transparent);
+}
+/* The per-quote level meter: a vertical copper bar filling to a set level,
+   echoing the Method power-line at a smaller scale. */
+.theme-dark-mode-first .dmf-meter {
+  position: relative;
+  width: 3px;
+  align-self: stretch;
+  min-height: 4.5rem;
+  background: var(--dmf-line-strong);
+}
+.theme-dark-mode-first .dmf-meter::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--dmf-fill, 70%);
+  background: linear-gradient(
+    to top,
+    var(--dmf-copper),
+    oklch(0.72 0.15 55 / 0.2)
+  );
+  box-shadow: 0 0 12px 1px oklch(0.72 0.15 55 / 0.5);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-dark-mode-first .dmf-emerge {
+  .theme-dark-mode-first .dmf-emerge,
+  .theme-dark-mode-first .dmf-reveal {
     animation: none;
   }
   .theme-dark-mode-first .dmf-power-line::after {

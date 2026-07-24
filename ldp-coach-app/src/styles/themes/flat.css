@@ -177,13 +177,15 @@
 }
 
 /* Signature element: the flat "dial" — a solid-color circular numeral badge
- * with a hard ink ring, no gradient/shadow, used for the Method sequence. */
+ * with a hard ink ring, no gradient/shadow. Method uses the large default
+ * size; other placements set --flat-dial-size to resize (no !important war
+ * with Tailwind sizing utilities anymore). */
 .theme-flat .flat-dial {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
-  height: 4rem;
+  width: var(--flat-dial-size, 4rem);
+  height: var(--flat-dial-size, 4rem);
   border-radius: 9999px;
   border: 3px solid var(--flat-ink);
   font-family: var(--font-heading);
@@ -199,6 +201,25 @@
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* Big flat quotation glyph for the featured testimonial — solid, no depth */
+.theme-flat .flat-quote-mark {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 0.7;
+  font-size: clamp(5rem, 12vw, 9rem);
+}
+
+/* Flat "price tag" ledger rows — a hard color chip snapped to the left edge */
+.theme-flat .flat-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2px solid var(--flat-ink);
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 /* One orchestrated entrance moment on the hero — snappy, not soft */
@@ -217,8 +238,34 @@
   animation: flat-pop-in 0.5s var(--flat-ease) both;
 }
 
+/* Snappy scroll-into-view reveal for every below-hero section — a crisp
+ * pop up + settle, not a soft fade. Pure CSS scroll-driven timeline, so no
+ * JS and no "fires only on load" bug. Guarded: unsupported browsers keep
+ * the final (visible) state because the base rule sets no opacity:0. */
+@keyframes flat-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-flat .flat-reveal {
+      animation: flat-rise-in 0.55s var(--flat-ease) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-flat .flat-pop,
+  .theme-flat .flat-reveal,
   .theme-flat [data-slot="card"],
   .theme-flat [data-slot="button"] {
     animation: none !important;

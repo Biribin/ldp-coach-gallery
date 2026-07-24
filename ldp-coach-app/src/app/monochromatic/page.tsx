@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { AvatarBlob } from "@/components/placeholders";
 import { coachContent } from "@/lib/content";
 import { ContactForm } from "./ContactForm";
@@ -11,6 +10,27 @@ const TONE_STEPS = [
   "var(--mono-600)",
   "var(--mono-800)",
   "var(--mono-950)",
+];
+
+// Monotonic descent through the darker half of the ladder — used where a
+// numeral/marker should visibly deepen step-by-step down a list, honoring the
+// "descend the tonal scale" thesis instead of cycling colors.
+const DESCENDING_INK = [
+  "var(--mono-400)",
+  "var(--mono-600)",
+  "var(--mono-600)",
+  "var(--mono-800)",
+  "var(--mono-800)",
+  "var(--mono-950)",
+];
+
+// Ascending (lightening) ladder — used for markers ON the deep band-800
+// services strip, where deeper steps would vanish into the background; each
+// service reads one step brighter so tone still differentiates the panels.
+const LIGHTENING_TONE = [
+  "var(--mono-400)",
+  "var(--mono-200)",
+  "var(--mono-100)",
 ];
 
 function StepDots() {
@@ -104,7 +124,7 @@ export default function MonochromaticPage() {
             color="var(--mono-800)"
             textColor="var(--mono-100)"
           />
-          <div className="sm:border-l sm:border-[var(--mono-400)] sm:pl-16">
+          <div className="mono-reveal sm:border-l sm:border-[var(--mono-400)] sm:pl-16">
             <span className="mono-eyebrow">01</span>
             <h2 className="mb-8 mt-4">{intro.heading}</h2>
             <div className="flex max-w-xl flex-col gap-5">
@@ -125,7 +145,7 @@ export default function MonochromaticPage() {
           <h2 className="mb-14 mt-4 max-w-xl">{method.heading}</h2>
           <div className="mono-rule mb-2" />
           {method.steps.map((step, index) => (
-            <div key={step.title}>
+            <div key={step.title} className="mono-reveal">
               <div className="grid grid-cols-1 gap-4 py-10 sm:grid-cols-[7rem_1fr] sm:gap-10">
                 <span
                   className="text-6xl italic leading-none tabular-nums"
@@ -158,7 +178,7 @@ export default function MonochromaticPage() {
             {services.programs.map((program, index) => (
               <div
                 key={program.name}
-                className="flex flex-col gap-5 border p-8"
+                className="mono-reveal flex flex-col gap-5 border p-8"
                 style={{
                   borderColor: "var(--mono-600)",
                   background:
@@ -167,7 +187,7 @@ export default function MonochromaticPage() {
               >
                 <span
                   className="h-1.5 w-10"
-                  style={{ background: TONE_STEPS[2 + index] }}
+                  style={{ background: LIGHTENING_TONE[index] ?? "var(--mono-100)" }}
                   aria-hidden="true"
                 />
                 <h3 className="text-xl">{program.name}</h3>
@@ -198,10 +218,10 @@ export default function MonochromaticPage() {
           <h2 className="mb-16 mt-4 max-w-xl">{benefits.heading}</h2>
           <div className="grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {benefits.items.map((item, index) => (
-              <div key={item.title} className="flex flex-col gap-2">
+              <div key={item.title} className="mono-reveal flex flex-col gap-2">
                 <span
                   className="text-xs font-semibold tabular-nums"
-                  style={{ color: TONE_STEPS[2 + (index % 4)] }}
+                  style={{ color: DESCENDING_INK[index] ?? "var(--mono-950)" }}
                 >
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
@@ -215,38 +235,40 @@ export default function MonochromaticPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — deepest band, quotes as inset light-tone cards */}
+      {/* 6. Testimonials — NOT a 3-card grid. Proof rendered as tonal strata:
+          full-width horizontal rows, each seated on a progressively deeper
+          step of the single hue, so the section itself descends the tonal
+          scale — the page's core thesis performed within one section. */}
       <section className="mono-band-950 px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <span className="mono-eyebrow">05</span>
           <h2 className="mb-14 mt-4 max-w-xl">{testimonials.heading}</h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {testimonials.quotes.map((item) => (
-              <Card
-                key={item.name}
-                className="border-[var(--mono-600)]"
-                style={{ background: "var(--mono-800)" }}
-              >
-                <CardContent className="flex flex-col gap-5">
-                  <span
-                    aria-hidden="true"
-                    className="text-4xl italic leading-none text-[var(--mono-400)]"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
+          <div className="mono-stratum">
+            {testimonials.quotes.map((item, index) => {
+              // Each row seats one step deeper on the ladder (600 → 800 → 950).
+              const surface = TONE_STEPS[Math.min(3 + index, 5)];
+              return (
+                <div
+                  key={item.name}
+                  className="mono-stratum-row mono-reveal"
+                  style={
+                    {
+                      "--strat-surface": surface,
+                      "--strat-inverse": "var(--mono-100)",
+                      "--strat-quiet": "var(--mono-400)",
+                    } as React.CSSProperties
+                  }
+                >
+                  <span className="mono-stratum-mark" aria-hidden="true">
                     &ldquo;
                   </span>
-                  <p
-                    className="text-lg italic leading-relaxed text-[var(--mono-100)]"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {item.quote}
-                  </p>
-                  <div className="mt-2 flex items-center gap-3">
+                  <p className="mono-stratum-quote">{item.quote}</p>
+                  <div className="flex items-center gap-3">
                     <AvatarBlob
                       name={item.name}
-                      size={38}
-                      color="var(--mono-600)"
-                      textColor="var(--mono-100)"
+                      size={40}
+                      color="var(--mono-100)"
+                      textColor="var(--mono-950)"
                     />
                     <div>
                       <p className="text-sm font-medium not-italic text-[var(--mono-100)]">
@@ -257,9 +279,9 @@ export default function MonochromaticPage() {
                       </p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

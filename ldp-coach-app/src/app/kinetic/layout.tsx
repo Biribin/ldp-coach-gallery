@@ -24,9 +24,9 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Kinetic — Fitness Coach Landing Page Gallery",
+  title: "Kinetic — Galerie de landing pages coach fitness",
   description:
-    "Kinetic-styled landing page concept: motion-driven athletic energy — controlled animation, diagonal structure, disciplined momentum.",
+    "Concept de landing page façon Kinetic : énergie athlétique portée par le mouvement — animation maîtrisée, structure en diagonale, élan discipliné.",
 };
 
 /**

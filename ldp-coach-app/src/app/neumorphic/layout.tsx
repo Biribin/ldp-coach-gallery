@@ -23,9 +23,9 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Neumorphic — Fitness Coach Landing Page Gallery",
+  title: "Neumorphic — Galerie de landing pages coach fitness",
   description:
-    "Neumorphic-styled landing page concept: soft extruded elements, dual light/dark shadows, tactile monochrome surfaces.",
+    "Concept de landing page façon Neumorphic : éléments extrudés tout en douceur, ombres claires et sombres, surfaces monochromes tactiles.",
 };
 
 /**

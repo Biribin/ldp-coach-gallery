@@ -41,12 +41,12 @@ export default function NeumorphicPage() {
           thesis line, not a centered title over a box */}
       <section className="grid grid-cols-1 items-center gap-12 pt-6 sm:grid-cols-[1fr_auto] sm:gap-10 sm:pt-10">
         <div>
-          <span className="nm-eyebrow nm-rise">Personal Coaching</span>
+          <span className="nm-eyebrow nm-rise">Coaching personnalisé</span>
           <h1 className="nm-rise mt-6 max-w-2xl" style={{ animationDelay: "0.08s" }}>
             {heroHeadline}
           </h1>
           <p
-            className="nm-rise mt-7 max-w-lg text-lg leading-relaxed text-foreground/70"
+            className="nm-rise mt-7 max-w-lg text-lg leading-relaxed text-foreground/85"
             style={{ animationDelay: "0.16s" }}
           >
             {heroSubcopy}
@@ -81,14 +81,14 @@ export default function NeumorphicPage() {
         >
           <div className="nm-inset flex h-36 w-36 items-center justify-center rounded-full sm:h-44 sm:w-44">
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--nm-accent)]">
-              Est. Strength
+              Force est.
             </span>
           </div>
         </div>
       </section>
 
       {/* 2. Coach intro — raised panel, photo as a recessed well */}
-      <section className="nm-raised grid grid-cols-1 gap-10 p-8 sm:grid-cols-[auto_1fr] sm:gap-14 sm:p-14">
+      <section className="nm-reveal nm-raised grid grid-cols-1 gap-10 p-8 sm:grid-cols-[auto_1fr] sm:gap-14 sm:p-14">
         <div className="nm-inset flex h-28 w-28 shrink-0 items-center justify-center rounded-full sm:h-36 sm:w-36">
           <AvatarBlob
             name={coachName}
@@ -104,7 +104,7 @@ export default function NeumorphicPage() {
           </p>
           <div className="flex max-w-xl flex-col gap-5">
             {intro.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="leading-relaxed text-foreground/75">
+              <p key={paragraph} className="leading-relaxed text-foreground/85">
                 {paragraph}
               </p>
             ))}
@@ -114,10 +114,10 @@ export default function NeumorphicPage() {
 
       {/* 3. Method — the grid-breaking section: one large inset panel holding
           four pressable dials in a row instead of a repeated card layout */}
-      <section>
+      <section className="nm-reveal">
         <h2 className="mb-3 text-center">{method.heading}</h2>
-        <p className="mx-auto mb-12 max-w-md text-center leading-relaxed text-foreground/65">
-          Four gentle stages, always in the same soft rhythm.
+        <p className="mx-auto mb-12 max-w-md text-center leading-relaxed text-foreground/85">
+          Quatre étapes en douceur, toujours dans le même rythme apaisant.
         </p>
         <div className="nm-inset-lg grid grid-cols-1 gap-10 p-8 sm:grid-cols-4 sm:gap-6 sm:p-12">
           {method.steps.map((step, index) => (
@@ -128,7 +128,7 @@ export default function NeumorphicPage() {
                 </span>
               </div>
               <h3 className="mb-2">{step.title}</h3>
-              <p className="max-w-[16rem] text-sm leading-relaxed text-foreground/65">
+              <p className="max-w-[16rem] text-sm leading-relaxed text-foreground/85">
                 {step.description}
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function NeumorphicPage() {
       </section>
 
       {/* 4. Services / programs — raised panels, dense grid rhythm */}
-      <section>
+      <section className="nm-reveal">
         <h2 className="mb-12 text-center">{services.heading}</h2>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {services.programs.map((program) => (
@@ -149,7 +149,7 @@ export default function NeumorphicPage() {
                 />
               </div>
               <h3>{program.name}</h3>
-              <p className="flex-1 text-sm leading-relaxed text-foreground/65">
+              <p className="flex-1 text-sm leading-relaxed text-foreground/85">
                 {program.description}
               </p>
               <p className="text-lg font-semibold text-[var(--nm-accent)]">
@@ -161,7 +161,7 @@ export default function NeumorphicPage() {
       </section>
 
       {/* 5. Benefits — airy, no cards at all: inset pill markers only */}
-      <section>
+      <section className="nm-reveal">
         <h2 className="mb-12 text-center">{benefits.heading}</h2>
         <div className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.items.map((item) => (
@@ -174,7 +174,7 @@ export default function NeumorphicPage() {
               </span>
               <div>
                 <h3 className="mb-1.5">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-foreground/65">
+                <p className="text-sm leading-relaxed text-foreground/85">
                   {item.description}
                 </p>
               </div>
@@ -183,51 +183,93 @@ export default function NeumorphicPage() {
         </div>
       </section>
 
-      {/* 6. Testimonials — full-bleed rhythm break: one wide inset strip
-          instead of three separate raised cards */}
-      <section className="nm-inset-lg grid grid-cols-1 gap-10 p-8 sm:grid-cols-3 sm:gap-8 sm:p-12">
-        <h2 className="col-span-full mb-2 text-center">{testimonials.heading}</h2>
-        {testimonials.quotes.map((item) => (
-          <div key={item.name} className="nm-raised flex flex-col gap-5 p-7">
-            <p className="text-base leading-relaxed text-foreground/80">
-              &ldquo;{item.quote}&rdquo;
-            </p>
-            <div className="mt-auto flex items-center gap-3">
-              <span className="nm-inset flex h-10 w-10 items-center justify-center rounded-full">
-                <AvatarBlob
-                  name={item.name}
-                  size={26}
-                  color="transparent"
-                  textColor="var(--nm-accent)"
-                />
-              </span>
-              <div>
-                <p className="text-sm font-semibold">{item.name}</p>
-                <p className="text-xs text-muted-foreground">{item.role}</p>
+      {/* 6. Testimonials — the "soft control console": one recessed rail
+          seating a featured raised quote pane, with the remaining voices as
+          inset channel rows fronted by a small dial marker. Reuses the dial
+          signature (not the raised-disc) so the motif deepens rather than
+          repeats, and breaks the default 3-up card grid entirely. */}
+      {(() => {
+        const [featured, ...channels] = testimonials.quotes;
+        return (
+          <section className="nm-reveal nm-console flex flex-col gap-10 p-8 sm:p-12">
+            <h2 className="text-center">{testimonials.heading}</h2>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+              {/* Featured — the one pane raised out of the console */}
+              <figure className="nm-raised flex flex-col gap-6 p-8 sm:p-10">
+                <p className="text-xl leading-relaxed text-foreground/90 sm:text-2xl">
+                  &ldquo;{featured.quote}&rdquo;
+                </p>
+                <figcaption className="mt-auto flex items-center gap-4">
+                  <span className="nm-inset flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
+                    <AvatarBlob
+                      name={featured.name}
+                      size={30}
+                      color="transparent"
+                      textColor="var(--nm-accent)"
+                    />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-semibold">
+                      {featured.name}
+                    </span>
+                    <span className="block text-xs text-muted-foreground">
+                      {featured.role}
+                    </span>
+                  </span>
+                </figcaption>
+              </figure>
+              {/* Remaining voices — recessed channel rows */}
+              <div className="flex flex-col gap-6">
+                {channels.map((item) => (
+                  <figure
+                    key={item.name}
+                    className="nm-channel flex flex-1 flex-col gap-4 p-6"
+                  >
+                    <p className="text-sm leading-relaxed text-foreground/85">
+                      &ldquo;{item.quote}&rdquo;
+                    </p>
+                    <figcaption className="mt-auto flex items-center gap-3">
+                      {/* channel dial marker — echoes the hero scroll-cue */}
+                      <span
+                        aria-hidden="true"
+                        className="nm-channel-dial flex h-6 w-11 items-center p-1"
+                      >
+                        <span className="nm-dial-thumb ml-auto flex h-4 w-4 items-center justify-center">
+                          <span className="h-1.5 w-1.5 rounded-full bg-[var(--nm-accent)]" />
+                        </span>
+                      </span>
+                      <span>
+                        <span className="text-sm font-semibold">{item.name}</span>
+                        <span className="ml-2 text-xs text-muted-foreground">
+                          {item.role}
+                        </span>
+                      </span>
+                    </figcaption>
+                  </figure>
+                ))}
               </div>
             </div>
-          </div>
-        ))}
-      </section>
+          </section>
+        );
+      })()}
 
       {/* 7. Call-to-action — a single large raised disc-button moment */}
-      <section className="flex flex-col items-center gap-8 text-center">
+      <section className="nm-reveal flex flex-col items-center gap-8 text-center">
         <h2 className="max-w-xl">{cta.heading}</h2>
-        <p className="max-w-md leading-relaxed text-foreground/70">{cta.subcopy}</p>
+        <p className="max-w-md leading-relaxed text-foreground/85">{cta.subcopy}</p>
         <button
           type="button"
-          className="nm-raised nm-pressable flex h-40 w-40 flex-col items-center justify-center gap-1 rounded-full text-sm font-semibold uppercase tracking-[0.14em] text-[var(--nm-accent)] sm:h-48 sm:w-48"
+          className="nm-raised nm-pressable flex h-40 w-40 items-center justify-center rounded-full px-6 text-center text-sm font-semibold uppercase leading-snug tracking-[0.14em] text-balance text-[var(--nm-accent)] sm:h-48 sm:w-48"
         >
-          <span>{cta.buttonLabel.split(" ")[0]}</span>
-          <span>{cta.buttonLabel.split(" ").slice(1).join(" ")}</span>
+          {cta.buttonLabel}
         </button>
       </section>
 
       {/* 8. Contact / booking */}
-      <section className="nm-raised grid grid-cols-1 gap-12 p-8 sm:grid-cols-[1fr_1.2fr] sm:p-14">
+      <section className="nm-reveal nm-raised grid grid-cols-1 gap-12 p-8 sm:grid-cols-[1fr_1.2fr] sm:p-14">
         <div>
           <h2 className="mb-5">{contact.heading}</h2>
-          <p className="max-w-md leading-relaxed text-foreground/70">
+          <p className="max-w-md leading-relaxed text-foreground/85">
             {contact.subcopy}
           </p>
         </div>

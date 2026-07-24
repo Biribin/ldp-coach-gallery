@@ -11,9 +11,13 @@
  * proportion. Palette: warm paper, walnut ink, warm walnut wood, a muted
  * mid-century teal-green as the single considered accent. Type: a warm
  * humanist display serif (Fraunces) paired with a clean functional grotesk
- * (Archivo) — neither cold-Swiss nor luxury-editorial. Signature device: a
- * horizontal "shelf datum" rule with rectangular pegs, echoing modular
- * furniture joinery, used as the section divider throughout.
+ * (Archivo) — neither cold-Swiss nor luxury-editorial.
+ *
+ * SIGNATURE (spent boldly, once): the "specimen cabinet" — a mid-century
+ * modular storage wall. The hero renders a real bordered cabinet of unequal
+ * cells (Eames/Nelson modular units); the "shelf datum" hairline-with-pegs
+ * recurs as the quiet section joinery everywhere else so the cabinet reads
+ * as the one loud gesture. Every other section is deliberately calm.
  */
 
 .theme-modernist {
@@ -60,8 +64,11 @@
   --mo-walnut-deep: oklch(0.33 0.05 48); /* deep walnut */
   --mo-clay: oklch(0.64 0.1 45); /* soft clay, spent once */
   --mo-teal: oklch(0.42 0.05 175); /* the accent echo */
+  --mo-teal-tint: oklch(0.9 0.028 175); /* palest teal wash for one cell */
   --mo-paper: oklch(0.96 0.012 78);
+  --mo-panel: oklch(0.985 0.006 80); /* raised cell surface */
   --mo-line: oklch(0.8 0.02 65); /* hairline / shelf datum */
+  --mo-ink-line: oklch(0.32 0.02 55); /* heavier cabinet frame */
 
   /* Flat, considered depth — a single low offset, never soft/diffuse */
   --mo-shadow: 3px 3px 0 0 oklch(0.22 0.014 55 / 0.08);
@@ -88,7 +95,7 @@
 }
 
 .theme-modernist h1 {
-  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   line-height: 0.98;
   font-weight: 480;
   letter-spacing: -0.02em;
@@ -120,9 +127,21 @@
   color: var(--mo-teal);
 }
 
+/* Catalog index: a "Fig." style marker running down the page, tying the
+ * whole thing together as one considered specimen catalog. */
+.theme-modernist .mo-index {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
 /* Signature device: the "shelf datum" — a horizontal rule with rectangular
  * pegs, standing in for modular-furniture joinery. Used as the recurring
- * section divider across the whole page. */
+ * section divider across the whole page (the QUIET counterpoint to the loud
+ * hero cabinet). */
 .theme-modernist .mo-shelf {
   position: relative;
   height: 2px;
@@ -148,6 +167,56 @@
 
 .theme-modernist .mo-serif {
   font-family: var(--font-heading);
+}
+
+/* ── Signature: the specimen cabinet ──────────────────────────────────────
+ * A real mid-century modular storage wall. A heavy ink frame encloses a set
+ * of unequal cells joined by hairline mullions; one cell is a walnut wood
+ * panel, one a teal-tint field, the rest paper. Pure structure, no ornament. */
+.theme-modernist .mo-cabinet {
+  border: 2px solid var(--mo-ink-line);
+  background: var(--mo-line); /* mullion color shows through the gaps */
+  display: grid;
+  gap: 1px;
+}
+.theme-modernist .mo-cell {
+  background: var(--mo-panel);
+  position: relative;
+}
+.theme-modernist .mo-cell--wood {
+  background: linear-gradient(
+    155deg,
+    var(--mo-walnut) 0%,
+    var(--mo-walnut-deep) 100%
+  );
+}
+.theme-modernist .mo-cell--teal {
+  background: var(--mo-teal-tint);
+}
+.theme-modernist .mo-cell--deep {
+  background: var(--mo-walnut-deep);
+}
+/* The peg: a small teal knob echoing the shelf-datum joinery, placed on a
+ * cabinet cell so the signature motif and the signature object rhyme. */
+.theme-modernist .mo-peg {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--mo-teal);
+}
+
+/* Pegboard grid (benefits): the storage-wall logic reused as a light,
+ * de-carded modular field — hairline mullions, a teal tick per module. */
+.theme-modernist .mo-pegboard {
+  display: grid;
+  gap: 1px;
+  background: var(--mo-line);
+  border: 1px solid var(--mo-line);
+}
+.theme-modernist .mo-module {
+  background: var(--background);
+  position: relative;
 }
 
 /* Buttons: flat offset shadow, square-ish corners, decisive press */
@@ -209,8 +278,10 @@
     background-color var(--mo-beat) var(--mo-ease);
 }
 
-/* One orchestrated entrance moment for the hero — a considered rise, not a
- * scattered effect. Nothing else on the page animates on load. */
+/* ── Motion ────────────────────────────────────────────────────────────────
+ * One orchestrated hero entrance on load, then genuine on-scroll reveals for
+ * every below-hero section via CSS scroll-driven timelines (no JS). Guarded
+ * by @supports so unsupported browsers show the final resting state. */
 @keyframes mo-rise-in {
   from {
     opacity: 0;
@@ -226,8 +297,30 @@
   animation: mo-rise-in 0.9s var(--mo-ease) both;
 }
 
+/* Scroll-driven entrance reveal for below-hero sections. Default state is the
+ * final (visible) state; the animation only overrides it where supported. */
+@keyframes mo-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .theme-modernist .mo-reveal {
+    animation: mo-reveal 0.7s var(--mo-ease) both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .theme-modernist .mo-rise {
+  .theme-modernist .mo-rise,
+  .theme-modernist .mo-reveal {
     animation: none;
   }
 }

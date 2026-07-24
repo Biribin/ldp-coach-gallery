@@ -19,9 +19,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Material — Fitness Coach Landing Page Gallery",
+  title: "Material — Galerie de landing pages coach fitness",
   description:
-    "Material-styled landing page concept: layered card surfaces, subtle elevation, and purposeful motion — organized, bright, and approachable.",
+    "Concept de landing page façon Material : cartes superposées, élévation subtile et mouvement intentionnel — organisé, lumineux et accessible.",
 };
 
 /**
