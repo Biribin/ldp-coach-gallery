@@ -1,0 +1,5 @@
+
+# Artefacts de build, ne doivent pas etre suivis
+.baseline-build.log
+ldp-coach-app/.baseline-build.log
+ldp-coach-app/tsconfig.tsbuildinfo
